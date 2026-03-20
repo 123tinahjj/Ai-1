@@ -29,8 +29,6 @@
             --font-family: 'Cairo', 'Poppins', sans-serif;
             --message-user-bg: linear-gradient(145deg, #FFD700, #FFA500);
             --message-bot-bg: #2a2a2a;
-            --search-bg: #1e3a5f;
-            --search-accent: #4a90e2;
         }
 
         html[lang="en"] {
@@ -114,7 +112,6 @@
             flex-direction: column;
         }
 
-        /* شاشة الدخول - تمرير داخلي */
         .login-scroll {
             flex: 1;
             overflow-y: auto;
@@ -200,7 +197,6 @@
             50% { transform: scale(1.2); }
         }
 
-        /* تحميل الصورة */
         .photo-upload {
             text-align: center;
             margin-bottom: 20px;
@@ -280,7 +276,6 @@
             font-size: 12px;
         }
 
-        /* الرأس في الشاشة الرئيسية */
         .header-premium {
             background: var(--bg-secondary);
             padding: 12px 16px;
@@ -340,7 +335,6 @@
             text-overflow: ellipsis;
         }
 
-        /* أزرار التحكم */
         .action-buttons {
             display: flex;
             gap: 6px;
@@ -366,7 +360,6 @@
             transform: scale(0.95);
         }
 
-        /* القائمة الجانبية */
         .side-menu {
             position: absolute;
             top: 70px;
@@ -406,7 +399,6 @@
             color: #000;
         }
 
-        /* منطقة المحتوى الرئيسي */
         .content-area {
             flex: 1;
             display: flex;
@@ -415,7 +407,6 @@
             position: relative;
         }
 
-        /* منطقة الشات */
         .chat-premium {
             flex: 1;
             overflow-y: auto;
@@ -482,7 +473,13 @@
             cursor: pointer;
         }
 
-        /* لوحة التعليم */
+        .person-image-in-chat {
+            max-width: 100%;
+            border-radius: 16px;
+            margin: 10px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
         .teaching-panel, .reminders-panel, .persons-panel {
             flex: 1;
             overflow-y: auto;
@@ -539,25 +536,6 @@
             border: 1px solid var(--accent-gold);
         }
 
-        .teach-btn.update-btn {
-            background: linear-gradient(145deg, #ffaa00, #ff8800);
-        }
-
-        .teach-btn.daily-btn {
-            background: linear-gradient(145deg, #00aaff, #0066aa);
-            color: white;
-        }
-
-        .teach-btn.query-btn {
-            background: linear-gradient(145deg, #aa66ff, #5500aa);
-            color: white;
-        }
-
-        .teach-btn.accumulate-btn {
-            background: linear-gradient(145deg, #ff6b6b, #ff4757);
-            color: white;
-        }
-
         .person-card {
             background: var(--bg-tertiary);
             border-radius: 20px;
@@ -568,47 +546,49 @@
         
         .person-image {
             width: 100%;
-            max-height: 200px;
+            max-height: 250px;
             object-fit: cover;
         }
         
         .person-info {
-            padding: 12px;
+            padding: 15px;
         }
         
         .person-name {
             color: var(--accent-gold);
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .person-description {
             color: var(--text-primary);
             font-size: 14px;
-            line-height: 1.5;
+            line-height: 1.6;
+            margin-bottom: 15px;
         }
         
         .ask-btn {
             background: var(--accent-gold);
             border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            margin-top: 10px;
+            padding: 10px 20px;
+            border-radius: 25px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 14px;
+            margin-left: 10px;
         }
         
         .delete-person-btn {
-            background: none;
+            background: #ff4444;
             border: none;
-            color: #ff4444;
-            font-size: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
             cursor: pointer;
-            float: left;
+            font-weight: bold;
+            color: white;
         }
 
-        /* منطقة الإدخال */
         .input-premium-area {
             display: flex;
             gap: 8px;
@@ -677,7 +657,6 @@
             display: none !important;
         }
 
-        /* إعدادات الخلفية */
         .bg-settings {
             position: absolute;
             bottom: 80px;
@@ -691,7 +670,6 @@
             backdrop-filter: blur(20px);
         }
 
-        /* نافذة تأكيد الخروج */
         .password-modal {
             position: fixed;
             top: 0;
@@ -757,7 +735,6 @@
             cursor: pointer;
         }
 
-        /* اختيار الصوت */
         .voice-settings {
             position: absolute;
             bottom: 80px;
@@ -783,7 +760,6 @@
             border-radius: 15px;
         }
 
-        /* وضع الحاسوب */
         @media (min-width: 768px) and (orientation: landscape) {
             .main-premium {
                 flex-direction: row;
@@ -828,7 +804,6 @@
     <div class="background-gradient"></div>
     <div class="particles" id="particles"></div>
 
-    <!-- شاشة الدخول -->
     <div class="login-premium" id="loginScreen">
         <div class="login-scroll">
             <div class="premium-logo">
@@ -866,7 +841,6 @@
         </div>
     </div>
 
-    <!-- الشاشة الرئيسية -->
     <div class="main-premium hidden" id="mainScreen">
         <div class="header-premium">
             <div class="user-info-premium">
@@ -914,7 +888,7 @@
 
         <div class="content-area" id="contentArea">
             <div class="chat-premium" id="chatArea">
-                <div class="message bot-message"><div class="message-bubble">👋 مرحباً! أنا Cerebonix - ذاكرتك الذكية. لدي قاعدة معرفة موسعة وأتعلم منك كل يوم. اسألني أي شيء!</div></div>
+                <div class="message bot-message"><div class="message-bubble">👋 مرحباً! أنا Cerebonix - ذاكرتك الذكية. لدي قاعدة معرفة موسعة وأتعلم منك كل يوم. يمكنك إضافة أشخاص مع صور وأوصاف!</div></div>
             </div>
             <div class="teaching-panel hidden" id="teachPanel">
                 <h3>📚 تعليم Cerebonix</h3>
@@ -934,15 +908,12 @@
                 </div>
             </div>
             <div class="persons-panel hidden" id="personsPanel">
-                <h3>👥 إضافة شخص</h3>
+                <h3>👥 إضافة شخص جديد</h3>
                 <div class="teach-inputs-modern">
                     <input type="text" id="personName" placeholder="اسم الشخص (مثال: محمود)">
-                    <textarea id="personDescription" rows="3" placeholder="وصف الشخص (مثال: محمود شاب طموح، يحب البرمجة..."></textarea>
+                    <textarea id="personDescription" rows="4" placeholder="وصف الشخص (مثال: محمود شاب طموح، يحب البرمجة والتكنولوجيا، عمره 25 سنة، يعمل مهندس برمجيات..."></textarea>
                     <input type="file" id="personImage" accept="image/*">
-                    <div class="teach-buttons">
-                        <button class="teach-btn" onclick="addPerson()">➕ إضافة شخص</button>
-                        <button class="teach-btn static-btn" onclick="showAllPersons()">👥 عرض الجميع</button>
-                    </div>
+                    <button class="teach-btn" onclick="savePerson()" style="background: linear-gradient(145deg, #FFD700, #FFA500); margin-top: 10px;">💾 حفظ الشخص</button>
                 </div>
                 <div id="personsList"></div>
             </div>
@@ -976,7 +947,7 @@
     </div>
 
     <script>
-        // ========== قاعدة معرفة موسعة جداً ==========
+        // قاعدة معرفة أساسية
         const publicKnowledge = {
             "السلام عليكم": "وعليكم السلام ورحمة الله وبركاته",
             "كيف حالك": "الحمد لله، بخير، كيف يمكنني مساعدتك؟",
@@ -985,9 +956,7 @@
             "من صنعك": "أنت! كلما علمتني شيئاً أصبحت أكثر ذكاءً",
             "ما هي عاصمة مصر": "القاهرة",
             "ما هي عاصمة السعودية": "الرياض",
-            "ما هي عاصمة لبنان": "بيروت",
-            "ما هو الذكاء الاصطناعي": "هو محاكاة الذكاء البشري في الآلات والبرامج",
-            "من هو النبي محمد": "هو خاتم الأنبياء والمرسلين، ولد في مكة"
+            "ما هو الذكاء الاصطناعي": "هو محاكاة الذكاء البشري في الآلات والبرامج"
         };
         
         let staticKnowledge = {};
@@ -995,7 +964,7 @@
         let dailyKnowledge = {};
         let accumulatedKnowledge = {};
         let multipleQuestionsKnowledge = {};
-        let persons = []; // مصفوفة لتخزين الأشخاص {name, description, image}
+        let persons = [];
         let currentUser = null;
         let reminders = [];
         let reminderInterval = null;
@@ -1004,7 +973,6 @@
         let audioChunks = [];
         let selectedVoice = null;
 
-        // ========== دوال حفظ واسترجاع البيانات ==========
         function saveData() {
             if(currentUser){
                 currentUser.staticKnowledge = staticKnowledge;
@@ -1050,27 +1018,24 @@
             document.getElementById('personsCount').textContent = persons.length;
         }
 
-        // ========== دوال الأشخاص ==========
-        function addPerson() {
+        function savePerson() {
             let name = document.getElementById('personName').value.trim();
             let description = document.getElementById('personDescription').value.trim();
             let file = document.getElementById('personImage').files[0];
             
             if(!name || !description) {
-                alert('الرجاء إدخال اسم ووصف للشخص');
+                alert('❌ الرجاء إدخال اسم ووصف للشخص');
                 return;
             }
             
-            let imageData = null;
             if(file) {
                 let reader = new FileReader();
                 reader.onload = function(e) {
-                    imageData = e.target.result;
-                    persons.push({id: Date.now(), name, description, image: imageData});
+                    persons.push({id: Date.now(), name, description, image: e.target.result});
                     saveData();
                     updateStats();
                     showAllPersons();
-                    addMessage(`✅ تم إضافة ${name} إلى قائمة الأشخاص`, 'bot');
+                    addMessage(`✅ تم حفظ ${name} بنجاح مع الصورة`, 'bot');
                     clearPersonInputs();
                 };
                 reader.readAsDataURL(file);
@@ -1079,7 +1044,7 @@
                 saveData();
                 updateStats();
                 showAllPersons();
-                addMessage(`✅ تم إضافة ${name} إلى قائمة الأشخاص`, 'bot');
+                addMessage(`✅ تم حفظ ${name} بنجاح`, 'bot');
                 clearPersonInputs();
             }
         }
@@ -1095,7 +1060,7 @@
             if(!container) return;
             
             if(persons.length === 0) {
-                container.innerHTML = '<p style="color:#666; text-align:center;">لا يوجد أشخاص مسجلين بعد</p>';
+                container.innerHTML = '<p style="color:#666; text-align:center; padding: 20px;">📭 لا يوجد أشخاص مسجلين بعد</p>';
                 return;
             }
             
@@ -1103,14 +1068,14 @@
             persons.forEach(person => {
                 let card = document.createElement('div');
                 card.className = 'person-card';
-                let imageHtml = person.image ? `<img class="person-image" src="${person.image}" alt="${person.name}">` : '<div style="background:#3a3a3a; height:150px; display:flex; align-items:center; justify-content:center; color:#888;">📷 لا توجد صورة</div>';
+                let imageHtml = person.image ? `<img class="person-image" src="${person.image}" alt="${person.name}">` : '<div style="background:#3a3a3a; height:180px; display:flex; align-items:center; justify-content:center; color:#888;">📷 لا توجد صورة</div>';
                 card.innerHTML = `
                     ${imageHtml}
                     <div class="person-info">
                         <div class="person-name">${person.name}</div>
                         <div class="person-description">${person.description}</div>
                         <button class="ask-btn" onclick="askAboutPerson('${person.name}')">❓ اسأل عن ${person.name}</button>
-                        <button class="delete-person-btn" onclick="deletePerson(${person.id})">🗑️</button>
+                        <button class="delete-person-btn" onclick="deletePerson(${person.id})">🗑️ حذف</button>
                     </div>
                 `;
                 container.appendChild(card);
@@ -1120,35 +1085,56 @@
         function askAboutPerson(personName) {
             let person = persons.find(p => p.name === personName);
             if(person) {
-                let answer = `📌 ${person.name}:\n${person.description}`;
-                if(person.image) answer += `\n\n🖼️ هذه صورة ${person.name}`;
-                addMessage(answer, 'bot');
-                speakText(answer);
+                let answerHtml = `<div style="text-align: center;">`;
+                if(person.image) {
+                    answerHtml += `<img src="${person.image}" class="person-image-in-chat" style="max-width: 100%; border-radius: 16px; margin-bottom: 12px;"><br>`;
+                }
+                answerHtml += `<strong style="color: #FFD700; font-size: 18px;">${person.name}</strong><br>`;
+                answerHtml += `${person.description}`;
+                answerHtml += `</div>`;
+                addMessageWithImage(answerHtml, 'bot');
+                speakText(`${person.name}: ${person.description}`);
                 switchMenuTab('chat');
             } else {
                 addMessage(`❌ لم أجد معلومات عن ${personName}`, 'bot');
             }
         }
         
+        function addMessageWithImage(htmlContent, sender) {
+            let chat = document.getElementById('chatArea');
+            let div = document.createElement('div'); 
+            div.className = `message ${sender}-message`;
+            let bubble = document.createElement('div'); 
+            bubble.className = 'message-bubble';
+            bubble.innerHTML = htmlContent;
+            let timeDiv = document.createElement('div'); 
+            timeDiv.className = 'message-time'; 
+            timeDiv.textContent = new Date().toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'});
+            div.appendChild(bubble); 
+            div.appendChild(timeDiv);
+            chat.appendChild(div); 
+            chat.scrollTop = chat.scrollHeight;
+        }
+        
         function deletePerson(id) {
-            persons = persons.filter(p => p.id !== id);
-            saveData();
-            updateStats();
-            showAllPersons();
-            addMessage('🗑️ تم حذف الشخص', 'bot');
+            if(confirm('هل أنت متأكد من حذف هذا الشخص؟')) {
+                persons = persons.filter(p => p.id !== id);
+                saveData();
+                updateStats();
+                showAllPersons();
+                addMessage('🗑️ تم حذف الشخص بنجاح', 'bot');
+            }
         }
         
         function searchPersonInKnowledge(msg) {
-            // البحث عن شخص في قاعدة الأشخاص
             for(let person of persons) {
-                if(msg.includes(person.name) || (msg.includes('من هو') && msg.includes(person.name))) {
-                    return `📌 ${person.name}:\n${person.description}` + (person.image ? `\n\n🖼️ الصورة متاحة في ملف الشخص` : '');
+                if(msg.includes(person.name) || msg.includes(`من هو ${person.name}`) || msg.includes(`من ${person.name}`)) {
+                    return person;
                 }
             }
             return null;
         }
 
-        // ========== دوال التعليم ==========
         function teachStatic() { 
             let q = document.getElementById('teachQ').value.trim(); 
             let a = document.getElementById('teachA').value.trim(); 
@@ -1235,7 +1221,6 @@
             document.getElementById('teachA').value = ''; 
         }
 
-        // ========== دوال التذكيرات ==========
         function addReminder() { 
             let text = document.getElementById('reminderText').value.trim(); 
             let time = document.getElementById('reminderTime').value; 
@@ -1291,14 +1276,12 @@
             }, 60000); 
         }
 
-        // ========== البحث والرد ==========
         async function sendMessage() {
             let input = document.getElementById('userMessage'); 
             let msg = input.value.trim(); 
             if(!msg) return;
             addMessage(msg, 'user');
             
-            // عمليات حسابية
             let mathMatch = msg.match(/[0-9+\-*/().]+/);
             if(mathMatch && !isNaN(eval(mathMatch[0]))){ 
                 try{ 
@@ -1308,7 +1291,6 @@
                 } catch(e){} 
             }
             
-            // أوامر تطبيقات
             let cmd = executeAppCommand(msg); 
             if(cmd){ 
                 addMessage(cmd, 'bot'); 
@@ -1316,19 +1298,24 @@
                 return; 
             }
             
-            // التحقق من الأشخاص أولاً
-            let personAnswer = searchPersonInKnowledge(msg);
-            if(personAnswer) {
-                addMessage(personAnswer, 'bot');
+            let person = searchPersonInKnowledge(msg);
+            if(person) {
+                let answerHtml = `<div style="text-align: center;">`;
+                if(person.image) {
+                    answerHtml += `<img src="${person.image}" class="person-image-in-chat" style="max-width: 100%; border-radius: 16px; margin-bottom: 12px;"><br>`;
+                }
+                answerHtml += `<strong style="color: #FFD700; font-size: 18px;">${person.name}</strong><br>`;
+                answerHtml += `${person.description}`;
+                answerHtml += `</div>`;
+                addMessageWithImage(answerHtml, 'bot');
+                speakText(`${person.name}: ${person.description}`);
                 input.value = '';
                 return;
             }
             
-            // تحيات خاصة
             if(msg.includes('صباح') || msg.includes('صباح الخير')){ addMessage('🌞 صباح النور والسرور! كيف أخدمك اليوم؟', 'bot'); input.value=''; return; }
             if(msg.includes('مساء') || msg.includes('مساء الخير')){ addMessage('🌙 مساء النور والفل! هل تريد تعليمي شيئاً جديداً؟', 'bot'); input.value=''; return; }
             
-            // بحث في الذاكرة
             let ans = null;
             for(let k in multipleQuestionsKnowledge){ 
                 let keys = k.split(','); 
@@ -1345,7 +1332,6 @@
                 return; 
             }
             
-            // بحث خارجي
             addMessage(`🔍 أبحث عن "${msg}" في المصادر...`, 'bot');
             let external = await fetchExternalAnswer(msg);
             addMessage(external.text, 'bot', external.sources);
@@ -1366,10 +1352,6 @@
                 else window.open('https://maps.google.com', '_blank'); 
                 return "🗺️ تم فتح الخرائط"; 
             }
-            if(l.includes('واتساب')){ window.open('https://web.whatsapp.com', '_blank'); return "📱 تم فتح واتساب"; }
-            if(l.includes('فيسبوك')){ window.open('https://facebook.com', '_blank'); return "📘 تم فتح فيسبوك"; }
-            if(l.includes('انستغرام')){ window.open('https://instagram.com', '_blank'); return "📸 تم فتح انستغرام"; }
-            if(l.includes('تويتر') || l.includes('x')){ window.open('https://twitter.com', '_blank'); return "🐦 تم فتح تويتر"; }
             return null;
         }
 
@@ -1426,7 +1408,6 @@
             chat.scrollTop = chat.scrollHeight;
         }
 
-        // ========== تحسين الصوت ==========
         function loadVoices() {
             const voices = window.speechSynthesis.getVoices();
             const select = document.getElementById('voiceSelect');
@@ -1492,7 +1473,6 @@
             loadVoices();
         }
 
-        // ========== تحسين التسجيل الصوتي ==========
         async function toggleVoiceRecording() {
             const btn = document.getElementById('voiceBtn');
             if(!isRecording){
@@ -1502,7 +1482,6 @@
                     audioChunks = [];
                     mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
                     mediaRecorder.onstop = () => {
-                        const blob = new Blob(audioChunks, {type: 'audio/wav'});
                         const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
                         recognition.lang = document.documentElement.lang === 'ar' ? 'ar-SA' : 'en-US';
                         recognition.interimResults = false;
@@ -1542,7 +1521,6 @@
             }
         }
 
-        // ========== واجهات UI ==========
         function login(){
             let email = document.getElementById('userEmail').value.trim(); 
             let pwd = document.getElementById('userPassword').value.trim(); 
@@ -1605,7 +1583,7 @@
                 showAllPersons();
                 startReminderChecker(); 
                 saveData();
-                addMessage(`أهلاً ${currentUser.name} 👋 أنا Cerebonix، لدي قاعدة معرفة موسعة وأتعلم منك كل يوم. يمكنك إضافة أشخاص مع صور وأوصاف!`, 'bot');
+                addMessage(`أهلاً ${currentUser.name} 👋 أنا Cerebonix، يمكنك إضافة أشخاص مع صور وأوصاف!`, 'bot');
             }
             if(currentUser) applyUserUI();
         }
@@ -1732,7 +1710,6 @@
             persons = [];
         }
 
-        // ========== تهيئة الصفحة ==========
         function createParticles(){ 
             for(let i = 0; i < 40; i++){ 
                 let p = document.createElement('div'); 
