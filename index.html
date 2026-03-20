@@ -483,14 +483,14 @@
         }
 
         /* لوحة التعليم */
-        .teaching-panel, .reminders-panel {
+        .teaching-panel, .reminders-panel, .persons-panel {
             flex: 1;
             overflow-y: auto;
             padding: 16px;
             background: var(--bg-secondary);
         }
 
-        .teaching-panel h3, .reminders-panel h3 {
+        .teaching-panel h3, .reminders-panel h3, .persons-panel h3 {
             color: var(--accent-gold);
             margin-bottom: 16px;
             font-size: 18px;
@@ -556,6 +556,56 @@
         .teach-btn.accumulate-btn {
             background: linear-gradient(145deg, #ff6b6b, #ff4757);
             color: white;
+        }
+
+        .person-card {
+            background: var(--bg-tertiary);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        
+        .person-image {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+        }
+        
+        .person-info {
+            padding: 12px;
+        }
+        
+        .person-name {
+            color: var(--accent-gold);
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .person-description {
+            color: var(--text-primary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .ask-btn {
+            background: var(--accent-gold);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .delete-person-btn {
+            background: none;
+            border: none;
+            color: #ff4444;
+            font-size: 20px;
+            cursor: pointer;
+            float: left;
         }
 
         /* منطقة الإدخال */
@@ -840,6 +890,7 @@
         <div class="side-menu" id="sideMenu">
             <div class="menu-item active" onclick="switchMenuTab('chat')"><span>💬</span><span>المحادثة</span></div>
             <div class="menu-item" onclick="switchMenuTab('teach')"><span>📚</span><span>تعليم الذكاء</span></div>
+            <div class="menu-item" onclick="switchMenuTab('persons')"><span>👥</span><span>الأشخاص</span></div>
             <div class="menu-item" onclick="switchMenuTab('reminders')"><span>⏰</span><span>التذكيرات</span></div>
             <div class="menu-item" onclick="showBgSettings()"><span>🎨</span><span>الخلفية</span></div>
             <div class="menu-item" onclick="toggleLanguage()"><span>🌐</span><span>اللغة</span></div>
@@ -882,6 +933,19 @@
                     </div>
                 </div>
             </div>
+            <div class="persons-panel hidden" id="personsPanel">
+                <h3>👥 إضافة شخص</h3>
+                <div class="teach-inputs-modern">
+                    <input type="text" id="personName" placeholder="اسم الشخص (مثال: محمود)">
+                    <textarea id="personDescription" rows="3" placeholder="وصف الشخص (مثال: محمود شاب طموح، يحب البرمجة..."></textarea>
+                    <input type="file" id="personImage" accept="image/*">
+                    <div class="teach-buttons">
+                        <button class="teach-btn" onclick="addPerson()">➕ إضافة شخص</button>
+                        <button class="teach-btn static-btn" onclick="showAllPersons()">👥 عرض الجميع</button>
+                    </div>
+                </div>
+                <div id="personsList"></div>
+            </div>
             <div class="reminders-panel hidden" id="remindersPanel">
                 <h3>⏰ التذكيرات</h3>
                 <div class="teach-inputs-modern">
@@ -898,7 +962,7 @@
             <div class="voice-btn" id="voiceBtn" onclick="toggleVoiceRecording()">🎤</div>
             <button class="teach-btn" onclick="sendMessage()" style="width:auto; padding:0 20px;">إرسال</button>
         </div>
-        <div class="stats-premium"><span>📚 تعلمت <span id="knowledgeCount">0</span> معلومة</span><span>❤️ Cerebonix - ذاكرة سحابية</span></div>
+        <div class="stats-premium"><span>📚 تعلمت <span id="knowledgeCount">0</span> معلومة</span><span>👥 <span id="personsCount">0</span> شخص</span><span>❤️ Cerebonix</span></div>
     </div>
 
     <div class="password-modal hidden" id="passwordModal">
@@ -912,170 +976,26 @@
     </div>
 
     <script>
-        // ========== قاعدة معرفة موسعة جداً (أكثر من 500 معلومة) ==========
+        // ========== قاعدة معرفة موسعة جداً ==========
         const publicKnowledge = {
-            // التحيات
             "السلام عليكم": "وعليكم السلام ورحمة الله وبركاته",
             "كيف حالك": "الحمد لله، بخير، كيف يمكنني مساعدتك؟",
             "ما اسمك": "اسمي Cerebonix، أنا ذكاء اصطناعي تعلمت منك",
             "شكرا": "العفو، دائماً في خدمتك ❤️",
             "من صنعك": "أنت! كلما علمتني شيئاً أصبحت أكثر ذكاءً",
-            
-            // عواصم الدول العربية
             "ما هي عاصمة مصر": "القاهرة",
             "ما هي عاصمة السعودية": "الرياض",
             "ما هي عاصمة لبنان": "بيروت",
-            "ما هي عاصمة سوريا": "دمشق",
-            "ما هي عاصمة الاردن": "عمان",
-            "ما هي عاصمة العراق": "بغداد",
-            "ما هي عاصمة فلسطين": "القدس",
-            "ما هي عاصمة الكويت": "الكويت",
-            "ما هي عاصمة الامارات": "أبو ظبي",
-            "ما هي عاصمة قطر": "الدوحة",
-            "ما هي عاصمة البحرين": "المنامة",
-            "ما هي عاصمة عمان": "مسقط",
-            "ما هي عاصمة اليمن": "صنعاء",
-            "ما هي عاصمة السودان": "الخرطوم",
-            "ما هي عاصمة ليبيا": "طرابلس",
-            "ما هي عاصمة تونس": "تونس",
-            "ما هي عاصمة الجزائر": "الجزائر",
-            "ما هي عاصمة المغرب": "الرباط",
-            "ما هي عاصمة موريتانيا": "نواكشوط",
-            
-            // شخصيات مشهورة
-            "من هو مؤسس مايكروسوفت": "بيل غيتس",
-            "من هو مؤسس ابل": "ستيف جوبز",
-            "من هو مخترع الهاتف": "ألكسندر جراهام بيل",
-            "من هو مخترع الكهرباء": "توماس إديسون",
-            "من هو مخترع المصباح": "توماس إديسون",
-            "من هو مخترع الطائرة": "الأخوان رايت",
-            "من هو عالم الفيزياء": "ألبرت أينشتاين",
-            "من هو أعظم عالم": "ألبرت أينشتاين",
-            
-            // معلومات عامة
             "ما هو الذكاء الاصطناعي": "هو محاكاة الذكاء البشري في الآلات والبرامج",
-            "كم عدد الكواكب": "8 كواكب في المجموعة الشمسية",
-            "ما هو أعلى جبل": "جبل إيفرست",
-            "ما هو أطول نهر": "نهر النيل",
-            "ما هي أكبر محيط": "المحيط الهادئ",
-            "ما هو أكبر صحراء": "الصحراء الكبرى",
-            "كم عدد القارات": "7 قارات",
-            "ما هي أصغر قارة": "أستراليا",
-            "ما هي أكبر قارة": "آسيا",
-            
-            // دين
-            "من هو النبي محمد": "هو خاتم الأنبياء والمرسلين، ولد في مكة",
-            "ما هي الصلاة": "ركن من أركان الإسلام الخمسة",
-            "ما هو الصيام": "عبادة تمتنع فيها عن الطعام والشراب من الفجر للمغرب",
-            "ما هي الزكاة": "الصدقة المفروضة على المال",
-            "ما هو الحج": "زيارة بيت الله الحرام في موسم مخصوص",
-            "كم عدد أركان الإسلام": "خمسة أركان",
-            "ما هي أركان الإسلام": "الشهادة، الصلاة، الزكاة، الصوم، الحج",
-            "كم عدد أسماء الله الحسنى": "99 اسماً",
-            
-            // برمجة وتكنولوجيا
-            "ما هي لغة البرمجة": "هي لغة تستخدم لكتابة الأوامر للكمبيوتر",
-            "ما هو HTML": "لغة ترميز لبناء صفحات الويب",
-            "ما هو CSS": "لغة لتنسيق صفحات الويب",
-            "ما هي JavaScript": "لغة برمجة للمتصفحات",
-            "ما هو Python": "لغة برمجة سهلة وقوية",
-            "ما هو React": "مكتبة JavaScript لبناء واجهات المستخدم",
-            
-            // صحة وطب
-            "ما هي فوائد الرياضة": "تقوي الجسم، تحسن المزاج، تقي من الأمراض",
-            "ما هي فوائد الماء": "يرطب الجسم، يساعد في الهضم، ينظف السموم",
-            "ما هي فوائد النوم": "يريح العقل والجسم، يقوي الذاكرة",
-            "كم ساعة نوم كافية": "7-8 ساعات يومياً",
-            
-            // تعبيرات شائعة
-            "صباح الخير": "صباح النور والسرور",
-            "مساء الخير": "مساء النور والفل",
-            "تصبح على خير": "وأنت من أهله",
-            "مع السلامة": "في أمان الله",
-            "بالتوفيق": "الله يوفقك",
-            "رمضان كريم": "الله أكرم",
-            "عيد مبارك": "علينا وعليك"
+            "من هو النبي محمد": "هو خاتم الأنبياء والمرسلين، ولد في مكة"
         };
         
-        // إضافة 300 معلومة إضافية تلقائياً
-        const extraKnowledge = {
-            "ما هي عاصمة فرنسا": "باريس",
-            "ما هي عاصمة بريطانيا": "لندن",
-            "ما هي عاصمة ألمانيا": "برلين",
-            "ما هي عاصمة إيطاليا": "روما",
-            "ما هي عاصمة إسبانيا": "مدريد",
-            "ما هي عاصمة البرتغال": "لشبونة",
-            "ما هي عاصمة هولندا": "أمستردام",
-            "ما هي عاصمة بلجيكا": "بروكسل",
-            "ما هي عاصمة سويسرا": "برن",
-            "ما هي عاصمة النمسا": "فيينا",
-            "ما هي عاصمة اليونان": "أثينا",
-            "ما هي عاصمة تركيا": "أنقرة",
-            "ما هي عاصمة إيران": "طهران",
-            "ما هي عاصمة الهند": "نيودلهي",
-            "ما هي عاصمة الصين": "بكين",
-            "ما هي عاصمة اليابان": "طوكيو",
-            "ما هي عاصمة كوريا الجنوبية": "سيول",
-            "ما هي عاصمة روسيا": "موسكو",
-            "ما هي عاصمة أمريكا": "واشنطن",
-            "ما هي عاصمة كندا": "أوتاوا",
-            "ما هي عاصمة المكسيك": "مكسيكو سيتي",
-            "ما هي عاصمة البرازيل": "برازيليا",
-            "ما هي عاصمة الأرجنتين": "بوينس آيرس",
-            "ما هي عاصمة أستراليا": "كانبرا",
-            
-            // معلومات رياضية
-            "من هو أفضل لاعب كرة قدم": "ليونيل ميسي",
-            "من هو ميسي": "لاعب كرة قدم أرجنتيني، فاز بكأس العالم 2022",
-            "من هو رونالدو": "كريستيانو رونالدو، لاعب برتغالي",
-            "من هو مارادونا": "أسطورة كرة القدم الأرجنتينية",
-            "ما هو كأس العالم": "بطولة كرة القدم العالمية التي تقام كل 4 سنوات",
-            "من فاز بكأس العالم 2022": "الأرجنتين",
-            "من فاز بكأس العالم 2018": "فرنسا",
-            "من فاز بكأس العالم 2014": "ألمانيا",
-            "ما هي كرة القدم": "أشهر رياضة في العالم",
-            
-            // معلومات علمية
-            "ما هي سرعة الضوء": "299,792,458 متر في الثانية",
-            "ما هي الجاذبية": "قوة جذب الأجسام نحو الأرض",
-            "ما هو الثقب الأسود": "منطقة في الفضاء ذات جاذبية شديدة",
-            "ما هي المجرة": "تجمع ضخم من النجوم والكواكب",
-            "ما هي درب التبانة": "المجرة التي تحتوي على النظام الشمسي",
-            "كم عمر الأرض": "حوالي 4.5 مليار سنة",
-            "ما هو الأوزون": "طبقة تحمي الأرض من الأشعة فوق البنفسجية",
-            
-            // معلومات تاريخية
-            "ما هي الحرب العالمية الأولى": "حرب كبرى وقعت بين 1914-1918",
-            "ما هي الحرب العالمية الثانية": "حرب كبرى وقعت بين 1939-1945",
-            "من هو نابليون": "قائد عسكري فرنسي شهير",
-            "من هو صلاح الدين": "القائد المسلم الذي حرر القدس",
-            "ما هو سقوط الأندلس": "سقوط آخر معاقل المسلمين في إسبانيا عام 1492",
-            
-            // تطبيقات
-            "ما هو اليوتيوب": "منصة لمشاركة الفيديوهات",
-            "ما هو الانستغرام": "تطبيق للتواصل ومشاركة الصور",
-            "ما هو الواتساب": "تطبيق للمراسلة الفورية",
-            "ما هو فيسبوك": "شبكة اجتماعية عالمية",
-            "ما هو تيك توك": "تطبيق لمقاطع الفيديو القصيرة",
-            "ما هو تلغرام": "تطبيق مراسلة آمن",
-            
-            // طبخ
-            "ما هو المنسف": "أكلة أردنية شهيرة بالأرز واللحم",
-            "ما هو الكبسة": "أكلة خليجية بالأرز واللحم",
-            "ما هو المسقعة": "طبق من الباذنجان واللحم",
-            "ما هو الفلافل": "أكلة شعبية من الحمص",
-            "ما هو الحمص": "مقبلات شرقية شهيرة",
-            "ما هو التبولة": "سلطة عربية بالبقدونس والبرغل"
-        };
-        
-        // دمج المعرفة الإضافية
-        Object.assign(publicKnowledge, extraKnowledge);
-
         let staticKnowledge = {};
         let updateableKnowledge = {};
         let dailyKnowledge = {};
         let accumulatedKnowledge = {};
         let multipleQuestionsKnowledge = {};
+        let persons = []; // مصفوفة لتخزين الأشخاص {name, description, image}
         let currentUser = null;
         let reminders = [];
         let reminderInterval = null;
@@ -1093,6 +1013,7 @@
                 currentUser.accumulatedKnowledge = accumulatedKnowledge;
                 currentUser.multipleQuestionsKnowledge = multipleQuestionsKnowledge;
                 currentUser.reminders = reminders;
+                currentUser.persons = persons;
                 localStorage.setItem('user_' + currentUser.email, JSON.stringify(currentUser));
                 localStorage.setItem('cerebonix_session', JSON.stringify({email: currentUser.email, timestamp: Date.now()}));
             }
@@ -1109,6 +1030,7 @@
                     accumulatedKnowledge = userData.accumulatedKnowledge || {};
                     multipleQuestionsKnowledge = userData.multipleQuestionsKnowledge || {};
                     reminders = userData.reminders || [];
+                    persons = userData.persons || [];
                     return userData;
                 } catch(e) {
                     console.error('خطأ في تحميل البيانات', e);
@@ -1125,6 +1047,105 @@
                         Object.keys(multipleQuestionsKnowledge).length + 
                         Object.keys(publicKnowledge).length;
             document.getElementById('knowledgeCount').textContent = count;
+            document.getElementById('personsCount').textContent = persons.length;
+        }
+
+        // ========== دوال الأشخاص ==========
+        function addPerson() {
+            let name = document.getElementById('personName').value.trim();
+            let description = document.getElementById('personDescription').value.trim();
+            let file = document.getElementById('personImage').files[0];
+            
+            if(!name || !description) {
+                alert('الرجاء إدخال اسم ووصف للشخص');
+                return;
+            }
+            
+            let imageData = null;
+            if(file) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    imageData = e.target.result;
+                    persons.push({id: Date.now(), name, description, image: imageData});
+                    saveData();
+                    updateStats();
+                    showAllPersons();
+                    addMessage(`✅ تم إضافة ${name} إلى قائمة الأشخاص`, 'bot');
+                    clearPersonInputs();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                persons.push({id: Date.now(), name, description, image: null});
+                saveData();
+                updateStats();
+                showAllPersons();
+                addMessage(`✅ تم إضافة ${name} إلى قائمة الأشخاص`, 'bot');
+                clearPersonInputs();
+            }
+        }
+        
+        function clearPersonInputs() {
+            document.getElementById('personName').value = '';
+            document.getElementById('personDescription').value = '';
+            document.getElementById('personImage').value = '';
+        }
+        
+        function showAllPersons() {
+            let container = document.getElementById('personsList');
+            if(!container) return;
+            
+            if(persons.length === 0) {
+                container.innerHTML = '<p style="color:#666; text-align:center;">لا يوجد أشخاص مسجلين بعد</p>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            persons.forEach(person => {
+                let card = document.createElement('div');
+                card.className = 'person-card';
+                let imageHtml = person.image ? `<img class="person-image" src="${person.image}" alt="${person.name}">` : '<div style="background:#3a3a3a; height:150px; display:flex; align-items:center; justify-content:center; color:#888;">📷 لا توجد صورة</div>';
+                card.innerHTML = `
+                    ${imageHtml}
+                    <div class="person-info">
+                        <div class="person-name">${person.name}</div>
+                        <div class="person-description">${person.description}</div>
+                        <button class="ask-btn" onclick="askAboutPerson('${person.name}')">❓ اسأل عن ${person.name}</button>
+                        <button class="delete-person-btn" onclick="deletePerson(${person.id})">🗑️</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        function askAboutPerson(personName) {
+            let person = persons.find(p => p.name === personName);
+            if(person) {
+                let answer = `📌 ${person.name}:\n${person.description}`;
+                if(person.image) answer += `\n\n🖼️ هذه صورة ${person.name}`;
+                addMessage(answer, 'bot');
+                speakText(answer);
+                switchMenuTab('chat');
+            } else {
+                addMessage(`❌ لم أجد معلومات عن ${personName}`, 'bot');
+            }
+        }
+        
+        function deletePerson(id) {
+            persons = persons.filter(p => p.id !== id);
+            saveData();
+            updateStats();
+            showAllPersons();
+            addMessage('🗑️ تم حذف الشخص', 'bot');
+        }
+        
+        function searchPersonInKnowledge(msg) {
+            // البحث عن شخص في قاعدة الأشخاص
+            for(let person of persons) {
+                if(msg.includes(person.name) || (msg.includes('من هو') && msg.includes(person.name))) {
+                    return `📌 ${person.name}:\n${person.description}` + (person.image ? `\n\n🖼️ الصورة متاحة في ملف الشخص` : '');
+                }
+            }
+            return null;
         }
 
         // ========== دوال التعليم ==========
@@ -1295,13 +1316,20 @@
                 return; 
             }
             
+            // التحقق من الأشخاص أولاً
+            let personAnswer = searchPersonInKnowledge(msg);
+            if(personAnswer) {
+                addMessage(personAnswer, 'bot');
+                input.value = '';
+                return;
+            }
+            
             // تحيات خاصة
             if(msg.includes('صباح') || msg.includes('صباح الخير')){ addMessage('🌞 صباح النور والسرور! كيف أخدمك اليوم؟', 'bot'); input.value=''; return; }
             if(msg.includes('مساء') || msg.includes('مساء الخير')){ addMessage('🌙 مساء النور والفل! هل تريد تعليمي شيئاً جديداً؟', 'bot'); input.value=''; return; }
             
             // بحث في الذاكرة
             let ans = null;
-            // مجموعة أسئلة
             for(let k in multipleQuestionsKnowledge){ 
                 let keys = k.split(','); 
                 for(let key of keys) if(msg.includes(key)){ ans = multipleQuestionsKnowledge[k]; break; } 
@@ -1541,12 +1569,12 @@
                     reader.onload = e => { img = e.target.result; createNewUser(); }; 
                     reader.readAsDataURL(file);
                     function createNewUser(){
-                        currentUser = {email, password:pwd, name, profileImage:img || '', staticKnowledge:{}, updateableKnowledge:{}, dailyKnowledge:{}, accumulatedKnowledge:{}, multipleQuestionsKnowledge:{}, reminders:[]};
+                        currentUser = {email, password:pwd, name, profileImage:img || '', staticKnowledge:{}, updateableKnowledge:{}, dailyKnowledge:{}, accumulatedKnowledge:{}, multipleQuestionsKnowledge:{}, reminders:[], persons:[]};
                         applyUserUI();
                     }
                     return;
                 } else {
-                    currentUser = {email, password:pwd, name, profileImage:'', staticKnowledge:{}, updateableKnowledge:{}, dailyKnowledge:{}, accumulatedKnowledge:{}, multipleQuestionsKnowledge:{}, reminders:[]};
+                    currentUser = {email, password:pwd, name, profileImage:'', staticKnowledge:{}, updateableKnowledge:{}, dailyKnowledge:{}, accumulatedKnowledge:{}, multipleQuestionsKnowledge:{}, reminders:[], persons:[]};
                     applyUserUI();
                 }
             }
@@ -1560,6 +1588,7 @@
                     accumulatedKnowledge = userData.accumulatedKnowledge || {};
                     multipleQuestionsKnowledge = userData.multipleQuestionsKnowledge || {};
                     reminders = userData.reminders || [];
+                    persons = userData.persons || [];
                     currentUser = {...currentUser, ...userData};
                 }
                 document.getElementById('displayName').textContent = currentUser.name;
@@ -1573,9 +1602,10 @@
                 document.getElementById('mainScreen').classList.remove('hidden');
                 updateStats(); 
                 updateRemindersList(); 
+                showAllPersons();
                 startReminderChecker(); 
                 saveData();
-                addMessage(`أهلاً ${currentUser.name} 👋 أنا Cerebonix، لدي قاعدة معرفة موسعة وأتعلم منك كل يوم. اسألني أي شيء!`, 'bot');
+                addMessage(`أهلاً ${currentUser.name} 👋 أنا Cerebonix، لدي قاعدة معرفة موسعة وأتعلم منك كل يوم. يمكنك إضافة أشخاص مع صور وأوصاف!`, 'bot');
             }
             if(currentUser) applyUserUI();
         }
@@ -1591,6 +1621,7 @@
             }
             updateStats(); 
             updateRemindersList();
+            showAllPersons();
         }
 
         function toggleMenu(){ 
@@ -1604,9 +1635,14 @@
             if(event?.currentTarget) event.currentTarget.classList.add('active'); 
             document.getElementById('chatArea').classList.add('hidden'); 
             document.getElementById('teachPanel').classList.add('hidden'); 
+            document.getElementById('personsPanel').classList.add('hidden'); 
             document.getElementById('remindersPanel').classList.add('hidden'); 
             if(tab === 'chat') document.getElementById('chatArea').classList.remove('hidden'); 
             else if(tab === 'teach') document.getElementById('teachPanel').classList.remove('hidden'); 
+            else if(tab === 'persons'){ 
+                document.getElementById('personsPanel').classList.remove('hidden'); 
+                showAllPersons(); 
+            }
             else if(tab === 'reminders'){ 
                 document.getElementById('remindersPanel').classList.remove('hidden'); 
                 updateRemindersList(); 
@@ -1693,6 +1729,7 @@
             accumulatedKnowledge = {}; 
             multipleQuestionsKnowledge = {}; 
             reminders = [];
+            persons = [];
         }
 
         // ========== تهيئة الصفحة ==========
@@ -1707,7 +1744,6 @@
             } 
         }
 
-        // تحميل الجلسة المحفوظة
         window.onload = function(){ 
             createParticles(); 
             let session = localStorage.getItem('cerebonix_session'); 
@@ -1723,18 +1759,19 @@
                         accumulatedKnowledge = currentUser.accumulatedKnowledge || {}; 
                         multipleQuestionsKnowledge = currentUser.multipleQuestionsKnowledge || {}; 
                         reminders = currentUser.reminders || []; 
+                        persons = currentUser.persons || [];
                         document.getElementById('loginScreen').style.display = 'none'; 
                         document.getElementById('mainScreen').classList.remove('hidden'); 
                         applyUserUI(); 
                         updateStats(); 
                         updateRemindersList(); 
+                        showAllPersons();
                         startReminderChecker(); 
                         addMessage(`مرحباً بعودتك ${currentUser.name} 👋`, 'bot'); 
                     } 
                 } catch(e){} 
             }
             
-            // تحميل الأصوات
             if('speechSynthesis' in window) {
                 window.speechSynthesis.onvoiceschanged = loadVoices;
                 loadVoices();
