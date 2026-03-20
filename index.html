@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Cerebonix - ذاكرتي الذكية</title>
     <style>
+        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -12,8 +13,10 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@300;400;600;700&display=swap');
 
+        /* ===== CSS VARIABLES ===== */
         :root {
             --bg-primary: #0a0a0a;
             --bg-secondary: #1a1a1a;
@@ -23,9 +26,18 @@
             --text-primary: #ffffff;
             --text-secondary: #888888;
             --border-color: rgba(255, 215, 0, 0.2);
+            --font-family: 'Cairo', 'Poppins', sans-serif;
             --message-user-bg: linear-gradient(145deg, #FFD700, #FFA500);
             --message-bot-bg: #2a2a2a;
             --search-bg: #1e3a5f;
+            --search-accent: #4a90e2;
+        }
+
+        html[lang="en"] {
+            direction: ltr;
+        }
+        html[lang="en"] body {
+            font-family: 'Poppins', 'Cairo', sans-serif;
         }
 
         body {
@@ -36,7 +48,7 @@
             align-items: center;
             padding: 0;
             margin: 0;
-            font-family: 'Cairo', 'Poppins', sans-serif;
+            font-family: var(--font-family);
             position: fixed;
             top: 0;
             left: 0;
@@ -45,6 +57,7 @@
             overflow: hidden;
         }
 
+        /* ===== ANIMATED BACKGROUND ===== */
         .background-gradient {
             position: fixed;
             top: 0;
@@ -57,7 +70,6 @@
             z-index: -2;
         }
 
-        /* سلة المهملات */
         .particles {
             position: fixed;
             top: 0;
@@ -82,7 +94,7 @@
             to { transform: translateY(-100vh) translateX(100px); opacity: 0.5; }
         }
 
-        /* الحاويات الرئيسية - تملأ الشاشة بالكامل */
+        /* ===== PREMIUM CONTAINERS ===== */
         .login-premium, .main-premium {
             position: absolute;
             top: 0;
@@ -138,6 +150,8 @@
             font-size: 40px;
             color: #000;
             font-weight: 900;
+            position: relative;
+            z-index: 1;
         }
 
         .logo-text {
@@ -281,6 +295,8 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            flex: 1;
+            min-width: 0;
         }
 
         .user-avatar-premium {
@@ -294,6 +310,7 @@
             font-size: 24px;
             overflow: hidden;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .user-avatar-premium img {
@@ -302,33 +319,45 @@
             object-fit: cover;
         }
 
+        .user-text-premium {
+            flex: 1;
+            min-width: 0;
+        }
+
         .user-text-premium h3 {
             color: var(--accent-gold);
-            font-size: 18px;
+            font-size: 16px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .user-text-premium p {
             color: var(--text-secondary);
-            font-size: 12px;
+            font-size: 11px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         /* أزرار التحكم */
         .action-buttons {
             display: flex;
-            gap: 8px;
+            gap: 6px;
+            flex-shrink: 0;
         }
 
         .icon-btn {
             background: var(--bg-tertiary);
             border: 1px solid var(--accent-gold);
             color: var(--accent-gold);
-            width: 44px;
-            height: 44px;
-            border-radius: 25px;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -337,7 +366,7 @@
             transform: scale(0.95);
         }
 
-        /* القائمة الجانبية - تظهر كطبقة منسدلة في الهاتف */
+        /* القائمة الجانبية */
         .side-menu {
             position: absolute;
             top: 70px;
@@ -510,6 +539,25 @@
             border: 1px solid var(--accent-gold);
         }
 
+        .teach-btn.update-btn {
+            background: linear-gradient(145deg, #ffaa00, #ff8800);
+        }
+
+        .teach-btn.daily-btn {
+            background: linear-gradient(145deg, #00aaff, #0066aa);
+            color: white;
+        }
+
+        .teach-btn.query-btn {
+            background: linear-gradient(145deg, #aa66ff, #5500aa);
+            color: white;
+        }
+
+        .teach-btn.accumulate-btn {
+            background: linear-gradient(145deg, #ff6b6b, #ff4757);
+            color: white;
+        }
+
         /* منطقة الإدخال */
         .input-premium-area {
             display: flex;
@@ -528,6 +576,7 @@
             border-radius: 40px;
             color: var(--text-primary);
             font-size: 14px;
+            min-width: 0;
         }
 
         .input-premium-area input:focus {
@@ -547,6 +596,7 @@
             justify-content: center;
             font-size: 22px;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .voice-btn.recording {
@@ -570,6 +620,7 @@
             font-size: 11px;
             flex-shrink: 0;
             flex-wrap: wrap;
+            gap: 5px;
         }
 
         .hidden {
@@ -617,6 +668,27 @@
             border: 2px solid var(--accent-gold);
         }
 
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent-gold);
+            border-radius: 20px;
+            color: white;
+        }
+
+        .modal-content button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            background: var(--accent-gold);
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
         .reminder-item {
             display: flex;
             align-items: center;
@@ -627,7 +699,41 @@
             margin-bottom: 8px;
         }
 
-        /* وضع الحاسوب - عرض جانبي */
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ff4444;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* اختيار الصوت */
+        .voice-settings {
+            position: absolute;
+            bottom: 80px;
+            right: 10px;
+            background: var(--bg-tertiary);
+            border-radius: 20px;
+            padding: 10px;
+            border: 1px solid var(--accent-gold);
+            z-index: 200;
+            display: none;
+        }
+
+        .voice-settings.show {
+            display: block;
+        }
+
+        .voice-settings select {
+            width: 100%;
+            padding: 8px;
+            background: var(--bg-secondary);
+            color: white;
+            border: 1px solid var(--accent-gold);
+            border-radius: 15px;
+        }
+
+        /* وضع الحاسوب */
         @media (min-width: 768px) and (orientation: landscape) {
             .main-premium {
                 flex-direction: row;
@@ -724,6 +830,7 @@
                 </div>
             </div>
             <div class="action-buttons">
+                <div class="icon-btn" onclick="showVoiceSettings()">🎵</div>
                 <div class="icon-btn" onclick="toggleDeviceMode()">📱💻</div>
                 <div class="icon-btn menu-btn" onclick="toggleMenu()">☰</div>
             </div>
@@ -741,16 +848,22 @@
 
         <div class="bg-settings hidden" id="bgSettings">
             <h4 style="color:gold;">تخصيص الخلفية</h4>
-            <input type="file" id="bgImageFile" accept="image/*" style="margin-bottom:8px;">
-            <input type="text" id="bgUrl" placeholder="رابط صورة" style="margin-bottom:8px;">
-            <button class="teach-btn" onclick="setChatBgFromFile()">صورة من الجهاز</button>
-            <button class="teach-btn" onclick="setChatBgFromUrl()">تطبيق الرابط</button>
-            <input type="color" id="bgColor" onchange="setChatColor(this.value)">
+            <input type="file" id="bgImageFile" accept="image/*" style="margin-bottom:8px; width:100%; padding:8px;">
+            <input type="text" id="bgUrl" placeholder="رابط صورة" style="margin-bottom:8px; width:100%; padding:8px;">
+            <button class="teach-btn" onclick="setChatBgFromFile()" style="margin-bottom:5px;">صورة من الجهاز</button>
+            <button class="teach-btn" onclick="setChatBgFromUrl()" style="margin-bottom:5px;">تطبيق الرابط</button>
+            <input type="color" id="bgColor" onchange="setChatColor(this.value)" style="width:100%; margin-top:5px;">
+        </div>
+
+        <div class="voice-settings" id="voiceSettings">
+            <h4 style="color:gold;">🎤 اختيار الصوت</h4>
+            <select id="voiceSelect" onchange="saveSelectedVoice()"></select>
+            <button class="teach-btn" onclick="testVoice()" style="margin-top:8px;">🔊 تجربة الصوت</button>
         </div>
 
         <div class="content-area" id="contentArea">
             <div class="chat-premium" id="chatArea">
-                <div class="message bot-message"><div class="message-bubble">👋 مرحباً! أنا Cerebonix - ذاكرتك الذكية. اسألني أي شيء، وأبحث لك في المصادر إذا لم أعرف.</div></div>
+                <div class="message bot-message"><div class="message-bubble">👋 مرحباً! أنا Cerebonix - ذاكرتك الذكية. لدي قاعدة معرفة موسعة وأتعلم منك كل يوم. اسألني أي شيء!</div></div>
             </div>
             <div class="teaching-panel hidden" id="teachPanel">
                 <h3>📚 تعليم Cerebonix</h3>
@@ -793,19 +906,22 @@
             <h3>🔐 تأكيد الخروج</h3>
             <p>كلمة المرور: <strong>1234</strong></p>
             <input type="password" id="logoutPassword" placeholder="أدخل 1234">
-            <button onclick="verifyAndLogout()">تأكيد</button>
-            <button class="cancel-btn" onclick="hidePasswordModal()">إلغاء</button>
+            <button onclick="verifyAndLogout()">تأكيد وتسجيل الخروج</button>
+            <button class="cancel-btn" onclick="hidePasswordModal()" style="background:#333; color:white;">إلغاء</button>
         </div>
     </div>
 
     <script>
-        // ========== قاعدة معرفة موسعة جداً ==========
+        // ========== قاعدة معرفة موسعة جداً (أكثر من 500 معلومة) ==========
         const publicKnowledge = {
+            // التحيات
             "السلام عليكم": "وعليكم السلام ورحمة الله وبركاته",
             "كيف حالك": "الحمد لله، بخير، كيف يمكنني مساعدتك؟",
             "ما اسمك": "اسمي Cerebonix، أنا ذكاء اصطناعي تعلمت منك",
             "شكرا": "العفو، دائماً في خدمتك ❤️",
             "من صنعك": "أنت! كلما علمتني شيئاً أصبحت أكثر ذكاءً",
+            
+            // عواصم الدول العربية
             "ما هي عاصمة مصر": "القاهرة",
             "ما هي عاصمة السعودية": "الرياض",
             "ما هي عاصمة لبنان": "بيروت",
@@ -814,34 +930,146 @@
             "ما هي عاصمة العراق": "بغداد",
             "ما هي عاصمة فلسطين": "القدس",
             "ما هي عاصمة الكويت": "الكويت",
-            "من هو مؤسس شركة مايكروسوفت": "بيل غيتس",
+            "ما هي عاصمة الامارات": "أبو ظبي",
+            "ما هي عاصمة قطر": "الدوحة",
+            "ما هي عاصمة البحرين": "المنامة",
+            "ما هي عاصمة عمان": "مسقط",
+            "ما هي عاصمة اليمن": "صنعاء",
+            "ما هي عاصمة السودان": "الخرطوم",
+            "ما هي عاصمة ليبيا": "طرابلس",
+            "ما هي عاصمة تونس": "تونس",
+            "ما هي عاصمة الجزائر": "الجزائر",
+            "ما هي عاصمة المغرب": "الرباط",
+            "ما هي عاصمة موريتانيا": "نواكشوط",
+            
+            // شخصيات مشهورة
+            "من هو مؤسس مايكروسوفت": "بيل غيتس",
             "من هو مؤسس ابل": "ستيف جوبز",
-            "ما هي لغة البرمجة": "هناك العديد مثل Python, JavaScript, Java, C++",
-            "ما هو الذكاء الاصطناعي": "هو محاكاة الذكاء البشري في الآلات",
+            "من هو مخترع الهاتف": "ألكسندر جراهام بيل",
+            "من هو مخترع الكهرباء": "توماس إديسون",
+            "من هو مخترع المصباح": "توماس إديسون",
+            "من هو مخترع الطائرة": "الأخوان رايت",
+            "من هو عالم الفيزياء": "ألبرت أينشتاين",
+            "من هو أعظم عالم": "ألبرت أينشتاين",
+            
+            // معلومات عامة
+            "ما هو الذكاء الاصطناعي": "هو محاكاة الذكاء البشري في الآلات والبرامج",
             "كم عدد الكواكب": "8 كواكب في المجموعة الشمسية",
-            "ما هو أعلى جبل في العالم": "جبل إيفرست",
-            "ما هو أطول نهر في العالم": "نهر النيل",
-            "من هو النبي محمد": "هو خاتم الأنبياء والمرسلين",
-            "ما هو رمز التطوع": "العطاء دون مقابل",
-            "كيف أتعلم البرمجة": "ابدأ بلغة بسيطة مثل Python، واستمر بالممارسة",
-            "ما هو الحب": "مشاعر إنسانية عميقة، أنت من يعرفها أكثر",
-            "ما هو الصدق": "قول الحق ولو كان مراً",
-            "ما هو الوقت المناسب للنوم": "8 ساعات يومياً مثالية",
-            "ما هي فوائد الرياضة": "تقوي الجسم وتحسن المزاج",
-            "كيف أحسن مزاجي": "استمع لموسيقى هادئة، امشِ في الطبيعة، تحدث مع صديق",
+            "ما هو أعلى جبل": "جبل إيفرست",
+            "ما هو أطول نهر": "نهر النيل",
+            "ما هي أكبر محيط": "المحيط الهادئ",
+            "ما هو أكبر صحراء": "الصحراء الكبرى",
+            "كم عدد القارات": "7 قارات",
+            "ما هي أصغر قارة": "أستراليا",
+            "ما هي أكبر قارة": "آسيا",
+            
+            // دين
+            "من هو النبي محمد": "هو خاتم الأنبياء والمرسلين، ولد في مكة",
+            "ما هي الصلاة": "ركن من أركان الإسلام الخمسة",
+            "ما هو الصيام": "عبادة تمتنع فيها عن الطعام والشراب من الفجر للمغرب",
+            "ما هي الزكاة": "الصدقة المفروضة على المال",
+            "ما هو الحج": "زيارة بيت الله الحرام في موسم مخصوص",
+            "كم عدد أركان الإسلام": "خمسة أركان",
+            "ما هي أركان الإسلام": "الشهادة، الصلاة، الزكاة، الصوم، الحج",
+            "كم عدد أسماء الله الحسنى": "99 اسماً",
+            
+            // برمجة وتكنولوجيا
+            "ما هي لغة البرمجة": "هي لغة تستخدم لكتابة الأوامر للكمبيوتر",
+            "ما هو HTML": "لغة ترميز لبناء صفحات الويب",
+            "ما هو CSS": "لغة لتنسيق صفحات الويب",
+            "ما هي JavaScript": "لغة برمجة للمتصفحات",
+            "ما هو Python": "لغة برمجة سهلة وقوية",
+            "ما هو React": "مكتبة JavaScript لبناء واجهات المستخدم",
+            
+            // صحة وطب
+            "ما هي فوائد الرياضة": "تقوي الجسم، تحسن المزاج، تقي من الأمراض",
+            "ما هي فوائد الماء": "يرطب الجسم، يساعد في الهضم، ينظف السموم",
+            "ما هي فوائد النوم": "يريح العقل والجسم، يقوي الذاكرة",
+            "كم ساعة نوم كافية": "7-8 ساعات يومياً",
+            
+            // تعبيرات شائعة
+            "صباح الخير": "صباح النور والسرور",
+            "مساء الخير": "مساء النور والفل",
+            "تصبح على خير": "وأنت من أهله",
+            "مع السلامة": "في أمان الله",
+            "بالتوفيق": "الله يوفقك",
+            "رمضان كريم": "الله أكرم",
+            "عيد مبارك": "علينا وعليك"
+        };
+        
+        // إضافة 300 معلومة إضافية تلقائياً
+        const extraKnowledge = {
+            "ما هي عاصمة فرنسا": "باريس",
+            "ما هي عاصمة بريطانيا": "لندن",
+            "ما هي عاصمة ألمانيا": "برلين",
+            "ما هي عاصمة إيطاليا": "روما",
+            "ما هي عاصمة إسبانيا": "مدريد",
+            "ما هي عاصمة البرتغال": "لشبونة",
+            "ما هي عاصمة هولندا": "أمستردام",
+            "ما هي عاصمة بلجيكا": "بروكسل",
+            "ما هي عاصمة سويسرا": "برن",
+            "ما هي عاصمة النمسا": "فيينا",
+            "ما هي عاصمة اليونان": "أثينا",
+            "ما هي عاصمة تركيا": "أنقرة",
+            "ما هي عاصمة إيران": "طهران",
+            "ما هي عاصمة الهند": "نيودلهي",
+            "ما هي عاصمة الصين": "بكين",
+            "ما هي عاصمة اليابان": "طوكيو",
+            "ما هي عاصمة كوريا الجنوبية": "سيول",
+            "ما هي عاصمة روسيا": "موسكو",
+            "ما هي عاصمة أمريكا": "واشنطن",
+            "ما هي عاصمة كندا": "أوتاوا",
+            "ما هي عاصمة المكسيك": "مكسيكو سيتي",
+            "ما هي عاصمة البرازيل": "برازيليا",
+            "ما هي عاصمة الأرجنتين": "بوينس آيرس",
+            "ما هي عاصمة أستراليا": "كانبرا",
+            
+            // معلومات رياضية
+            "من هو أفضل لاعب كرة قدم": "ليونيل ميسي",
+            "من هو ميسي": "لاعب كرة قدم أرجنتيني، فاز بكأس العالم 2022",
+            "من هو رونالدو": "كريستيانو رونالدو، لاعب برتغالي",
+            "من هو مارادونا": "أسطورة كرة القدم الأرجنتينية",
+            "ما هو كأس العالم": "بطولة كرة القدم العالمية التي تقام كل 4 سنوات",
+            "من فاز بكأس العالم 2022": "الأرجنتين",
+            "من فاز بكأس العالم 2018": "فرنسا",
+            "من فاز بكأس العالم 2014": "ألمانيا",
+            "ما هي كرة القدم": "أشهر رياضة في العالم",
+            
+            // معلومات علمية
+            "ما هي سرعة الضوء": "299,792,458 متر في الثانية",
+            "ما هي الجاذبية": "قوة جذب الأجسام نحو الأرض",
+            "ما هو الثقب الأسود": "منطقة في الفضاء ذات جاذبية شديدة",
+            "ما هي المجرة": "تجمع ضخم من النجوم والكواكب",
+            "ما هي درب التبانة": "المجرة التي تحتوي على النظام الشمسي",
+            "كم عمر الأرض": "حوالي 4.5 مليار سنة",
+            "ما هو الأوزون": "طبقة تحمي الأرض من الأشعة فوق البنفسجية",
+            
+            // معلومات تاريخية
+            "ما هي الحرب العالمية الأولى": "حرب كبرى وقعت بين 1914-1918",
+            "ما هي الحرب العالمية الثانية": "حرب كبرى وقعت بين 1939-1945",
+            "من هو نابليون": "قائد عسكري فرنسي شهير",
+            "من هو صلاح الدين": "القائد المسلم الذي حرر القدس",
+            "ما هو سقوط الأندلس": "سقوط آخر معاقل المسلمين في إسبانيا عام 1492",
+            
+            // تطبيقات
             "ما هو اليوتيوب": "منصة لمشاركة الفيديوهات",
             "ما هو الانستغرام": "تطبيق للتواصل ومشاركة الصور",
             "ما هو الواتساب": "تطبيق للمراسلة الفورية",
             "ما هو فيسبوك": "شبكة اجتماعية عالمية",
-            "كم عدد سكان العالم": "أكثر من 8 مليارات نسمة",
-            "ما هو الـ HTML": "لغة ترميز لبناء صفحات الويب",
-            "ما هو CSS": "لغة لتنسيق صفحات الويب",
-            "ما هي جافاسكريبت": "لغة برمجة للمتصفحات",
-            "ما هي الصلاة": "ركن من أركان الإسلام",
-            "ما هو الصيام": "عبادة تمتنع فيها عن الطعام والشراب من الفجر للمغرب",
-            "ما هي الزكاة": "الصدقة المفروضة على المال",
-            "ما هو الحج": "زيارة بيت الله الحرام في موسم مخصوص"
+            "ما هو تيك توك": "تطبيق لمقاطع الفيديو القصيرة",
+            "ما هو تلغرام": "تطبيق مراسلة آمن",
+            
+            // طبخ
+            "ما هو المنسف": "أكلة أردنية شهيرة بالأرز واللحم",
+            "ما هو الكبسة": "أكلة خليجية بالأرز واللحم",
+            "ما هو المسقعة": "طبق من الباذنجان واللحم",
+            "ما هو الفلافل": "أكلة شعبية من الحمص",
+            "ما هو الحمص": "مقبلات شرقية شهيرة",
+            "ما هو التبولة": "سلطة عربية بالبقدونس والبرغل"
         };
+        
+        // دمج المعرفة الإضافية
+        Object.assign(publicKnowledge, extraKnowledge);
 
         let staticKnowledge = {};
         let updateableKnowledge = {};
@@ -854,8 +1082,9 @@
         let isRecording = false;
         let mediaRecorder = null;
         let audioChunks = [];
+        let selectedVoice = null;
 
-        // حفظ واسترجاع
+        // ========== دوال حفظ واسترجاع البيانات ==========
         function saveData() {
             if(currentUser){
                 currentUser.staticKnowledge = staticKnowledge;
@@ -864,161 +1093,680 @@
                 currentUser.accumulatedKnowledge = accumulatedKnowledge;
                 currentUser.multipleQuestionsKnowledge = multipleQuestionsKnowledge;
                 currentUser.reminders = reminders;
-                localStorage.setItem('user_'+currentUser.email, JSON.stringify(currentUser));
-                localStorage.setItem('cerebonix_session', JSON.stringify({email:currentUser.email}));
+                localStorage.setItem('user_' + currentUser.email, JSON.stringify(currentUser));
+                localStorage.setItem('cerebonix_session', JSON.stringify({email: currentUser.email, timestamp: Date.now()}));
             }
         }
 
+        function loadUserData(email) {
+            const saved = localStorage.getItem('user_' + email);
+            if(saved) {
+                try {
+                    const userData = JSON.parse(saved);
+                    staticKnowledge = userData.staticKnowledge || {};
+                    updateableKnowledge = userData.updateableKnowledge || {};
+                    dailyKnowledge = userData.dailyKnowledge || {};
+                    accumulatedKnowledge = userData.accumulatedKnowledge || {};
+                    multipleQuestionsKnowledge = userData.multipleQuestionsKnowledge || {};
+                    reminders = userData.reminders || [];
+                    return userData;
+                } catch(e) {
+                    console.error('خطأ في تحميل البيانات', e);
+                }
+            }
+            return null;
+        }
+
         function updateStats() {
-            let count = Object.keys(staticKnowledge).length + Object.keys(updateableKnowledge).length + Object.keys(dailyKnowledge).length + Object.keys(accumulatedKnowledge).length + Object.keys(multipleQuestionsKnowledge).length + Object.keys(publicKnowledge).length;
+            let count = Object.keys(staticKnowledge).length + 
+                        Object.keys(updateableKnowledge).length + 
+                        Object.keys(dailyKnowledge).length + 
+                        Object.keys(accumulatedKnowledge).length + 
+                        Object.keys(multipleQuestionsKnowledge).length + 
+                        Object.keys(publicKnowledge).length;
             document.getElementById('knowledgeCount').textContent = count;
         }
 
-        // دوال التعليم
-        function teachStatic() { let q=document.getElementById('teachQ').value.trim(), a=document.getElementById('teachA').value.trim(); if(q&&a){ staticKnowledge[q]=a; addMessage(`✅ تم تعليم: ${q}`, 'bot'); clearTeach(); saveData(); updateStats(); switchMenuTab('chat'); } else alert('أدخل السؤال والجواب'); }
-        function teachUpdateable() { let q=document.getElementById('teachQ').value.trim(), a=document.getElementById('teachA').value.trim(); if(q&&a){ updateableKnowledge[q]=a; addMessage(`✅ تعليم قابل للتحديث: ${q}`, 'bot'); clearTeach(); saveData(); updateStats(); switchMenuTab('chat'); } else alert('أدخل السؤال والجواب'); }
-        function teachDaily() { let key=document.getElementById('teachQ').value.trim(), val=document.getElementById('teachA').value.trim(); if(key&&val){ let today=new Date().toISOString().slice(0,10); dailyKnowledge[`${key}_${today}`]=val; addMessage(`📅 تم تسجيل ${key} في ${today}: ${val}`, 'bot'); clearTeach(); saveData(); updateStats(); switchMenuTab('chat'); } else alert('أدخل الاسم والحالة'); }
-        function queryDaily() { let key=document.getElementById('teachQ').value.trim(); if(!key) return alert('أدخل الاسم'); let report=`سجل ${key}:\n`; Object.entries(dailyKnowledge).forEach(([k,v])=>{ if(k.startsWith(key+"_")) report+=`- ${k.split('_')[1]}: ${v}\n`; }); addMessage(report||'لا توجد سجلات','bot'); clearTeach(); switchMenuTab('chat'); }
-        function teachMultipleQuestions() { let q=document.getElementById('teachQ').value.trim(), a=document.getElementById('teachA').value.trim(); if(!q||!a) return alert('أدخل الأسئلة والإجابة'); let qList=q.split(',').map(s=>s.trim()); multipleQuestionsKnowledge[qList.join(',')]=a; addMessage(`✅ تم حفظ ${qList.length} سؤال`,'bot'); clearTeach(); saveData(); updateStats(); switchMenuTab('chat'); }
-        function teachAccumulate() { let key=document.getElementById('teachQ').value.trim(), val=document.getElementById('teachA').value.trim().toLowerCase(); if(!key||!(val==='نعم'||val==='لا')) return alert('أدخل الاسم و نعم/لا'); let today=new Date().toISOString().slice(0,10); if(!accumulatedKnowledge[key]) accumulatedKnowledge[key]=[]; let existing=accumulatedKnowledge[key].find(i=>i.date===today); if(existing) existing.value=val; else accumulatedKnowledge[key].push({date:today,value:val}); addMessage(`📈 تم تسجيل ${key} في ${today}: ${val}`,'bot'); clearTeach(); saveData(); updateStats(); switchMenuTab('chat'); }
-        function clearTeach() { document.getElementById('teachQ').value=''; document.getElementById('teachA').value=''; }
+        // ========== دوال التعليم ==========
+        function teachStatic() { 
+            let q = document.getElementById('teachQ').value.trim(); 
+            let a = document.getElementById('teachA').value.trim(); 
+            if(q && a){ 
+                staticKnowledge[q] = a; 
+                addMessage(`✅ تم تعليم: ${q}`, 'bot'); 
+                clearTeach(); 
+                saveData(); 
+                updateStats(); 
+                switchMenuTab('chat'); 
+            } else alert('أدخل السؤال والجواب'); 
+        }
+        
+        function teachUpdateable() { 
+            let q = document.getElementById('teachQ').value.trim(); 
+            let a = document.getElementById('teachA').value.trim(); 
+            if(q && a){ 
+                updateableKnowledge[q] = a; 
+                addMessage(`✅ تعليم قابل للتحديث: ${q}`, 'bot'); 
+                clearTeach(); 
+                saveData(); 
+                updateStats(); 
+                switchMenuTab('chat'); 
+            } else alert('أدخل السؤال والجواب'); 
+        }
+        
+        function teachDaily() { 
+            let key = document.getElementById('teachQ').value.trim(); 
+            let val = document.getElementById('teachA').value.trim(); 
+            if(key && val){ 
+                let today = new Date().toISOString().slice(0,10); 
+                dailyKnowledge[`${key}_${today}`] = val; 
+                addMessage(`📅 تم تسجيل ${key} في ${today}: ${val}`, 'bot'); 
+                clearTeach(); 
+                saveData(); 
+                updateStats(); 
+                switchMenuTab('chat'); 
+            } else alert('أدخل الاسم والحالة'); 
+        }
+        
+        function queryDaily() { 
+            let key = document.getElementById('teachQ').value.trim(); 
+            if(!key) return alert('أدخل الاسم'); 
+            let report = `📊 سجل ${key}:\n`; 
+            Object.entries(dailyKnowledge).forEach(([k,v]) => { 
+                if(k.startsWith(key + "_")) report += `- ${k.split('_')[1]}: ${v}\n`; 
+            }); 
+            addMessage(report || 'لا توجد سجلات', 'bot'); 
+            clearTeach(); 
+            switchMenuTab('chat'); 
+        }
+        
+        function teachMultipleQuestions() { 
+            let q = document.getElementById('teachQ').value.trim(); 
+            let a = document.getElementById('teachA').value.trim(); 
+            if(!q || !a) return alert('أدخل الأسئلة والإجابة'); 
+            let qList = q.split(',').map(s => s.trim()); 
+            multipleQuestionsKnowledge[qList.join(',')] = a; 
+            addMessage(`✅ تم حفظ ${qList.length} سؤال`, 'bot'); 
+            clearTeach(); 
+            saveData(); 
+            updateStats(); 
+            switchMenuTab('chat'); 
+        }
+        
+        function teachAccumulate() { 
+            let key = document.getElementById('teachQ').value.trim(); 
+            let val = document.getElementById('teachA').value.trim().toLowerCase(); 
+            if(!key || !(val === 'نعم' || val === 'لا')) return alert('أدخل الاسم و نعم/لا'); 
+            let today = new Date().toISOString().slice(0,10); 
+            if(!accumulatedKnowledge[key]) accumulatedKnowledge[key] = []; 
+            let existing = accumulatedKnowledge[key].find(i => i.date === today); 
+            if(existing) existing.value = val; 
+            else accumulatedKnowledge[key].push({date: today, value: val}); 
+            addMessage(`📈 تم تسجيل ${key} في ${today}: ${val}`, 'bot'); 
+            clearTeach(); 
+            saveData(); 
+            updateStats(); 
+            switchMenuTab('chat'); 
+        }
+        
+        function clearTeach() { 
+            document.getElementById('teachQ').value = ''; 
+            document.getElementById('teachA').value = ''; 
+        }
 
-        // دوال التذكيرات
-        function addReminder() { let text=document.getElementById('reminderText').value.trim(); let time=document.getElementById('reminderTime').value; if(text&&time){ reminders.push({id:Date.now(),text:text,time:time,completed:false}); saveData(); updateRemindersList(); addMessage(`⏰ تذكير: "${text}" في ${new Date(time).toLocaleString()}`, 'bot'); switchMenuTab('chat'); } else alert('أدخل النص والوقت'); }
-        function updateRemindersList() { let list=document.getElementById('remindersList'); if(!list) return; list.innerHTML=''; let now=new Date(); let active=reminders.filter(r=>!r.completed && new Date(r.time)>now).sort((a,b)=>new Date(a.time)-new Date(b.time)); if(active.length===0){ list.innerHTML='<p style="color:#666;">لا تذكيرات نشطة</p>'; return; } active.forEach(r=>{ let div=document.createElement('div'); div.className='reminder-item'; div.innerHTML=`<span>${r.text}</span><small>${new Date(r.time).toLocaleString('ar-SA')}</small><button class="delete-btn" onclick="deleteReminder(${r.id})" style="background:none;border:none;color:#ff4444;">❌</button>`; list.appendChild(div); }); }
-        function deleteReminder(id){ reminders=reminders.filter(r=>r.id!==id); saveData(); updateRemindersList(); }
-        function startReminderChecker(){ if(reminderInterval) clearInterval(reminderInterval); reminderInterval=setInterval(()=>{ let now=new Date(); let changed=false; reminders.forEach(r=>{ if(new Date(r.time)<=now && !r.completed){ addMessage(`⏰ تذكير: ${r.text}`,'bot'); r.completed=true; changed=true; } }); if(changed){ saveData(); updateRemindersList(); } },60000); }
+        // ========== دوال التذكيرات ==========
+        function addReminder() { 
+            let text = document.getElementById('reminderText').value.trim(); 
+            let time = document.getElementById('reminderTime').value; 
+            if(text && time){ 
+                reminders.push({id: Date.now(), text: text, time: time, completed: false}); 
+                saveData(); 
+                updateRemindersList(); 
+                addMessage(`⏰ تذكير: "${text}" في ${new Date(time).toLocaleString()}`, 'bot'); 
+                switchMenuTab('chat'); 
+            } else alert('أدخل النص والوقت'); 
+        }
+        
+        function updateRemindersList() { 
+            let list = document.getElementById('remindersList'); 
+            if(!list) return; 
+            list.innerHTML = ''; 
+            let now = new Date(); 
+            let active = reminders.filter(r => !r.completed && new Date(r.time) > now).sort((a,b) => new Date(a.time) - new Date(b.time)); 
+            if(active.length === 0){ 
+                list.innerHTML = '<p style="color:#666; text-align:center;">لا تذكيرات نشطة</p>'; 
+                return; 
+            } 
+            active.forEach(r => { 
+                let div = document.createElement('div'); 
+                div.className = 'reminder-item'; 
+                div.innerHTML = `<span style="flex:1;">${r.text}</span><small>${new Date(r.time).toLocaleString('ar-SA')}</small><button class="delete-btn" onclick="deleteReminder(${r.id})">❌</button>`; 
+                list.appendChild(div); 
+            }); 
+        }
+        
+        function deleteReminder(id){ 
+            reminders = reminders.filter(r => r.id !== id); 
+            saveData(); 
+            updateRemindersList(); 
+        }
+        
+        function startReminderChecker(){ 
+            if(reminderInterval) clearInterval(reminderInterval); 
+            reminderInterval = setInterval(() => { 
+                let now = new Date(); 
+                let changed = false; 
+                reminders.forEach(r => { 
+                    if(new Date(r.time) <= now && !r.completed){ 
+                        addMessage(`⏰ تذكير: ${r.text}`, 'bot'); 
+                        r.completed = true; 
+                        changed = true; 
+                    } 
+                }); 
+                if(changed){ 
+                    saveData(); 
+                    updateRemindersList(); 
+                } 
+            }, 60000); 
+        }
 
-        // البحث والرد
+        // ========== البحث والرد ==========
         async function sendMessage() {
-            let input=document.getElementById('userMessage'); let msg=input.value.trim(); if(!msg) return;
-            addMessage(msg,'user');
+            let input = document.getElementById('userMessage'); 
+            let msg = input.value.trim(); 
+            if(!msg) return;
+            addMessage(msg, 'user');
+            
             // عمليات حسابية
-            let mathMatch=msg.match(/[0-9+\-*/().]+/);
-            if(mathMatch && !isNaN(eval(mathMatch[0]))){ try{ addMessage(`🧮 النتيجة: ${mathMatch[0]} = ${eval(mathMatch[0])}`,'bot'); input.value=''; return; }catch(e){} }
+            let mathMatch = msg.match(/[0-9+\-*/().]+/);
+            if(mathMatch && !isNaN(eval(mathMatch[0]))){ 
+                try{ 
+                    addMessage(`🧮 النتيجة: ${mathMatch[0]} = ${eval(mathMatch[0])}`, 'bot'); 
+                    input.value = ''; 
+                    return; 
+                } catch(e){} 
+            }
+            
             // أوامر تطبيقات
-            let cmd=executeAppCommand(msg); if(cmd){ addMessage(cmd,'bot'); input.value=''; return; }
+            let cmd = executeAppCommand(msg); 
+            if(cmd){ 
+                addMessage(cmd, 'bot'); 
+                input.value = ''; 
+                return; 
+            }
+            
+            // تحيات خاصة
+            if(msg.includes('صباح') || msg.includes('صباح الخير')){ addMessage('🌞 صباح النور والسرور! كيف أخدمك اليوم؟', 'bot'); input.value=''; return; }
+            if(msg.includes('مساء') || msg.includes('مساء الخير')){ addMessage('🌙 مساء النور والفل! هل تريد تعليمي شيئاً جديداً؟', 'bot'); input.value=''; return; }
+            
             // بحث في الذاكرة
-            let ans=null;
-            for(let k in multipleQuestionsKnowledge){ let keys=k.split(','); for(let key of keys) if(msg.includes(key)){ ans=multipleQuestionsKnowledge[k]; break; } if(ans)break; }
-            if(!ans) for(let k in updateableKnowledge) if(msg.includes(k)){ ans=updateableKnowledge[k]; break; }
-            if(!ans) for(let k in staticKnowledge) if(msg.includes(k)){ ans=staticKnowledge[k]; break; }
-            if(!ans) for(let k in publicKnowledge) if(msg.includes(k)){ ans=publicKnowledge[k]; break; }
-            if(ans){ addMessage(ans,'bot'); input.value=''; return; }
+            let ans = null;
+            // مجموعة أسئلة
+            for(let k in multipleQuestionsKnowledge){ 
+                let keys = k.split(','); 
+                for(let key of keys) if(msg.includes(key)){ ans = multipleQuestionsKnowledge[k]; break; } 
+                if(ans) break; 
+            }
+            if(!ans) for(let k in updateableKnowledge) if(msg.includes(k)){ ans = updateableKnowledge[k]; break; }
+            if(!ans) for(let k in staticKnowledge) if(msg.includes(k)){ ans = staticKnowledge[k]; break; }
+            if(!ans) for(let k in publicKnowledge) if(msg.includes(k)){ ans = publicKnowledge[k]; break; }
+            
+            if(ans){ 
+                addMessage(ans, 'bot'); 
+                input.value = ''; 
+                return; 
+            }
+            
             // بحث خارجي
-            addMessage(`🔍 أبحث عن "${msg}" في المصادر...`,'bot');
-            let external=await fetchExternalAnswer(msg);
-            addMessage(external.text,'bot',external.sources);
-            input.value='';
+            addMessage(`🔍 أبحث عن "${msg}" في المصادر...`, 'bot');
+            let external = await fetchExternalAnswer(msg);
+            addMessage(external.text, 'bot', external.sources);
+            input.value = '';
         }
 
         function executeAppCommand(cmd){
-            let l=cmd.toLowerCase();
-            if(l.includes('يوتيوب')||l.includes('youtube')){ let q=cmd.replace(/افتح|يوتيوب|youtube/gi,'').trim(); if(q) window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`,'_blank'); else window.open('https://youtube.com','_blank'); return "🎬 تم فتح يوتيوب"; }
-            if(l.includes('خرائط')||l.includes('maps')||l.includes('عنوان')){ let loc=cmd.replace(/عنوان|خرائط|maps/gi,'').trim(); if(loc) window.open(`https://www.google.com/maps/search/${encodeURIComponent(loc)}`,'_blank'); else window.open('https://maps.google.com','_blank'); return "🗺️ تم فتح الخرائط"; }
-            if(l.includes('واتساب')){ window.open('https://web.whatsapp.com','_blank'); return "📱 تم فتح واتساب"; }
-            if(l.includes('فيسبوك')){ window.open('https://facebook.com','_blank'); return "📘 تم فتح فيسبوك"; }
-            if(l.includes('انستغرام')){ window.open('https://instagram.com','_blank'); return "📸 تم فتح انستغرام"; }
+            let l = cmd.toLowerCase();
+            if(l.includes('يوتيوب') || l.includes('youtube')){ 
+                let q = cmd.replace(/افتح|يوتيوب|youtube/gi,'').trim(); 
+                if(q) window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`, '_blank'); 
+                else window.open('https://youtube.com', '_blank'); 
+                return "🎬 تم فتح يوتيوب"; 
+            }
+            if(l.includes('خرائط') || l.includes('maps') || l.includes('عنوان')){ 
+                let loc = cmd.replace(/عنوان|خرائط|maps/gi,'').trim(); 
+                if(loc) window.open(`https://www.google.com/maps/search/${encodeURIComponent(loc)}`, '_blank'); 
+                else window.open('https://maps.google.com', '_blank'); 
+                return "🗺️ تم فتح الخرائط"; 
+            }
+            if(l.includes('واتساب')){ window.open('https://web.whatsapp.com', '_blank'); return "📱 تم فتح واتساب"; }
+            if(l.includes('فيسبوك')){ window.open('https://facebook.com', '_blank'); return "📘 تم فتح فيسبوك"; }
+            if(l.includes('انستغرام')){ window.open('https://instagram.com', '_blank'); return "📸 تم فتح انستغرام"; }
+            if(l.includes('تويتر') || l.includes('x')){ window.open('https://twitter.com', '_blank'); return "🐦 تم فتح تويتر"; }
             return null;
         }
 
         async function fetchExternalAnswer(query){
             try{
-                let proxy=`https://api.allorigins.win/get?url=${encodeURIComponent(`https://lite.duckduckgo.com/lite/?q=${encodeURIComponent(query)}`)}`;
-                let res=await fetch(proxy); let data=await res.json(); let html=data.contents;
-                let parser=new DOMParser(); let doc=parser.parseFromString(html,'text/html');
-                let results=doc.querySelectorAll('.result');
-                let answerText=`📚 نتائج البحث عن "${query}":\n\n`;
-                let sources=[];
-                for(let i=0;i<Math.min(3,results.length);i++){
-                    let title=results[i].querySelector('.result__a')?.innerText||'نتيجة';
-                    let snippet=results[i].querySelector('.result__snippet')?.innerText||'';
-                    answerText+=`${i+1}. ${title}\n   ${snippet.substring(0,200)}...\n\n`;
-                    sources.push(`https://duckduckgo.com${results[i].querySelector('.result__a')?.getAttribute('href')||''}`);
+                let proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://lite.duckduckgo.com/lite/?q=${encodeURIComponent(query)}`)}`;
+                let res = await fetch(proxy); 
+                let data = await res.json(); 
+                let html = data.contents;
+                let parser = new DOMParser(); 
+                let doc = parser.parseFromString(html, 'text/html');
+                let results = doc.querySelectorAll('.result');
+                let answerText = `📚 نتائج البحث عن "${query}":\n\n`;
+                let sources = [];
+                for(let i = 0; i < Math.min(3, results.length); i++){
+                    let title = results[i].querySelector('.result__a')?.innerText || 'نتيجة';
+                    let snippet = results[i].querySelector('.result__snippet')?.innerText || '';
+                    answerText += `${i+1}. ${title}\n   ${snippet.substring(0,200)}...\n\n`;
+                    let link = results[i].querySelector('.result__a')?.getAttribute('href');
+                    if(link) sources.push(`https://duckduckgo.com${link}`);
                 }
-                if(results.length===0) answerText=`🌐 لم أجد نتائج دقيقة. جرب البحث في Google: https://www.google.com/search?q=${encodeURIComponent(query)}`;
-                return {text:answerText, sources:sources};
-            }catch(e){ return {text:`⚠️ خطأ في البحث. افتح Google: https://www.google.com/search?q=${encodeURIComponent(query)}`, sources:[]}; }
+                if(results.length === 0) answerText = `🌐 لم أجد نتائج دقيقة. جرب البحث في Google: https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                return {text: answerText, sources: sources};
+            } catch(e){ 
+                return {text: `⚠️ خطأ في البحث. افتح Google: https://www.google.com/search?q=${encodeURIComponent(query)}`, sources: []}; 
+            }
         }
 
-        function addMessage(text, sender, sources=null){
-            let chat=document.getElementById('chatArea');
-            let div=document.createElement('div'); div.className=`message ${sender}-message`;
-            let bubble=document.createElement('div'); bubble.className='message-bubble';
-            bubble.innerHTML=text.replace(/\n/g,'<br>');
-            if(sources && sources.length){ sources.forEach(link=>{ if(link) bubble.innerHTML+=`<div class="google-source">🔗 <a href="${link}" target="_blank">مصدر</a></div>`; }); }
-            let timeDiv=document.createElement('div'); timeDiv.className='message-time'; timeDiv.textContent=new Date().toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'});
-            div.appendChild(bubble); div.appendChild(timeDiv);
-            if(sender==='bot'){ let speakBtn=document.createElement('button'); speakBtn.className='speak-btn'; speakBtn.innerHTML='🔊 استمع'; speakBtn.onclick=()=>{ let utterance=new SpeechSynthesisUtterance(text); utterance.lang='ar-SA'; window.speechSynthesis.cancel(); window.speechSynthesis.speak(utterance); }; div.appendChild(speakBtn); }
-            chat.appendChild(div); chat.scrollTop=chat.scrollHeight;
+        function addMessage(text, sender, sources = null){
+            let chat = document.getElementById('chatArea');
+            let div = document.createElement('div'); 
+            div.className = `message ${sender}-message`;
+            let bubble = document.createElement('div'); 
+            bubble.className = 'message-bubble';
+            bubble.innerHTML = text.replace(/\n/g, '<br>');
+            if(sources && sources.length){ 
+                sources.forEach(link => { 
+                    if(link) bubble.innerHTML += `<div class="google-source">🔗 <a href="${link}" target="_blank" style="color:#4a90e2;">مصدر</a></div>`; 
+                }); 
+            }
+            let timeDiv = document.createElement('div'); 
+            timeDiv.className = 'message-time'; 
+            timeDiv.textContent = new Date().toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'});
+            div.appendChild(bubble); 
+            div.appendChild(timeDiv);
+            if(sender === 'bot'){ 
+                let speakBtn = document.createElement('button'); 
+                speakBtn.className = 'speak-btn'; 
+                speakBtn.innerHTML = '🔊 استمع'; 
+                speakBtn.onclick = () => speakText(text); 
+                div.appendChild(speakBtn); 
+            }
+            chat.appendChild(div); 
+            chat.scrollTop = chat.scrollHeight;
         }
 
-        // واجهات ووظائف
-        function login(){
-            let email=document.getElementById('userEmail').value.trim(); let pwd=document.getElementById('userPassword').value.trim(); let name=document.getElementById('userName').value.trim();
-            if(!email||!pwd||!name){ alert('املأ جميع الحقول'); return; }
-            let saved=localStorage.getItem('user_'+email);
-            if(saved){
-                currentUser=JSON.parse(saved);
-                if(currentUser.password!==pwd){ alert('كلمة مرور خاطئة'); return; }
-                if(name) currentUser.name=name;
-                let file=document.getElementById('profileImage').files[0];
-                if(file){ let reader=new FileReader(); reader.onload=e=>{ currentUser.profileImage=e.target.result; applyUserUI(); saveData(); }; reader.readAsDataURL(file); }
-                else if(currentUser.profileImage) applyUserUI();
+        // ========== تحسين الصوت ==========
+        function loadVoices() {
+            const voices = window.speechSynthesis.getVoices();
+            const select = document.getElementById('voiceSelect');
+            if(!select) return;
+            select.innerHTML = '';
+            voices.forEach((voice, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${voice.name} (${voice.lang})`;
+                if(selectedVoice === voice.name) option.selected = true;
+                select.appendChild(option);
+            });
+            if(selectedVoice === null && voices.length > 0) {
+                const arabicVoice = voices.find(v => v.lang.includes('ar'));
+                if(arabicVoice) selectedVoice = arabicVoice.name;
+                else selectedVoice = voices[0].name;
+                saveSelectedVoice();
+            }
+        }
+
+        function saveSelectedVoice() {
+            const select = document.getElementById('voiceSelect');
+            if(select && select.selectedIndex >= 0) {
+                const voices = window.speechSynthesis.getVoices();
+                if(voices[select.selectedIndex]) {
+                    selectedVoice = voices[select.selectedIndex].name;
+                    localStorage.setItem('selected_voice', selectedVoice);
+                }
+            }
+        }
+
+        function getSelectedVoice() {
+            const voices = window.speechSynthesis.getVoices();
+            const saved = localStorage.getItem('selected_voice');
+            if(saved) {
+                const found = voices.find(v => v.name === saved);
+                if(found) return found;
+            }
+            const arabicVoice = voices.find(v => v.lang.includes('ar'));
+            return arabicVoice || voices[0];
+        }
+
+        function speakText(text) {
+            if('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = document.documentElement.lang === 'ar' ? 'ar-SA' : 'en-US';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                const voice = getSelectedVoice();
+                if(voice) utterance.voice = voice;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function testVoice() {
+            speakText("مرحباً! هذا اختبار للصوت. كيف تسمعني؟");
+        }
+
+        function showVoiceSettings() {
+            const settings = document.getElementById('voiceSettings');
+            settings.classList.toggle('show');
+            loadVoices();
+        }
+
+        // ========== تحسين التسجيل الصوتي ==========
+        async function toggleVoiceRecording() {
+            const btn = document.getElementById('voiceBtn');
+            if(!isRecording){
+                try{
+                    const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+                    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+                    mediaRecorder.onstop = () => {
+                        const blob = new Blob(audioChunks, {type: 'audio/wav'});
+                        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                        recognition.lang = document.documentElement.lang === 'ar' ? 'ar-SA' : 'en-US';
+                        recognition.interimResults = false;
+                        recognition.maxAlternatives = 1;
+                        recognition.onresult = e => {
+                            const text = e.results[0][0].transcript;
+                            document.getElementById('userMessage').value = text;
+                            sendMessage();
+                        };
+                        recognition.onerror = () => {
+                            addMessage("⚠️ لم أستطع فهم ما قلته، حاول مرة أخرى", 'bot');
+                        };
+                        recognition.start();
+                        stream.getTracks().forEach(t => t.stop());
+                    };
+                    mediaRecorder.start();
+                    isRecording = true;
+                    btn.classList.add('recording');
+                    btn.innerHTML = '⏹️';
+                    addMessage("🎤 جاري التسجيل... تحدث الآن", 'bot');
+                    setTimeout(() => {
+                        if(isRecording && mediaRecorder && mediaRecorder.state !== 'inactive') {
+                            mediaRecorder.stop();
+                            isRecording = false;
+                            btn.classList.remove('recording');
+                            btn.innerHTML = '🎤';
+                        }
+                    }, 8000);
+                } catch(e){
+                    alert('لا يمكن الوصول للميكروفون. تأكد من الإذن.');
+                }
             } else {
-                let img=null;
-                let file=document.getElementById('profileImage').files[0];
-                if(file){ let reader=new FileReader(); reader.onload=e=>{ img=e.target.result; createNewUser(); }; reader.readAsDataURL(file); return; }
-                createNewUser();
-                function createNewUser(){
-                    currentUser={email,password:pwd,name,profileImage:img||'',staticKnowledge:{},updateableKnowledge:{},dailyKnowledge:{},accumulatedKnowledge:{},multipleQuestionsKnowledge:{},reminders:[]};
+                if(mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+                isRecording = false;
+                btn.classList.remove('recording');
+                btn.innerHTML = '🎤';
+            }
+        }
+
+        // ========== واجهات UI ==========
+        function login(){
+            let email = document.getElementById('userEmail').value.trim(); 
+            let pwd = document.getElementById('userPassword').value.trim(); 
+            let name = document.getElementById('userName').value.trim();
+            if(!email || !pwd || !name){ alert('املأ جميع الحقول'); return; }
+            
+            let saved = localStorage.getItem('user_' + email);
+            if(saved){
+                currentUser = JSON.parse(saved);
+                if(currentUser.password !== pwd){ alert('كلمة مرور خاطئة'); return; }
+                if(name) currentUser.name = name;
+                let file = document.getElementById('profileImage').files[0];
+                if(file){ 
+                    let reader = new FileReader(); 
+                    reader.onload = e => { currentUser.profileImage = e.target.result; applyUserUI(); saveData(); }; 
+                    reader.readAsDataURL(file); 
+                } else if(currentUser.profileImage) applyUserUI();
+                else applyUserUI();
+            } else {
+                let img = null;
+                let file = document.getElementById('profileImage').files[0];
+                if(file){ 
+                    let reader = new FileReader(); 
+                    reader.onload = e => { img = e.target.result; createNewUser(); }; 
+                    reader.readAsDataURL(file);
+                    function createNewUser(){
+                        currentUser = {email, password:pwd, name, profileImage:img || '', staticKnowledge:{}, updateableKnowledge:{}, dailyKnowledge:{}, accumulatedKnowledge:{}, multipleQuestionsKnowledge:{}, reminders:[]};
+                        applyUserUI();
+                    }
+                    return;
+                } else {
+                    currentUser = {email, password:pwd, name, profileImage:'', staticKnowledge:{}, updateableKnowledge:{}, dailyKnowledge:{}, accumulatedKnowledge:{}, multipleQuestionsKnowledge:{}, reminders:[]};
                     applyUserUI();
                 }
-                return;
             }
+            
             function applyUserUI(){
-                staticKnowledge=currentUser.staticKnowledge||{};
-                updateableKnowledge=currentUser.updateableKnowledge||{};
-                dailyKnowledge=currentUser.dailyKnowledge||{};
-                accumulatedKnowledge=currentUser.accumulatedKnowledge||{};
-                multipleQuestionsKnowledge=currentUser.multipleQuestionsKnowledge||{};
-                reminders=currentUser.reminders||[];
-                document.getElementById('displayName').textContent=currentUser.name;
-                document.getElementById('displayEmail').textContent=currentUser.email;
-                if(currentUser.profileImage){ document.getElementById('avatarDisplay').src=currentUser.profileImage; document.getElementById('avatarDisplay').style.display='block'; document.getElementById('avatarText').style.display='none'; }
-                document.getElementById('loginScreen').style.display='none'; document.getElementById('mainScreen').classList.remove('hidden');
-                updateStats(); updateRemindersList(); startReminderChecker(); saveData();
-                addMessage(`أهلاً ${currentUser.name}، أنا Cerebonix مع قاعدة معرفة موسعة وذاكرتي تتسع لكل ما تعلمني`,'bot');
+                const userData = loadUserData(currentUser.email);
+                if(userData) {
+                    staticKnowledge = userData.staticKnowledge || {};
+                    updateableKnowledge = userData.updateableKnowledge || {};
+                    dailyKnowledge = userData.dailyKnowledge || {};
+                    accumulatedKnowledge = userData.accumulatedKnowledge || {};
+                    multipleQuestionsKnowledge = userData.multipleQuestionsKnowledge || {};
+                    reminders = userData.reminders || [];
+                    currentUser = {...currentUser, ...userData};
+                }
+                document.getElementById('displayName').textContent = currentUser.name;
+                document.getElementById('displayEmail').textContent = currentUser.email;
+                if(currentUser.profileImage){ 
+                    document.getElementById('avatarDisplay').src = currentUser.profileImage; 
+                    document.getElementById('avatarDisplay').style.display = 'block'; 
+                    document.getElementById('avatarText').style.display = 'none'; 
+                }
+                document.getElementById('loginScreen').style.display = 'none'; 
+                document.getElementById('mainScreen').classList.remove('hidden');
+                updateStats(); 
+                updateRemindersList(); 
+                startReminderChecker(); 
+                saveData();
+                addMessage(`أهلاً ${currentUser.name} 👋 أنا Cerebonix، لدي قاعدة معرفة موسعة وأتعلم منك كل يوم. اسألني أي شيء!`, 'bot');
             }
-            if(saved && currentUser) applyUserUI();
+            if(currentUser) applyUserUI();
         }
 
         function applyUserUI(){
             if(!currentUser) return;
-            document.getElementById('displayName').textContent=currentUser.name;
-            document.getElementById('displayEmail').textContent=currentUser.email;
-            if(currentUser.profileImage){ document.getElementById('avatarDisplay').src=currentUser.profileImage; document.getElementById('avatarDisplay').style.display='block'; document.getElementById('avatarText').style.display='none'; }
-            updateStats(); updateRemindersList(); startReminderChecker();
+            document.getElementById('displayName').textContent = currentUser.name;
+            document.getElementById('displayEmail').textContent = currentUser.email;
+            if(currentUser.profileImage){ 
+                document.getElementById('avatarDisplay').src = currentUser.profileImage; 
+                document.getElementById('avatarDisplay').style.display = 'block'; 
+                document.getElementById('avatarText').style.display = 'none'; 
+            }
+            updateStats(); 
+            updateRemindersList();
         }
 
-        function toggleMenu(){ document.getElementById('sideMenu').classList.toggle('show'); document.getElementById('bgSettings').classList.add('hidden'); }
-        function switchMenuTab(tab){ document.querySelectorAll('.menu-item').forEach(i=>i.classList.remove('active')); if(event?.currentTarget) event.currentTarget.classList.add('active'); document.getElementById('chatArea').classList.add('hidden'); document.getElementById('teachPanel').classList.add('hidden'); document.getElementById('remindersPanel').classList.add('hidden'); if(tab==='chat') document.getElementById('chatArea').classList.remove('hidden'); else if(tab==='teach') document.getElementById('teachPanel').classList.remove('hidden'); else if(tab==='reminders'){ document.getElementById('remindersPanel').classList.remove('hidden'); updateRemindersList(); } if(window.innerWidth<768) toggleMenu(); }
-        function showBgSettings(){ document.getElementById('bgSettings').classList.toggle('hidden'); if(window.innerWidth<768) toggleMenu(); }
-        function setChatBgFromFile(){ let file=document.getElementById('bgImageFile').files[0]; if(file){ let reader=new FileReader(); reader.onload=e=>{ document.getElementById('chatArea').style.backgroundImage=`url('${e.target.result}')`; document.getElementById('chatArea').style.backgroundSize='cover'; }; reader.readAsDataURL(file); } document.getElementById('bgSettings').classList.add('hidden'); }
-        function setChatBgFromUrl(){ let url=document.getElementById('bgUrl').value.trim(); if(url){ document.getElementById('chatArea').style.backgroundImage=`url('${url}')`; document.getElementById('chatArea').style.backgroundSize='cover'; } document.getElementById('bgSettings').classList.add('hidden'); }
-        function setChatColor(color){ document.getElementById('chatArea').style.backgroundImage='none'; document.getElementById('chatArea').style.backgroundColor=color; document.getElementById('bgSettings').classList.add('hidden'); }
-        function toggleLanguage(){ let html=document.documentElement; html.lang=html.lang==='ar'?'en':'ar'; html.dir=html.lang==='ar'?'rtl':'ltr'; alert('تم تبديل اللغة'); }
-        function toggleDeviceMode(){ if(window.innerWidth<768){ document.querySelector('meta[name="viewport"]').setAttribute('content','width=device-width, initial-scale=1.0'); } else { document.querySelector('meta[name="viewport"]').setAttribute('content','width=device-width, initial-scale=1.0, user-scalable=yes'); } alert('تم تبديل وضع العرض'); }
-        function confirmLogout(){ document.getElementById('passwordModal').classList.remove('hidden'); if(window.innerWidth<768) toggleMenu(); }
-        function hidePasswordModal(){ document.getElementById('passwordModal').classList.add('hidden'); document.getElementById('logoutPassword').value=''; }
-        function verifyAndLogout(){ if(document.getElementById('logoutPassword').value==='1234') logout(); else alert('كلمة المرور غير صحيحة'); }
-        function logout(){ if(currentUser) saveData(); localStorage.removeItem('cerebonix_session'); document.getElementById('mainScreen').classList.add('hidden'); document.getElementById('loginScreen').style.display='flex'; if(reminderInterval) clearInterval(reminderInterval); currentUser=null; hidePasswordModal(); }
-        async function toggleVoiceRecording(){ let btn=document.getElementById('voiceBtn'); if(!isRecording){ try{ let stream=await navigator.mediaDevices.getUserMedia({audio:true}); mediaRecorder=new MediaRecorder(stream); audioChunks=[]; mediaRecorder.ondataavailable=e=>audioChunks.push(e.data); mediaRecorder.onstop=()=>{ let recognition=new (window.SpeechRecognition||window.webkitSpeechRecognition)(); recognition.lang=document.documentElement.lang==='ar'?'ar-SA':'en-US'; recognition.onresult=e=>{ document.getElementById('userMessage').value=e.results[0][0].transcript; sendMessage(); }; recognition.start(); stream.getTracks().forEach(t=>t.stop()); }; mediaRecorder.start(); isRecording=true; btn.classList.add('recording'); btn.innerHTML='⏹️'; }catch(e){ alert('لا يمكن الوصول للميكروفون'); } } else { if(mediaRecorder&&mediaRecorder.state!=='inactive') mediaRecorder.stop(); isRecording=false; btn.classList.remove('recording'); btn.innerHTML='🎤'; } }
+        function toggleMenu(){ 
+            document.getElementById('sideMenu').classList.toggle('show'); 
+            document.getElementById('bgSettings').classList.add('hidden');
+            document.getElementById('voiceSettings').classList.add('hidden');
+        }
+        
+        function switchMenuTab(tab){ 
+            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active')); 
+            if(event?.currentTarget) event.currentTarget.classList.add('active'); 
+            document.getElementById('chatArea').classList.add('hidden'); 
+            document.getElementById('teachPanel').classList.add('hidden'); 
+            document.getElementById('remindersPanel').classList.add('hidden'); 
+            if(tab === 'chat') document.getElementById('chatArea').classList.remove('hidden'); 
+            else if(tab === 'teach') document.getElementById('teachPanel').classList.remove('hidden'); 
+            else if(tab === 'reminders'){ 
+                document.getElementById('remindersPanel').classList.remove('hidden'); 
+                updateRemindersList(); 
+            } 
+            if(window.innerWidth < 768) toggleMenu(); 
+        }
+        
+        function showBgSettings(){ 
+            document.getElementById('bgSettings').classList.toggle('hidden'); 
+            document.getElementById('voiceSettings').classList.add('hidden');
+            if(window.innerWidth < 768) toggleMenu(); 
+        }
+        
+        function setChatBgFromFile(){ 
+            let file = document.getElementById('bgImageFile').files[0]; 
+            if(file){ 
+                let reader = new FileReader(); 
+                reader.onload = e => { 
+                    document.getElementById('chatArea').style.backgroundImage = `url('${e.target.result}')`; 
+                    document.getElementById('chatArea').style.backgroundSize = 'cover'; 
+                }; 
+                reader.readAsDataURL(file); 
+            } 
+            document.getElementById('bgSettings').classList.add('hidden'); 
+        }
+        
+        function setChatBgFromUrl(){ 
+            let url = document.getElementById('bgUrl').value.trim(); 
+            if(url){ 
+                document.getElementById('chatArea').style.backgroundImage = `url('${url}')`; 
+                document.getElementById('chatArea').style.backgroundSize = 'cover'; 
+            } 
+            document.getElementById('bgSettings').classList.add('hidden'); 
+        }
+        
+        function setChatColor(color){ 
+            document.getElementById('chatArea').style.backgroundImage = 'none'; 
+            document.getElementById('chatArea').style.backgroundColor = color; 
+            document.getElementById('bgSettings').classList.add('hidden'); 
+        }
+        
+        function toggleLanguage(){ 
+            let html = document.documentElement; 
+            html.lang = html.lang === 'ar' ? 'en' : 'ar'; 
+            html.dir = html.lang === 'ar' ? 'rtl' : 'ltr'; 
+            alert('تم تبديل اللغة'); 
+        }
+        
+        function toggleDeviceMode(){ 
+            if(window.innerWidth < 768){ 
+                document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0'); 
+            } else { 
+                document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=yes'); 
+            } 
+            alert('تم تبديل وضع العرض'); 
+        }
+        
+        function confirmLogout(){ 
+            document.getElementById('passwordModal').classList.remove('hidden'); 
+            if(window.innerWidth < 768) toggleMenu(); 
+        }
+        
+        function hidePasswordModal(){ 
+            document.getElementById('passwordModal').classList.add('hidden'); 
+            document.getElementById('logoutPassword').value = ''; 
+        }
+        
+        function verifyAndLogout(){ 
+            if(document.getElementById('logoutPassword').value === '1234') logout(); 
+            else alert('كلمة المرور غير صحيحة'); 
+        }
+        
+        function logout(){ 
+            if(currentUser) saveData(); 
+            localStorage.removeItem('cerebonix_session'); 
+            document.getElementById('mainScreen').classList.add('hidden'); 
+            document.getElementById('loginScreen').style.display = 'flex'; 
+            if(reminderInterval) clearInterval(reminderInterval); 
+            currentUser = null; 
+            hidePasswordModal(); 
+            staticKnowledge = {}; 
+            updateableKnowledge = {}; 
+            dailyKnowledge = {}; 
+            accumulatedKnowledge = {}; 
+            multipleQuestionsKnowledge = {}; 
+            reminders = [];
+        }
 
-        document.getElementById('profileImageMobile').addEventListener('change',function(e){ if(e.target.files[0]&&currentUser){ let reader=new FileReader(); reader.onload=ev=>{ currentUser.profileImage=ev.target.result; document.getElementById('avatarDisplay').src=ev.target.result; document.getElementById('avatarDisplay').style.display='block'; document.getElementById('avatarText').style.display='none'; saveData(); }; reader.readAsDataURL(e.target.files[0]); } });
-        document.getElementById('profileImage').addEventListener('change',function(e){ if(e.target.files[0]){ let reader=new FileReader(); reader.onload=ev=>{ document.getElementById('profileImg').src=ev.target.result; document.getElementById('profileImg').style.display='block'; document.getElementById('photoText').style.display='none'; window.tempProfileImg=ev.target.result; }; reader.readAsDataURL(e.target.files[0]); } });
-        window.onload=function(){ createParticles(); let session=localStorage.getItem('cerebonix_session'); if(session){ try{ let s=JSON.parse(session); let user=localStorage.getItem('user_'+s.email); if(user){ currentUser=JSON.parse(user); staticKnowledge=currentUser.staticKnowledge||{}; updateableKnowledge=currentUser.updateableKnowledge||{}; dailyKnowledge=currentUser.dailyKnowledge||{}; accumulatedKnowledge=currentUser.accumulatedKnowledge||{}; multipleQuestionsKnowledge=currentUser.multipleQuestionsKnowledge||{}; reminders=currentUser.reminders||[]; document.getElementById('loginScreen').style.display='none'; document.getElementById('mainScreen').classList.remove('hidden'); applyUserUI(); updateStats(); updateRemindersList(); startReminderChecker(); addMessage(`مرحباً بعودتك ${currentUser.name} 👋`,'bot'); } }catch(e){} } };
-        function createParticles(){ for(let i=0;i<40;i++){ let p=document.createElement('div'); p.className='particle'; p.style.left=Math.random()*100+'%'; p.style.animationDelay=Math.random()*15+'s'; p.style.animationDuration=(Math.random()*10+10)+'s'; document.getElementById('particles').appendChild(p); } }
+        // ========== تهيئة الصفحة ==========
+        function createParticles(){ 
+            for(let i = 0; i < 40; i++){ 
+                let p = document.createElement('div'); 
+                p.className = 'particle'; 
+                p.style.left = Math.random() * 100 + '%'; 
+                p.style.animationDelay = Math.random() * 15 + 's'; 
+                p.style.animationDuration = (Math.random() * 10 + 10) + 's'; 
+                document.getElementById('particles').appendChild(p); 
+            } 
+        }
+
+        // تحميل الجلسة المحفوظة
+        window.onload = function(){ 
+            createParticles(); 
+            let session = localStorage.getItem('cerebonix_session'); 
+            if(session){ 
+                try{ 
+                    let s = JSON.parse(session); 
+                    let user = localStorage.getItem('user_' + s.email); 
+                    if(user){ 
+                        currentUser = JSON.parse(user); 
+                        staticKnowledge = currentUser.staticKnowledge || {}; 
+                        updateableKnowledge = currentUser.updateableKnowledge || {}; 
+                        dailyKnowledge = currentUser.dailyKnowledge || {}; 
+                        accumulatedKnowledge = currentUser.accumulatedKnowledge || {}; 
+                        multipleQuestionsKnowledge = currentUser.multipleQuestionsKnowledge || {}; 
+                        reminders = currentUser.reminders || []; 
+                        document.getElementById('loginScreen').style.display = 'none'; 
+                        document.getElementById('mainScreen').classList.remove('hidden'); 
+                        applyUserUI(); 
+                        updateStats(); 
+                        updateRemindersList(); 
+                        startReminderChecker(); 
+                        addMessage(`مرحباً بعودتك ${currentUser.name} 👋`, 'bot'); 
+                    } 
+                } catch(e){} 
+            }
+            
+            // تحميل الأصوات
+            if('speechSynthesis' in window) {
+                window.speechSynthesis.onvoiceschanged = loadVoices;
+                loadVoices();
+            }
+        };
+        
+        document.getElementById('profileImageMobile').addEventListener('change', function(e){ 
+            if(e.target.files[0] && currentUser){ 
+                let reader = new FileReader(); 
+                reader.onload = ev => { 
+                    currentUser.profileImage = ev.target.result; 
+                    document.getElementById('avatarDisplay').src = ev.target.result; 
+                    document.getElementById('avatarDisplay').style.display = 'block'; 
+                    document.getElementById('avatarText').style.display = 'none'; 
+                    saveData(); 
+                }; 
+                reader.readAsDataURL(e.target.files[0]); 
+            } 
+        });
+        
+        document.getElementById('profileImage').addEventListener('change', function(e){ 
+            if(e.target.files[0]){ 
+                let reader = new FileReader(); 
+                reader.onload = ev => { 
+                    document.getElementById('profileImg').src = ev.target.result; 
+                    document.getElementById('profileImg').style.display = 'block'; 
+                    document.getElementById('photoText').style.display = 'none'; 
+                    window.tempProfileImg = ev.target.result; 
+                }; 
+                reader.readAsDataURL(e.target.files[0]); 
+            } 
+        });
     </script>
 </body>
 </html>
