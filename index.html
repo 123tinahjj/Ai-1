@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Cerebonix - الذاكرة الذكية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #2a2a2a;
+            --accent-gold: #FFD700;
+            --accent-orange: #FFA500;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --border-color: rgba(255, 215, 0, 0.2);
+            --font-family: 'Cairo', 'Poppins', sans-serif;
+            --message-user-bg: linear-gradient(145deg, #FFD700, #FFA500);
+            --message-bot-bg: #2a2a2a;
+        }
+
+        html[lang="en"] {
+            direction: ltr;
+        }
+        html[lang="en"] body {
+            font-family: 'Poppins', 'Cairo', sans-serif;
+        }
+
+        body {
+            background: var(--bg-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            font-family: var(--font-family);
+            position: relative;
+        }
+
+        .background-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.03) 0%, transparent 50%),
+                        linear-gradient(145deg, #0a0a0a 0%, #1a1a1a 100%);
+            z-index: -2;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 215, 0, 0.3);
+            border-radius: 50%;
+            animation: floatParticle 15s infinite linear;
+        }
+
+        @keyframes floatParticle {
+            from { transform: translateY(100vh) translateX(-100px); opacity: 0; }
+            to { transform: translateY(-100vh) translateX(100px); opacity: 0.5; }
+        }
+
+        .login-premium, .main-premium {
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 48px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border-color) inset;
+            border: 1px solid var(--border-color);
+            animation: premiumAppear 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+
+        .main-premium {
+            max-width: 1400px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        @keyframes premiumAppear {
+            from { opacity: 0; transform: scale(0.95) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .login-premium {
+            padding: clamp(30px, 5vw, 50px) clamp(20px, 4vw, 40px);
+            display: block;
+        }
+
+        .premium-logo {
+            text-align: center;
+            margin-bottom: clamp(30px, 4vw, 40px);
+        }
+
+        .logo-icon {
+            width: min(90px, 20vw);
+            height: min(90px, 20vw);
+            background: linear-gradient(145deg, var(--accent-gold), var(--accent-orange));
+            border-radius: 30px;
+            margin: 0 auto clamp(15px, 2vw, 20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            from { transform: rotate(0deg) translateX(-100%); }
+            to { transform: rotate(0deg) translateX(100%); }
+        }
+
+        .logo-icon span {
+            font-size: clamp(35px, 8vw, 40px);
+            color: #000;
+            font-weight: 900;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-text {
+            font-size: clamp(24px, 6vw, 32px);
+            font-weight: 900;
+            background: linear-gradient(145deg, var(--accent-gold), var(--accent-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .logo-sub {
+            color: var(--text-secondary);
+            font-size: clamp(14px, 3.5vw, 16px);
+        }
+
+        .photo-upload {
+            text-align: center;
+            margin-bottom: clamp(20px, 3vw, 25px);
+        }
+
+        .photo-preview {
+            width: min(120px, 30vw);
+            height: min(120px, 30vw);
+            border-radius: 40px;
+            background: var(--bg-tertiary);
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
+            border: 3px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .input-premium {
+            margin-bottom: clamp(20px, 3vw, 25px);
+            position: relative;
+        }
+
+        .input-premium label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: clamp(13px, 3vw, 14px);
+            font-weight: 600;
+        }
+
+        .input-premium input {
+            width: 100%;
+            padding: clamp(15px, 3vw, 18px) clamp(20px, 4vw, 25px);
+            background: var(--bg-tertiary);
+            border: 2px solid #3a3a3a;
+            border-radius: 30px;
+            font-size: clamp(14px, 3.5vw, 16px);
+            color: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        .input-premium input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .login-premium-btn {
+            width: 100%;
+            padding: clamp(15px, 3vw, 18px);
+            background: linear-gradient(145deg, var(--accent-gold), var(--accent-orange));
+            border: none;
+            border-radius: 30px;
+            font-size: clamp(18px, 4.5vw, 20px);
+            font-weight: 800;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.2);
+        }
+
+        .header-premium {
+            background: var(--bg-secondary);
+            padding: clamp(15px, 2vw, 20px) clamp(20px, 3vw, 30px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .user-info-premium {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 2vw, 20px);
+        }
+
+        .user-avatar-premium {
+            width: clamp(50px, 8vw, 60px);
+            height: clamp(50px, 8vw, 60px);
+            border-radius: 20px;
+            background: linear-gradient(145deg, var(--accent-gold), var(--accent-orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(20px, 4vw, 24px);
+            color: #000;
+            font-weight: 900;
+            overflow: hidden;
+        }
+
+        .user-avatar-premium img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-text-premium h3 {
+            color: var(--accent-gold);
+            font-size: clamp(18px, 3vw, 22px);
+        }
+
+        .menu-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .side-menu {
+            position: absolute;
+            top: 90px;
+            left: 20px;
+            right: 20px;
+            max-width: 350px;
+            background: var(--bg-tertiary);
+            border-radius: 30px;
+            border: 1px solid var(--accent-gold);
+            padding: 20px;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        html[lang="en"] .side-menu {
+            left: auto;
+            right: 20px;
+        }
+
+        .side-menu.show {
+            display: block;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            margin-bottom: 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-primary);
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .menu-item.active {
+            background: var(--accent-gold);
+            color: #000;
+            font-weight: 700;
+        }
+
+        .teaching-panel, .reminders-panel {
+            background: var(--bg-secondary);
+            border-radius: 30px;
+            padding: 20px;
+            margin: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .teaching-panel h3, .reminders-panel h3 {
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .teach-inputs-modern input,
+        .teach-inputs-modern textarea {
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--bg-tertiary);
+            border: 2px solid #3a3a3a;
+            border-radius: 30px;
+            color: var(--text-primary);
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+
+        .teach-inputs-modern textarea {
+            min-height: 100px;
+        }
+
+        .teach-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .teach-btn {
+            background: linear-gradient(145deg, var(--accent-gold), var(--accent-orange));
+            border: none;
+            padding: 12px;
+            border-radius: 30px;
+            font-weight: 800;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+        }
+
+        .chat-premium {
+            flex: 1;
+            overflow-y: auto;
+            padding: clamp(20px, 3vw, 30px);
+            background: var(--bg-secondary);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            justify-content: flex-end;
+        }
+
+        .bot-message {
+            justify-content: flex-start;
+        }
+
+        .message-bubble {
+            max-width: min(70%, 600px);
+            padding: clamp(12px, 2vw, 18px) clamp(18px, 3vw, 28px);
+            border-radius: 30px;
+            font-size: clamp(14px, 2.5vw, 16px);
+            line-height: 1.6;
+            word-wrap: break-word;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .user-message .message-bubble {
+            background: var(--message-user-bg);
+            color: #000;
+            font-weight: 600;
+            border-bottom-right-radius: 5px;
+        }
+
+        .bot-message .message-bubble {
+            background: var(--message-bot-bg);
+            color: var(--text-primary);
+            border: 1px solid #3a3a3a;
+            border-bottom-left-radius: 5px;
+        }
+
+        .input-premium-area {
+            display: flex;
+            gap: 10px;
+            padding: clamp(12px, 2vw, 20px) clamp(15px, 2.5vw, 25px);
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            align-items: center;
+        }
+
+        .input-premium-area input {
+            flex: 1;
+            padding: clamp(12px, 2vw, 16px) clamp(18px, 3vw, 25px);
+            background: var(--bg-tertiary);
+            border: 2px solid #3a3a3a;
+            border-radius: 40px;
+            color: var(--text-primary);
+        }
+
+        .voice-btn {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--accent-gold);
+            color: var(--accent-gold);
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .voice-btn.recording {
+            background: var(--accent-gold);
+            color: #000;
+            animation: recording 1s infinite;
+        }
+
+        @keyframes recording {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .stats-premium {
+            padding: clamp(8px, 1.5vw, 12px) clamp(15px, 2.5vw, 25px);
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+            font-size: clamp(12px, 2.5vw, 14px);
+        }
+
+        .stats-premium span {
+            color: var(--accent-gold);
+        }
+
+        .reminder-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: var(--bg-tertiary);
+            border-radius: 15px;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ff4444;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .password-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .password-modal.hidden {
+            display: none;
+        }
+
+        .modal-content {
+            background: var(--bg-tertiary);
+            padding: 30px;
+            border-radius: 40px;
+            max-width: 400px;
+            width: 90%;
+            border: 2px solid var(--accent-gold);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (min-width: 1024px) {
+            .side-menu {
+                display: block !important;
+                position: relative;
+                top: auto;
+                left: auto;
+                margin: 20px;
+                width: 280px;
+            }
+            .menu-btn {
+                display: none;
+            }
+            .main-premium {
+                flex-direction: row;
+            }
+            #contentArea {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-gradient"></div>
+    <div class="particles" id="particles"></div>
+
+    <div class="login-premium" id="loginScreen">
+        <div class="premium-logo">
+            <div class="logo-icon"><span>🧠</span></div>
+            <div class="logo-text">Cerebonix</div>
+            <div class="logo-sub">ذاكرتك الذكية</div>
+        </div>
+        <div class="photo-upload">
+            <label for="profileImage" class="photo-preview" id="photoPreview">
+                <img id="profileImg" src="" style="display: none;">
+                <span id="photoText">📸 أضف صورتك</span>
+            </label>
+            <input type="file" id="profileImage" accept="image/*" style="display: none;" onchange="previewPhoto(this)">
+        </div>
+        <div class="input-premium"><label>📧 البريد الإلكتروني</label><input type="email" id="userEmail" placeholder="بريدك الإلكتروني"></div>
+        <div class="input-premium"><label>🔑 كلمة المرور</label><input type="password" id="userPassword" placeholder="كلمة المرور"></div>
+        <div class="input-premium"><label>👤 الاسم</label><input type="text" id="userName" placeholder="اسمك"></div>
+        <button class="login-premium-btn" onclick="login()">ابدأ رحلتك</button>
+    </div>
+
+    <div class="main-premium hidden" id="mainScreen">
+        <div class="header-premium">
+            <div class="user-info-premium">
+                <div class="user-avatar-premium" id="userAvatar"><img id="avatarDisplay" style="display:none;"><span id="avatarText">👤</span></div>
+                <div class="user-text-premium"><h3 id="displayName"></h3><p id="displayEmail"></p></div>
+            </div>
+            <div class="menu-btn" onclick="toggleMenu()">☰</div>
+        </div>
+        <div class="side-menu" id="sideMenu">
+            <div class="menu-item active" onclick="switchMenuTab('chat')"><span>💬</span> <span>المحادثة</span></div>
+            <div class="menu-item" onclick="switchMenuTab('teach')"><span>📚</span> <span>تعليم الذكاء</span></div>
+            <div class="menu-item" onclick="switchMenuTab('reminders')"><span>⏰</span> <span>التذكيرات</span></div>
+            <div class="menu-item" onclick="toggleLanguage()"><span>🌐</span> <span>تغيير اللغة</span></div>
+            <div class="menu-item" onclick="confirmLogout()"><span>🚪</span> <span>تسجيل الخروج</span></div>
+        </div>
+        <div id="contentArea" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
+            <div class="chat-premium" id="chatArea"><div class="message bot-message"><div class="message-bubble">👋 مرحباً! أنا Cerebonix - أتعلم منك وأفتح تطبيقاتك بأمرك</div></div></div>
+            <div class="teaching-panel hidden" id="teachPanel">
+                <h3>📚 تعليم Cerebonix (سؤال واحد ← جواب واحد أو عدة أسئلة)</h3>
+                <div class="teach-inputs-modern">
+                    <input type="text" id="teachQ" placeholder="السؤال أو الكلمة المفتاحية">
+                    <textarea id="teachA" rows="3" placeholder="الإجابة..."></textarea>
+                    <div class="teach-buttons">
+                        <button class="teach-btn" onclick="teachSingle()">➕ تعليم (سؤال واحد)</button>
+                        <button class="teach-btn" onclick="teachMultiple()">🔗 عدة أسئلة لجواب واحد</button>
+                    </div>
+                    <div class="memory-limit" style="font-size:12px; margin-top:10px;">💡 يمكنك ربط عدة أسئلة بنفس الجواب (مثل: من أنا، هل تعرفني، بتعرف مين أنا → كلها تعطي نفس الرد)</div>
+                </div>
+            </div>
+            <div class="reminders-panel hidden" id="remindersPanel">
+                <h3>⏰ التذكيرات</h3>
+                <div class="reminder-inputs" style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px;">
+                    <input type="text" id="reminderText" placeholder="ماذا تذكرني؟" style="flex:1; padding:12px; border-radius:30px; background:#2a2a2a; color:white; border:none;">
+                    <input type="datetime-local" id="reminderTime" style="padding:12px; border-radius:30px;">
+                    <button class="teach-btn" onclick="addReminder()" style="padding:12px 20px;">➕ إضافة</button>
+                </div>
+                <div id="remindersList"></div>
+            </div>
+        </div>
+        <div class="input-premium-area">
+            <input type="text" id="userMessage" placeholder="اكتب رسالتك أو أمر بفتح تطبيق..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <div class="voice-btn" id="voiceBtn" onclick="toggleVoiceRecording()">🎤</div>
+            <button class="teach-btn" onclick="sendMessage()">إرسال</button>
+        </div>
+        <div class="stats-premium"><span>📚 تعلمت <span id="knowledgeCount">0</span> معلومة</span><span>📱 افتح يوتيوب، انستجرام، واتساب بأمرك</span></div>
+    </div>
+
+    <div class="password-modal hidden" id="passwordModal"><div class="modal-content"><h3>🔐 تأكيد تسجيل الخروج</h3><p>كلمة المرور: <strong>1234</strong></p><input type="password" id="logoutPassword"><button onclick="verifyAndLogout()">تأكيد</button><button class="cancel-btn" onclick="hidePasswordModal()">إلغاء</button></div></div>
+
+    <script>
+        // بنية المعرفة: دعم عدة أسئلة لنفس الجواب
+        let knowledgeBase = {}; // key = السؤال, value = الجواب
+        let questionGroups = {}; // المجموعات: array من الأسئلة كلها تؤدي لنفس الجواب (نخزن الجواب في أول سؤال رئيسي)
+
+        let currentUser = null;
+        let reminders = [];
+        let reminderInterval = null;
+        let mediaRecorder = null;
+        let isRecording = false;
+
+        // الأسئلة المترابطة الافتراضية (مثال: من أنا، هل تعرفني، بتعرف مين أنا ← كلهم يعطون اسم المستخدم)
+        const defaultGroupQuestions = ["من أنا", "هل تعرفني", "بتعرف مين أنا", "مين أنا", "من انا", "تعرفني", "عرفني بنفسك"];
+
+        function init() {
+            createParticles();
+            checkSavedSession();
+        }
+
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for(let i=0;i<50;i++) {
+                let p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random()*100+'%';
+                p.style.animationDelay = Math.random()*15+'s';
+                container.appendChild(p);
+            }
+        }
+
+        function checkSavedSession() {
+            let saved = localStorage.getItem('cerebonix_session');
+            if(saved) {
+                let session = JSON.parse(saved);
+                let userData = localStorage.getItem('user_'+session.email);
+                if(userData) {
+                    currentUser = JSON.parse(userData);
+                    knowledgeBase = currentUser.knowledgeBase || {};
+                    questionGroups = currentUser.questionGroups || {};
+                    reminders = currentUser.reminders || [];
+                    setTimeout(()=>login(true), 100);
+                }
+            }
+        }
+
+        function previewPhoto(input) {
+            let preview = document.getElementById('profileImg');
+            let text = document.getElementById('photoText');
+            if(input.files && input.files[0]) {
+                let reader = new FileReader();
+                reader.onload = e => { preview.src = e.target.result; preview.style.display='block'; text.style.display='none'; };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function login(auto=false) {
+            let email = document.getElementById('userEmail').value.trim();
+            let pass = document.getElementById('userPassword').value.trim();
+            let name = document.getElementById('userName').value.trim();
+            let profileImg = document.getElementById('profileImg').src;
+            if(!auto && (!email || !pass || !name)) { alert('املأ جميع الحقول'); return; }
+            let saved = localStorage.getItem('user_'+email);
+            if(saved) {
+                currentUser = JSON.parse(saved);
+                if(!auto && currentUser.password !== pass) { alert('كلمة مرور خاطئة'); return; }
+                if(name) currentUser.name = name;
+                if(profileImg && !profileImg.includes('blob:') && profileImg !== window.location.href) currentUser.profileImage = profileImg;
+                knowledgeBase = currentUser.knowledgeBase || {};
+                questionGroups = currentUser.questionGroups || {};
+                reminders = currentUser.reminders || [];
+            } else if(!auto) {
+                currentUser = { email, password:pass, name, profileImage: profileImg || '', knowledgeBase:{}, questionGroups:{}, reminders:[] };
+                knowledgeBase = {}; questionGroups = {};
+                reminders = [];
+            }
+            if(currentUser) {
+                localStorage.setItem('cerebonix_session', JSON.stringify({email:currentUser.email, timestamp:Date.now()}));
+                saveAllData();
+                updateUI();
+                document.getElementById('loginScreen').style.display='none';
+                document.getElementById('mainScreen').classList.remove('hidden');
+                addBotMessage(`أهلاً ${currentUser.name} 🤖 أنا أتعلم منك، يمكنك تعليمي عدة أسئلة لنفس الجواب، ويمكنك فتح يوتيوب، انستجرام، واتساب بأمرك!`);
+                updateStats();
+                updateRemindersList();
+                startReminderChecker();
+                // تعيين المجموعة الافتراضية للأسئلة الشخصية (ترتبط باسم المستخدم)
+                if(!questionGroups['identity_group']) {
+                    questionGroups['identity_group'] = { questions: [...defaultGroupQuestions], answer: currentUser.name };
+                    // إضافة كل سؤال إلى قاعدة المعرفة
+                    defaultGroupQuestions.forEach(q => { knowledgeBase[q] = currentUser.name; });
+                    saveAllData();
+                    updateStats();
+                } else {
+                    // تحديث الجواب إذا تغير الاسم
+                    if(questionGroups['identity_group'].answer !== currentUser.name) {
+                        questionGroups['identity_group'].answer = currentUser.name;
+                        questionGroups['identity_group'].questions.forEach(q => { knowledgeBase[q] = currentUser.name; });
+                        saveAllData();
+                    }
+                }
+            }
+        }
+
+        function updateUI() {
+            document.getElementById('displayName').innerText = currentUser.name;
+            document.getElementById('displayEmail').innerText = currentUser.email;
+            if(currentUser.profileImage) {
+                document.getElementById('avatarDisplay').src = currentUser.profileImage;
+                document.getElementById('avatarDisplay').style.display='block';
+                document.getElementById('avatarText').style.display='none';
+            }
+        }
+
+        function addBotMessage(msg) { addMessage(msg, 'bot'); }
+        function addUserMessage(msg) { addMessage(msg, 'user'); }
+        function addMessage(text, sender) {
+            let chat = document.getElementById('chatArea');
+            let div = document.createElement('div');
+            div.className = `message ${sender}-message`;
+            let bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+            bubble.innerText = text;
+            div.appendChild(bubble);
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        // فتح التطبيقات (يوتيوب، انستجرام، واتساب)
+        function openApp(command) {
+            let lower = command.toLowerCase();
+            if(lower.includes('يوتيوب') || lower.includes('youtube')) {
+                window.location.href = "https://www.youtube.com";
+                addBotMessage("📱 جاري فتح يوتيوب...");
+                return true;
+            }
+            if(lower.includes('انستجرام') || lower.includes('instagram')) {
+                window.location.href = "https://www.instagram.com";
+                addBotMessage("📱 جاري فتح انستجرام...");
+                return true;
+            }
+            if(lower.includes('واتساب') || lower.includes('whatsapp')) {
+                window.location.href = "https://web.whatsapp.com";
+                addBotMessage("📱 جاري فتح واتساب ويب...");
+                return true;
+            }
+            if(lower.includes('تيك توك') || lower.includes('tiktok')) {
+                window.location.href = "https://www.tiktok.com";
+                addBotMessage("📱 جاري فتح تيك توك...");
+                return true;
+            }
+            return false;
+        }
+
+        async function sendMessage() {
+            let input = document.getElementById('userMessage');
+            let msg = input.value.trim();
+            if(!msg) return;
+            addUserMessage(msg);
+            input.value = '';
+
+            // 1- فتح التطبيقات
+            if(openApp(msg)) return;
+
+            // 2- البحث في قاعدة المعرفة (تدعم عدة أسئلة لنفس الجواب)
+            let response = null;
+            // البحث المباشر
+            for(let key in knowledgeBase) {
+                if(msg.includes(key)) {
+                    response = knowledgeBase[key];
+                    break;
+                }
+            }
+            // البحث في المجموعات (مرن)
+            if(!response) {
+                for(let groupId in questionGroups) {
+                    let group = questionGroups[groupId];
+                    if(group.questions.some(q => msg.includes(q))) {
+                        response = group.answer;
+                        break;
+                    }
+                }
+            }
+            
+            if(response) {
+                addBotMessage(response);
+            } else {
+                addBotMessage(`📚 لم أتعلم هذا بعد. يمكنك تعليمي بالذهاب إلى "تعليم الذكاء" وإدخال السؤال والإجابة.\nأو استخدم خاصية "عدة أسئلة لجواب واحد" لربط عدة أسئلة بنفس الرد.`);
+            }
+            updateStats();
+        }
+
+        // تعليم سؤال واحد
+        function teachSingle() {
+            let q = document.getElementById('teachQ').value.trim();
+            let a = document.getElementById('teachA').value.trim();
+            if(!q || !a) { alert('أدخل السؤال والجواب'); return; }
+            knowledgeBase[q] = a;
+            // التأكد من عدم وجوده في مجموعة سابقة (اختياري)
+            saveAllData();
+            addBotMessage(`✅ تم تعليمي: "${q}" → "${a}"`);
+            document.getElementById('teachQ').value = '';
+            document.getElementById('teachA').value = '';
+            updateStats();
+            switchMenuTab('chat');
+        }
+
+        // تعليم عدة أسئلة لنفس الجواب (مثل: من أنا، هل تعرفني، بتعرف مين أنا → كلها تعطي نفس الرد)
+        function teachMultiple() {
+            let questionsRaw = document.getElementById('teachQ').value.trim();
+            let answer = document.getElementById('teachA').value.trim();
+            if(!questionsRaw || !answer) { alert('أدخل الأسئلة مفصولة بفواصل والجواب'); return; }
+            let questionsList = questionsRaw.split(',').map(q => q.trim()).filter(q => q.length > 0);
+            if(questionsList.length === 0) { alert('أدخل سؤالاً واحداً على الأقل'); return; }
+            let groupId = 'group_'+Date.now();
+            questionGroups[groupId] = { questions: questionsList, answer: answer };
+            // إضافة كل سؤال إلى المعرفة المباشرة للوصول السريع
+            questionsList.forEach(q => { knowledgeBase[q] = answer; });
+            saveAllData();
+            addBotMessage(`✅ تم ربط ${questionsList.length} سؤال بالجواب: "${answer}"\nالأسئلة: ${questionsList.join('، ')}`);
+            document.getElementById('teachQ').value = '';
+            document.getElementById('teachA').value = '';
+            updateStats();
+            switchMenuTab('chat');
+        }
+
+        function saveAllData() {
+            if(currentUser) {
+                currentUser.knowledgeBase = knowledgeBase;
+                currentUser.questionGroups = questionGroups;
+                currentUser.reminders = reminders;
+                localStorage.setItem('user_'+currentUser.email, JSON.stringify(currentUser));
+            }
+        }
+
+        function updateStats() {
+            let total = Object.keys(knowledgeBase).length + Object.keys(questionGroups).length;
+            document.getElementById('knowledgeCount').innerText = total;
+        }
+
+        // التذكيرات
+        function addReminder() {
+            let text = document.getElementById('reminderText').value.trim();
+            let time = document.getElementById('reminderTime').value;
+            if(text && time) {
+                reminders.push({ id: Date.now(), text, time, completed: false });
+                saveAllData();
+                updateRemindersList();
+                addBotMessage(`⏰ تم إضافة تذكير: "${text}" في ${new Date(time).toLocaleString('ar-SA')}`);
+                document.getElementById('reminderText').value = '';
+                document.getElementById('reminderTime').value = '';
+                switchMenuTab('chat');
+            } else alert('أدخل نص التذكير والوقت');
+        }
+        function updateRemindersList() {
+            let list = document.getElementById('remindersList');
+            if(!list) return;
+            list.innerHTML = '';
+            let now = new Date();
+            let active = reminders.filter(r=>!r.completed && new Date(r.time)>now).sort((a,b)=>new Date(a.time)-new Date(b.time));
+            if(active.length===0) { list.innerHTML='<p style="color:#666;text-align:center;">لا توجد تذكيرات نشطة</p>'; return; }
+            active.forEach(r => {
+                let div = document.createElement('div');
+                div.className='reminder-item';
+                div.innerHTML = `<span>${r.text}</span><small>${new Date(r.time).toLocaleString('ar-SA')}</small><button class="delete-btn" onclick="deleteReminder(${r.id})">❌</button>`;
+                list.appendChild(div);
+            });
+        }
+        function deleteReminder(id) { reminders = reminders.filter(r=>r.id!==id); saveAllData(); updateRemindersList(); }
+        function startReminderChecker() {
+            if(reminderInterval) clearInterval(reminderInterval);
+            reminderInterval = setInterval(()=>{
+                let now = new Date();
+                let changed = false;
+                reminders.forEach(r => {
+                    if(new Date(r.time) <= now && !r.completed) {
+                        addBotMessage(`⏰ تذكير: ${r.text}`);
+                        r.completed = true;
+                        changed = true;
+                    }
+                });
+                if(changed) { saveAllData(); updateRemindersList(); }
+            }, 30000);
+        }
+
+        // الواجهة والقوائم
+        function toggleMenu() { if(window.innerWidth<1024) document.getElementById('sideMenu').classList.toggle('show'); }
+        function switchMenuTab(tab) {
+            document.querySelectorAll('.menu-item').forEach(i=>i.classList.remove('active'));
+            if(event && event.currentTarget) event.currentTarget.classList.add('active');
+            document.getElementById('chatArea').classList.add('hidden');
+            document.getElementById('teachPanel').classList.add('hidden');
+            document.getElementById('remindersPanel').classList.add('hidden');
+            if(tab==='chat') document.getElementById('chatArea').classList.remove('hidden');
+            else if(tab==='teach') document.getElementById('teachPanel').classList.remove('hidden');
+            else if(tab==='reminders') { document.getElementById('remindersPanel').classList.remove('hidden'); updateRemindersList(); }
+            if(window.innerWidth<1024) toggleMenu();
+        }
+        function confirmLogout() { document.getElementById('passwordModal').classList.remove('hidden'); }
+        function hidePasswordModal() { document.getElementById('passwordModal').classList.add('hidden'); document.getElementById('logoutPassword').value=''; }
+        function verifyAndLogout() { if(document.getElementById('logoutPassword').value==='1234') logout(); else alert('كلمة المرور غير صحيحة'); }
+        function logout() { saveAllData(); localStorage.removeItem('cerebonix_session'); document.getElementById('mainScreen').classList.add('hidden'); document.getElementById('loginScreen').style.display='block'; if(reminderInterval) clearInterval(reminderInterval); currentUser=null; knowledgeBase={}; questionGroups={}; reminders=[]; alert('تم تسجيل الخروج'); hidePasswordModal(); }
+
+        // الصوت
+        async function toggleVoiceRecording() {
+            let btn = document.getElementById('voiceBtn');
+            if(!isRecording) {
+                try {
+                    let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    let chunks = [];
+                    mediaRecorder.ondataavailable = e => chunks.push(e.data);
+                    mediaRecorder.onstop = () => {
+                        let blob = new Blob(chunks, {type:'audio/wav'});
+                        if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                            let recog = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                            recog.lang = 'ar-SA';
+                            recog.onresult = e => { document.getElementById('userMessage').value = e.results[0][0].transcript; sendMessage(); };
+                            recog.start();
+                        } else alert('التعرف على الصوت غير مدعوم');
+                        stream.getTracks().forEach(t=>t.stop());
+                    };
+                    mediaRecorder.start();
+                    isRecording=true;
+                    btn.classList.add('recording');
+                    btn.innerHTML='⏹️';
+                } catch(e) { alert('لا يمكن الوصول للميكروفون'); }
+            } else {
+                if(mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+                isRecording=false;
+                btn.classList.remove('recording');
+                btn.innerHTML='🎤';
+            }
+        }
+
+        function toggleLanguage() {
+            let html = document.documentElement;
+            let isAr = html.lang === 'ar';
+            html.lang = isAr ? 'en' : 'ar';
+            html.dir = isAr ? 'ltr' : 'rtl';
+            // تغيير بسيط للنصوص الرئيسية
+            document.querySelector('.logo-text').innerText = isAr ? 'Cerebonix' : 'Cerebonix';
+            document.querySelector('.logo-sub').innerText = isAr ? 'Your Smart Memory' : 'ذاكرتك الذكية';
+            document.querySelector('.login-premium-btn').innerText = isAr ? 'Start Journey' : 'ابدأ رحلتك';
+        }
+
+        window.addEventListener('resize', ()=>{ if(window.innerWidth>=1024) document.getElementById('sideMenu').style.display='block'; else document.getElementById('sideMenu').style.display='none'; });
+        init();
+    </script>
+</body>
+</html>
