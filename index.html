@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Cerebonix - ذاكرتي الذكية</title>
+    <meta name="theme-color" content="#FFD700">
+    <title>Cerebonix Pro - ذاكرتك الذكية المتطورة</title>
     <style>
         /* ===== RESET & BASE ===== */
         * {
@@ -13,10 +14,8 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@300;400;600;700&display=swap');
 
-        /* ===== CSS VARIABLES ===== */
         :root {
             --bg-primary: #0a0a0a;
             --bg-secondary: #1a1a1a;
@@ -26,27 +25,15 @@
             --text-primary: #ffffff;
             --text-secondary: #888888;
             --border-color: rgba(255, 215, 0, 0.2);
-            --font-family: 'Cairo', 'Poppins', sans-serif;
-            --message-user-bg: linear-gradient(145deg, #FFD700, #FFA500);
-            --message-bot-bg: #2a2a2a;
-        }
-
-        html[lang="en"] {
-            direction: ltr;
-        }
-        html[lang="en"] body {
-            font-family: 'Poppins', 'Cairo', sans-serif;
+            --success-color: #4caf50;
+            --danger-color: #ff4444;
+            --warning-color: #ff9800;
         }
 
         body {
             background: var(--bg-primary);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0;
-            margin: 0;
-            font-family: var(--font-family);
+            font-family: 'Cairo', 'Poppins', sans-serif;
             position: fixed;
             top: 0;
             left: 0;
@@ -55,7 +42,7 @@
             overflow: hidden;
         }
 
-        /* ===== ANIMATED BACKGROUND ===== */
+        /* Animated Background */
         .background-gradient {
             position: fixed;
             top: 0;
@@ -92,7 +79,7 @@
             to { transform: translateY(-100vh) translateX(100px); opacity: 0.5; }
         }
 
-        /* ===== PREMIUM CONTAINERS ===== */
+        /* Login Screen */
         .login-premium, .main-premium {
             position: absolute;
             top: 0;
@@ -108,20 +95,11 @@
             flex-direction: column;
         }
 
-        .main-premium {
-            flex-direction: column;
-        }
-
         .login-scroll {
             flex: 1;
             overflow-y: auto;
             padding: 20px;
             -webkit-overflow-scrolling: touch;
-        }
-
-        .login-premium {
-            display: flex;
-            flex-direction: column;
         }
 
         .premium-logo {
@@ -139,17 +117,15 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
-            position: relative;
-            overflow: hidden;
+            animation: pulse 2s infinite;
         }
 
-        .logo-icon span {
-            font-size: 40px;
-            color: #000;
-            font-weight: 900;
-            position: relative;
-            z-index: 1;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
+
+        .logo-icon span { font-size: 40px; color: #000; font-weight: 900; }
 
         .logo-text {
             font-size: 28px;
@@ -159,76 +135,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .logo-sub {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .welcome-premium {
-            background: rgba(255, 215, 0, 0.05);
-            border-radius: 32px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
-        }
-
-        .welcome-premium p {
-            color: var(--text-primary);
-            font-size: 16px;
-            line-height: 1.6;
-            text-align: center;
-        }
-
-        .welcome-premium .big-text {
-            font-size: 28px;
-            font-weight: 900;
-            color: var(--accent-gold);
-            margin: 10px 0;
-        }
-
-        .heart-icon {
-            font-size: 36px;
-            text-align: center;
-            animation: heartbeat 1.5s ease infinite;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        .photo-upload {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .photo-preview {
-            width: 100px;
-            height: 100px;
-            border-radius: 40px;
-            background: var(--bg-tertiary);
-            margin: 0 auto 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            cursor: pointer;
-            border: 3px solid rgba(255, 215, 0, 0.5);
-            transition: all 0.3s;
-        }
-
-        .photo-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .photo-preview span {
-            color: var(--text-secondary);
-            font-size: 12px;
-            text-align: center;
-        }
-
+        /* Premium Components */
         .input-premium {
             margin-bottom: 18px;
         }
@@ -241,7 +148,7 @@
             font-weight: 600;
         }
 
-        .input-premium input {
+        .input-premium input, .input-premium textarea, .input-premium select {
             width: 100%;
             padding: 14px 20px;
             background: var(--bg-tertiary);
@@ -249,9 +156,10 @@
             border-radius: 30px;
             font-size: 14px;
             color: var(--text-primary);
+            font-family: inherit;
         }
 
-        .input-premium input:focus {
+        .input-premium input:focus, .input-premium textarea:focus {
             outline: none;
             border-color: var(--accent-gold);
         }
@@ -267,14 +175,14 @@
             color: #000;
             cursor: pointer;
             margin-top: 10px;
+            transition: transform 0.2s;
         }
 
-        .footer-premium {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-            font-size: 12px;
-        }
+        .login-premium-btn:active { transform: scale(0.98); }
+
+        /* Main Interface */
+        .main-premium { flex-direction: column; }
+        .main-premium.hidden { display: none; }
 
         .header-premium {
             background: var(--bg-secondary);
@@ -314,33 +222,6 @@
             object-fit: cover;
         }
 
-        .user-text-premium {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .user-text-premium h3 {
-            color: var(--accent-gold);
-            font-size: 16px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .user-text-premium p {
-            color: var(--text-secondary);
-            font-size: 11px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 6px;
-            flex-shrink: 0;
-        }
-
         .icon-btn {
             background: var(--bg-tertiary);
             border: 1px solid var(--accent-gold);
@@ -356,10 +237,9 @@
             transition: all 0.2s;
         }
 
-        .icon-btn:active {
-            transform: scale(0.95);
-        }
+        .icon-btn:active { transform: scale(0.95); }
 
+        /* Side Menu */
         .side-menu {
             position: absolute;
             top: 70px;
@@ -376,9 +256,7 @@
             backdrop-filter: blur(20px);
         }
 
-        .side-menu.show {
-            display: block;
-        }
+        .side-menu.show { display: block; }
 
         .menu-item {
             display: flex;
@@ -388,17 +266,13 @@
             border-radius: 20px;
             cursor: pointer;
             color: var(--text-primary);
+            transition: background 0.2s;
         }
 
-        .menu-item:active {
-            background: rgba(255, 215, 0, 0.2);
-        }
+        .menu-item:active { background: rgba(255, 215, 0, 0.2); }
+        .menu-item.active { background: var(--accent-gold); color: #000; }
 
-        .menu-item.active {
-            background: var(--accent-gold);
-            color: #000;
-        }
-
+        /* Content Area */
         .content-area {
             flex: 1;
             display: flex;
@@ -412,8 +286,6 @@
             overflow-y: auto;
             padding: 16px;
             background: var(--bg-secondary);
-            background-size: cover;
-            background-position: center;
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -423,15 +295,16 @@
         .message {
             display: flex;
             margin-bottom: 4px;
+            animation: fadeIn 0.3s ease;
         }
 
-        .user-message {
-            justify-content: flex-end;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .bot-message {
-            justify-content: flex-start;
-        }
+        .user-message { justify-content: flex-end; }
+        .bot-message { justify-content: flex-start; }
 
         .message-bubble {
             max-width: 85%;
@@ -443,7 +316,7 @@
         }
 
         .user-message .message-bubble {
-            background: var(--message-user-bg);
+            background: linear-gradient(145deg, var(--accent-gold), var(--accent-orange));
             color: #000;
             font-weight: 600;
             border-bottom-right-radius: 4px;
@@ -456,139 +329,7 @@
             border-bottom-left-radius: 4px;
         }
 
-        .message-time {
-            font-size: 9px;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
-
-        .speak-btn {
-            background: none;
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 10px;
-            margin-top: 5px;
-            cursor: pointer;
-        }
-
-        .person-image-in-chat {
-            max-width: 100%;
-            border-radius: 16px;
-            margin: 10px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        .teaching-panel, .reminders-panel, .persons-panel {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px;
-            background: var(--bg-secondary);
-        }
-
-        .teaching-panel h3, .reminders-panel h3, .persons-panel h3 {
-            color: var(--accent-gold);
-            margin-bottom: 16px;
-            font-size: 18px;
-            text-align: center;
-        }
-
-        .teach-inputs-modern input,
-        .teach-inputs-modern textarea {
-            width: 100%;
-            padding: 12px 16px;
-            background: var(--bg-tertiary);
-            border: 2px solid #3a3a3a;
-            border-radius: 24px;
-            color: var(--text-primary);
-            font-size: 14px;
-            margin-bottom: 12px;
-        }
-
-        .teach-inputs-modern textarea {
-            min-height: 100px;
-        }
-
-        .teach-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 12px 0;
-        }
-
-        .teach-btn {
-            background: linear-gradient(145deg, var(--accent-gold), var(--accent-orange));
-            border: none;
-            padding: 10px 12px;
-            border-radius: 30px;
-            font-weight: 700;
-            color: #000;
-            cursor: pointer;
-            flex: 1;
-            min-width: 100px;
-            font-size: 13px;
-        }
-
-        .teach-btn.static-btn {
-            background: linear-gradient(145deg, #4a4a4a, #2a2a2a);
-            color: var(--accent-gold);
-            border: 1px solid var(--accent-gold);
-        }
-
-        .person-card {
-            background: var(--bg-tertiary);
-            border-radius: 20px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-        }
-        
-        .person-image {
-            width: 100%;
-            max-height: 250px;
-            object-fit: cover;
-        }
-        
-        .person-info {
-            padding: 15px;
-        }
-        
-        .person-name {
-            color: var(--accent-gold);
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .person-description {
-            color: var(--text-primary);
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-        
-        .ask-btn {
-            background: var(--accent-gold);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 14px;
-            margin-left: 10px;
-        }
-        
-        .delete-person-btn {
-            background: #ff4444;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            color: white;
-        }
-
+        /* Input Area */
         .input-premium-area {
             display: flex;
             gap: 8px;
@@ -609,11 +350,6 @@
             min-width: 0;
         }
 
-        .input-premium-area input:focus {
-            border-color: var(--accent-gold);
-            outline: none;
-        }
-
         .voice-btn {
             background: var(--bg-tertiary);
             border: 2px solid var(--accent-gold);
@@ -627,6 +363,7 @@
             font-size: 22px;
             cursor: pointer;
             flex-shrink: 0;
+            transition: all 0.2s;
         }
 
         .voice-btn.recording {
@@ -635,11 +372,7 @@
             animation: pulse 1s infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
+        /* Stats */
         .stats-premium {
             padding: 8px 16px;
             background: var(--bg-secondary);
@@ -653,24 +386,8 @@
             gap: 5px;
         }
 
-        .hidden {
-            display: none !important;
-        }
-
-        .bg-settings {
-            position: absolute;
-            bottom: 80px;
-            left: 10px;
-            right: 10px;
-            background: var(--bg-tertiary);
-            border-radius: 30px;
-            padding: 16px;
-            border: 1px solid var(--accent-gold);
-            z-index: 200;
-            backdrop-filter: blur(20px);
-        }
-
-        .password-modal {
+        /* Modal */
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -683,94 +400,49 @@
             z-index: 3000;
         }
 
-        .password-modal.hidden {
-            display: none;
-        }
+        .modal-overlay.hidden { display: none; }
 
         .modal-content {
             background: var(--bg-tertiary);
             padding: 24px;
             border-radius: 40px;
             width: 90%;
-            max-width: 320px;
+            max-width: 400px;
             border: 2px solid var(--accent-gold);
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
-        .modal-content input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            background: var(--bg-secondary);
-            border: 1px solid var(--accent-gold);
-            border-radius: 20px;
-            color: white;
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: var(--accent-gold);
+            padding: 12px 24px;
+            border-radius: 30px;
+            z-index: 4000;
+            animation: slideUp 0.3s ease;
+            pointer-events: none;
         }
 
-        .modal-content button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 8px;
-            background: var(--accent-gold);
-            border: none;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
+        @keyframes slideUp {
+            from { bottom: -50px; opacity: 0; }
+            to { bottom: 20px; opacity: 1; }
         }
 
-        .reminder-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: var(--bg-tertiary);
-            border-radius: 15px;
-            margin-bottom: 8px;
-        }
+        .hidden { display: none !important; }
 
-        .delete-btn {
-            background: none;
-            border: none;
-            color: #ff4444;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        .voice-settings {
-            position: absolute;
-            bottom: 80px;
-            right: 10px;
-            background: var(--bg-tertiary);
-            border-radius: 20px;
-            padding: 10px;
-            border: 1px solid var(--accent-gold);
-            z-index: 200;
-            display: none;
-        }
-
-        .voice-settings.show {
-            display: block;
-        }
-
-        .voice-settings select {
-            width: 100%;
-            padding: 8px;
-            background: var(--bg-secondary);
-            color: white;
-            border: 1px solid var(--accent-gold);
-            border-radius: 15px;
-        }
-
-        @media (min-width: 768px) and (orientation: landscape) {
-            .main-premium {
-                flex-direction: row;
-            }
-            
+        /* Responsive */
+        @media (min-width: 768px) {
             .side-menu {
                 position: relative;
                 top: 0;
                 left: 0;
                 right: auto;
-                width: 260px;
+                width: 280px;
                 display: block !important;
                 border-radius: 0;
                 height: 100%;
@@ -778,74 +450,53 @@
                 margin: 0;
             }
             
-            .content-area {
-                flex: 1;
-            }
-            
-            .menu-btn {
-                display: none;
-            }
-            
-            .header-premium {
-                position: absolute;
-                top: 0;
-                left: 260px;
-                right: 0;
-                z-index: 10;
-            }
-            
-            .content-area {
-                margin-top: 70px;
-            }
+            .content-area { flex: 1; }
+            .menu-btn { display: none; }
+            .header-premium { position: absolute; top: 0; left: 280px; right: 0; z-index: 10; }
+            .content-area { margin-top: 70px; }
         }
+
+        :root { --message-bot-bg: #2a2a2a; }
     </style>
 </head>
 <body>
     <div class="background-gradient"></div>
     <div class="particles" id="particles"></div>
 
+    <!-- Login Screen -->
     <div class="login-premium" id="loginScreen">
         <div class="login-scroll">
             <div class="premium-logo">
                 <div class="logo-icon"><span>🧠</span></div>
-                <div class="logo-text">Cerebonix</div>
-                <div class="logo-sub">ذاكرتك الذكية</div>
-            </div>
-            <div class="welcome-premium">
-                <p>أنا ذكاء اصطناعي</p>
-                <div class="big-text">صفحتك البيضاء</div>
-                <p>أحفظ كل ما تعلمني وأذكرك به</p>
-                <div class="heart-icon">❤️</div>
-            </div>
-            <div class="photo-upload">
-                <div class="photo-preview" id="photoPreview" onclick="document.getElementById('profileImage').click()">
-                    <img id="profileImg" src="" style="display: none;">
-                    <span id="photoText">📸 اضف صورتك</span>
-                </div>
-                <input type="file" id="profileImage" accept="image/*" style="display: none;">
-            </div>
-            <div class="input-premium">
-                <label>📧 البريد الإلكتروني</label>
-                <input type="email" id="userEmail" placeholder="أدخل بريدك">
-            </div>
-            <div class="input-premium">
-                <label>🔑 كلمة المرور</label>
-                <input type="password" id="userPassword" placeholder="كلمة المرور">
+                <div class="logo-text">Cerebonix Pro</div>
+                <div class="logo-sub">ذاكرتك الذكية المتطورة</div>
             </div>
             <div class="input-premium">
                 <label>👤 الاسم</label>
                 <input type="text" id="userName" placeholder="اسمك">
             </div>
-            <button class="login-premium-btn" onclick="login()">ابدأ رحلتك</button>
-            <div class="footer-premium"><span>✨</span> أنت من تملأني بالحياة <span>✨</span></div>
+            <div class="input-premium">
+                <label>📧 البريد الإلكتروني</label>
+                <input type="email" id="userEmail" placeholder="example@email.com">
+            </div>
+            <div class="input-premium">
+                <label>🔑 كلمة المرور</label>
+                <input type="password" id="userPassword" placeholder="********">
+            </div>
+            <button class="login-premium-btn" onclick="login()">🚀 ابدأ رحلتك</button>
+            <div class="input-premium" style="margin-top: 20px;">
+                <label>📦 استيراد بيانات</label>
+                <input type="file" id="importFile" accept=".json">
+                <button class="login-premium-btn" onclick="importData()" style="margin-top: 10px; background: #4a4a4a;">📂 استيراد</button>
+            </div>
         </div>
     </div>
 
+    <!-- Main Screen -->
     <div class="main-premium hidden" id="mainScreen">
         <div class="header-premium">
             <div class="user-info-premium">
-                <div class="user-avatar-premium" id="userAvatar" onclick="document.getElementById('profileImageMobile').click()">
-                    <img id="avatarDisplay" src="" style="display: none;">
+                <div class="user-avatar-premium" id="userAvatar">
                     <span id="avatarText">👤</span>
                 </div>
                 <div class="user-text-premium">
@@ -854,11 +505,10 @@
                 </div>
             </div>
             <div class="action-buttons">
-                <div class="icon-btn" onclick="showVoiceSettings()">🎵</div>
-                <div class="icon-btn" onclick="toggleDeviceMode()">📱💻</div>
+                <div class="icon-btn" onclick="exportData()">💾</div>
+                <div class="icon-btn" onclick="toggleTheme()">🌙</div>
                 <div class="icon-btn menu-btn" onclick="toggleMenu()">☰</div>
             </div>
-            <input type="file" id="profileImageMobile" accept="image/*" style="display: none;">
         </div>
 
         <div class="side-menu" id="sideMenu">
@@ -866,922 +516,845 @@
             <div class="menu-item" onclick="switchMenuTab('teach')"><span>📚</span><span>تعليم الذكاء</span></div>
             <div class="menu-item" onclick="switchMenuTab('persons')"><span>👥</span><span>الأشخاص</span></div>
             <div class="menu-item" onclick="switchMenuTab('reminders')"><span>⏰</span><span>التذكيرات</span></div>
-            <div class="menu-item" onclick="showBgSettings()"><span>🎨</span><span>الخلفية</span></div>
-            <div class="menu-item" onclick="toggleLanguage()"><span>🌐</span><span>اللغة</span></div>
+            <div class="menu-item" onclick="switchMenuTab('settings')"><span>⚙️</span><span>الإعدادات</span></div>
+            <div class="menu-item" onclick="showTutorial()"><span>📖</span><span>الدليل</span></div>
             <div class="menu-item" onclick="confirmLogout()"><span>🚪</span><span>خروج</span></div>
-        </div>
-
-        <div class="bg-settings hidden" id="bgSettings">
-            <h4 style="color:gold;">تخصيص الخلفية</h4>
-            <input type="file" id="bgImageFile" accept="image/*" style="margin-bottom:8px; width:100%; padding:8px;">
-            <input type="text" id="bgUrl" placeholder="رابط صورة" style="margin-bottom:8px; width:100%; padding:8px;">
-            <button class="teach-btn" onclick="setChatBgFromFile()" style="margin-bottom:5px;">صورة من الجهاز</button>
-            <button class="teach-btn" onclick="setChatBgFromUrl()" style="margin-bottom:5px;">تطبيق الرابط</button>
-            <input type="color" id="bgColor" onchange="setChatColor(this.value)" style="width:100%; margin-top:5px;">
-        </div>
-
-        <div class="voice-settings" id="voiceSettings">
-            <h4 style="color:gold;">🎤 اختيار الصوت</h4>
-            <select id="voiceSelect" onchange="saveSelectedVoice()"></select>
-            <button class="teach-btn" onclick="testVoice()" style="margin-top:8px;">🔊 تجربة الصوت</button>
         </div>
 
         <div class="content-area" id="contentArea">
             <div class="chat-premium" id="chatArea">
-                <div class="message bot-message"><div class="message-bubble">👋 مرحباً! أنا Cerebonix - ذاكرتك الذكية. لدي قاعدة معرفة موسعة وأتعلم منك كل يوم. يمكنك إضافة أشخاص مع صور وأوصاف!</div></div>
+                <div class="message bot-message"><div class="message-bubble">👋 مرحباً! أنا Cerebonix Pro - ذاكرتك الذكية المتطورة. يمكنني التعلم منك، حفظ الأشخاص، إدارة التذكيرات، والبحث في الويب. ماذا تريد أن نفعل اليوم؟</div></div>
             </div>
-            <div class="teaching-panel hidden" id="teachPanel">
-                <h3>📚 تعليم Cerebonix</h3>
-                <div class="teach-inputs-modern">
-                    <input type="text" id="teachQ" placeholder="السؤال أو المفتاح">
-                    <textarea id="teachA" rows="4" placeholder="الإجابة أو المعلومة"></textarea>
-                    <div class="teach-buttons">
-                        <button class="teach-btn static-btn" onclick="teachStatic()">🔒 ثابتة</button>
-                        <button class="teach-btn update-btn" onclick="teachUpdateable()">🔄 قابلة للتحديث</button>
-                        <button class="teach-btn daily-btn" onclick="teachDaily()">📅 يومية</button>
-                    </div>
-                    <div class="teach-buttons">
-                        <button class="teach-btn query-btn" onclick="queryDaily()">📊 استعلام يوميات</button>
-                        <button class="teach-btn" onclick="teachMultipleQuestions()">📚 مجموعة أسئلة</button>
-                        <button class="teach-btn accumulate-btn" onclick="teachAccumulate()">📈 تراكم معلومات</button>
-                    </div>
+            
+            <div class="chat-premium hidden" id="teachPanel">
+                <h3 style="color: var(--accent-gold); text-align: center; margin-bottom: 20px;">📚 تعليم Cerebonix</h3>
+                <div class="input-premium">
+                    <label>السؤال أو المفتاح</label>
+                    <input type="text" id="teachQ" placeholder="مثال: من هو أينشتاين؟">
+                </div>
+                <div class="input-premium">
+                    <label>الإجابة</label>
+                    <textarea id="teachA" rows="4" placeholder="الإجابة هنا..."></textarea>
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="login-premium-btn" onclick="teachStatic()" style="flex: 1;">💎 ثابتة</button>
+                    <button class="login-premium-btn" onclick="teachUpdateable()" style="flex: 1;">🔄 قابلة للتحديث</button>
+                    <button class="login-premium-btn" onclick="teachDaily()" style="flex: 1;">📅 يومية</button>
                 </div>
             </div>
-            <div class="persons-panel hidden" id="personsPanel">
-                <h3>👥 إضافة شخص جديد</h3>
-                <div class="teach-inputs-modern">
-                    <input type="text" id="personName" placeholder="اسم الشخص (مثال: محمود)">
-                    <textarea id="personDescription" rows="4" placeholder="وصف الشخص (مثال: محمود شاب طموح، يحب البرمجة والتكنولوجيا، عمره 25 سنة، يعمل مهندس برمجيات..."></textarea>
+            
+            <div class="chat-premium hidden" id="personsPanel">
+                <h3 style="color: var(--accent-gold); text-align: center;">👥 إدارة الأشخاص</h3>
+                <div class="input-premium">
+                    <label>اسم الشخص</label>
+                    <input type="text" id="personName" placeholder="مثال: أحمد">
+                </div>
+                <div class="input-premium">
+                    <label>وصف الشخص</label>
+                    <textarea id="personDescription" rows="4" placeholder="معلومات عن الشخص..."></textarea>
+                </div>
+                <div class="input-premium">
+                    <label>صورة الشخص (اختياري)</label>
                     <input type="file" id="personImage" accept="image/*">
-                    <button class="teach-btn" onclick="savePerson()" style="background: linear-gradient(145deg, #FFD700, #FFA500); margin-top: 10px;">💾 حفظ الشخص</button>
                 </div>
-                <div id="personsList"></div>
+                <button class="login-premium-btn" onclick="savePerson()">💾 حفظ الشخص</button>
+                <div id="personsList" style="margin-top: 20px;"></div>
             </div>
-            <div class="reminders-panel hidden" id="remindersPanel">
-                <h3>⏰ التذكيرات</h3>
-                <div class="teach-inputs-modern">
-                    <input type="text" id="reminderText" placeholder="ماذا تذكرني؟">
-                    <input type="datetime-local" id="reminderTime">
-                    <button class="teach-btn" onclick="addReminder()">➕ إضافة تذكير</button>
+            
+            <div class="chat-premium hidden" id="remindersPanel">
+                <h3 style="color: var(--accent-gold); text-align: center;">⏰ التذكيرات</h3>
+                <div class="input-premium">
+                    <label>ماذا تذكرني؟</label>
+                    <input type="text" id="reminderText" placeholder="مثال: موعد الاجتماع">
                 </div>
-                <div id="remindersList"></div>
+                <div class="input-premium">
+                    <label>الوقت</label>
+                    <input type="datetime-local" id="reminderTime">
+                </div>
+                <button class="login-premium-btn" onclick="addReminder()">➕ إضافة تذكير</button>
+                <div id="remindersList" style="margin-top: 20px;"></div>
+            </div>
+            
+            <div class="chat-premium hidden" id="settingsPanel">
+                <h3 style="color: var(--accent-gold); text-align: center;">⚙️ الإعدادات</h3>
+                <div class="input-premium">
+                    <label>🎨 لون الخلفية</label>
+                    <input type="color" id="bgColorPicker" onchange="setChatColor(this.value)">
+                </div>
+                <div class="input-premium">
+                    <label>🖼️ صورة خلفية (رابط)</label>
+                    <input type="text" id="bgUrl" placeholder="https://example.com/image.jpg">
+                    <button class="login-premium-btn" onclick="setChatBgFromUrl()" style="margin-top: 10px;">تطبيق</button>
+                </div>
+                <div class="input-premium">
+                    <label>🔊 معدل الكلام</label>
+                    <input type="range" id="speechRate" min="0.5" max="2" step="0.1" value="0.9">
+                </div>
+                <div class="input-premium">
+                    <label>🗣️ اختبار الصوت</label>
+                    <button class="login-premium-btn" onclick="testVoice()">🔊 تجربة</button>
+                </div>
+                <div class="input-premium">
+                    <label>📦 تصدير/استيراد</label>
+                    <button class="login-premium-btn" onclick="exportData()">📤 تصدير البيانات</button>
+                    <input type="file" id="importSettingsFile" accept=".json" style="margin-top: 10px;">
+                    <button class="login-premium-btn" onclick="importDataFromFile()">📥 استيراد</button>
+                </div>
             </div>
         </div>
 
         <div class="input-premium-area">
             <input type="text" id="userMessage" placeholder="اكتب رسالتك..." onkeypress="if(event.key==='Enter') sendMessage()">
             <div class="voice-btn" id="voiceBtn" onclick="toggleVoiceRecording()">🎤</div>
-            <button class="teach-btn" onclick="sendMessage()" style="width:auto; padding:0 20px;">إرسال</button>
+            <button class="login-premium-btn" onclick="sendMessage()" style="width: auto; padding: 0 20px;">إرسال</button>
         </div>
-        <div class="stats-premium"><span>📚 تعلمت <span id="knowledgeCount">0</span> معلومة</span><span>👥 <span id="personsCount">0</span> شخص</span><span>❤️ Cerebonix</span></div>
+        <div class="stats-premium">
+            <span>📚 <span id="knowledgeCount">0</span> معلومة</span>
+            <span>👥 <span id="personsCount">0</span> شخص</span>
+            <span>⏰ <span id="remindersCount">0</span> تذكير</span>
+            <span>💾 <span id="storageSize">0</span> KB</span>
+        </div>
     </div>
 
-    <div class="password-modal hidden" id="passwordModal">
+    <!-- Modals -->
+    <div class="modal-overlay hidden" id="passwordModal">
         <div class="modal-content">
-            <h3>🔐 تأكيد الخروج</h3>
+            <h3 style="color: var(--accent-gold);">🔐 تأكيد الخروج</h3>
             <p>كلمة المرور: <strong>1234</strong></p>
-            <input type="password" id="logoutPassword" placeholder="أدخل 1234">
-            <button onclick="verifyAndLogout()">تأكيد وتسجيل الخروج</button>
-            <button class="cancel-btn" onclick="hidePasswordModal()" style="background:#333; color:white;">إلغاء</button>
+            <div class="input-premium">
+                <input type="password" id="logoutPassword" placeholder="أدخل 1234">
+            </div>
+            <button class="login-premium-btn" onclick="verifyAndLogout()">تأكيد الخروج</button>
+            <button class="login-premium-btn" onclick="hidePasswordModal()" style="background: #333;">إلغاء</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="tutorialModal">
+        <div class="modal-content">
+            <h3 style="color: var(--accent-gold);">📖 دليل الاستخدام</h3>
+            <div style="color: white; line-height: 1.8;">
+                <p><strong>💬 المحادثة:</strong> تحدث معي بشكل طبيعي، يمكنني الإجابة على الأسئلة والتعلم منك.</p>
+                <p><strong>📚 التعليم:</strong> علمني معلومات جديدة (ثابتة، قابلة للتحديث، يومية).</p>
+                <p><strong>👥 الأشخاص:</strong> أضف أشخاصًا مع صور وأوصاف واسأل عنهم.</p>
+                <p><strong>⏰ التذكيرات:</strong> ضع تذكيرات زمنية وسأذكرك بها.</p>
+                <p><strong>🎤 الصوت:</strong> استخدم الميكروفون للتحدث معي.</p>
+                <p><strong>💾 التصدير:</strong> احفظ بياناتك واستوردها في أي وقت.</p>
+            </div>
+            <button class="login-premium-btn" onclick="hideTutorial()" style="margin-top: 20px;">فهمت ✅</button>
         </div>
     </div>
 
     <script>
-        // قاعدة معرفة أساسية
-        const publicKnowledge = {
-            "السلام عليكم": "وعليكم السلام ورحمة الله وبركاته",
-            "كيف حالك": "الحمد لله، بخير، كيف يمكنني مساعدتك؟",
-            "ما اسمك": "اسمي Cerebonix، أنا ذكاء اصطناعي تعلمت منك",
-            "شكرا": "العفو، دائماً في خدمتك ❤️",
-            "من صنعك": "أنت! كلما علمتني شيئاً أصبحت أكثر ذكاءً",
-            "ما هي عاصمة مصر": "القاهرة",
-            "ما هي عاصمة السعودية": "الرياض",
-            "ما هو الذكاء الاصطناعي": "هو محاكاة الذكاء البشري في الآلات والبرامج"
+        // Secure Math Evaluator (بدون eval)
+        function safeEvaluate(expression) {
+            try {
+                const allowedChars = /^[0-9+\-*/().\s]+$/;
+                if (!allowedChars.test(expression)) return null;
+                return new Function('return (' + expression + ')')();
+            } catch(e) { return null; }
+        }
 
-        };
-        
+        // XSS Sanitization
+        function sanitizeHTML(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+                return c;
+            });
+        }
+
+        // Data Storage
+        let currentUser = null;
         let staticKnowledge = {};
         let updateableKnowledge = {};
         let dailyKnowledge = {};
-        let accumulatedKnowledge = {};
-        let multipleQuestionsKnowledge = {};
         let persons = [];
-        let currentUser = null;
         let reminders = [];
         let reminderInterval = null;
-        let isRecording = false;
-        let mediaRecorder = null;
-        let audioChunks = [];
-        let selectedVoice = null;
+
+        // Helper Functions
+        function showToast(message, duration = 3000) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), duration);
+        }
+
+        function updateStats() {
+            const knowledgeCount = Object.keys(staticKnowledge).length + Object.keys(updateableKnowledge).length + Object.keys(dailyKnowledge).length;
+            document.getElementById('knowledgeCount').textContent = knowledgeCount;
+            document.getElementById('personsCount').textContent = persons.length;
+            document.getElementById('remindersCount').textContent = reminders.filter(r => !r.completed).length;
+            
+            // Calculate storage size
+            try {
+                const data = JSON.stringify(currentUser);
+                const size = Math.round(data.length / 1024);
+                document.getElementById('storageSize').textContent = size;
+            } catch(e) {}
+        }
 
         function saveData() {
-            if(currentUser){
+            if (currentUser) {
                 currentUser.staticKnowledge = staticKnowledge;
                 currentUser.updateableKnowledge = updateableKnowledge;
                 currentUser.dailyKnowledge = dailyKnowledge;
-                currentUser.accumulatedKnowledge = accumulatedKnowledge;
-                currentUser.multipleQuestionsKnowledge = multipleQuestionsKnowledge;
-                currentUser.reminders = reminders;
                 currentUser.persons = persons;
-                localStorage.setItem('user_' + currentUser.email, JSON.stringify(currentUser));
-                localStorage.setItem('cerebonix_session', JSON.stringify({email: currentUser.email, timestamp: Date.now()}));
+                currentUser.reminders = reminders;
+                localStorage.setItem(`user_${currentUser.email}`, JSON.stringify(currentUser));
+                localStorage.setItem('cerebonix_session', JSON.stringify({ email: currentUser.email, timestamp: Date.now() }));
+                updateStats();
             }
         }
 
         function loadUserData(email) {
-            const saved = localStorage.getItem('user_' + email);
-            if(saved) {
+            const saved = localStorage.getItem(`user_${email}`);
+            if (saved) {
                 try {
                     const userData = JSON.parse(saved);
                     staticKnowledge = userData.staticKnowledge || {};
                     updateableKnowledge = userData.updateableKnowledge || {};
                     dailyKnowledge = userData.dailyKnowledge || {};
-                    accumulatedKnowledge = userData.accumulatedKnowledge || {};
-                    multipleQuestionsKnowledge = userData.multipleQuestionsKnowledge || {};
-                    reminders = userData.reminders || [];
                     persons = userData.persons || [];
+                    reminders = userData.reminders || [];
                     return userData;
-                } catch(e) {
-                    console.error('خطأ في تحميل البيانات', e);
-                }
+                } catch(e) { console.error('Error loading data', e); }
             }
             return null;
         }
 
-        function updateStats() {
-            let count = Object.keys(staticKnowledge).length + 
-                        Object.keys(updateableKnowledge).length + 
-                        Object.keys(dailyKnowledge).length + 
-                        Object.keys(accumulatedKnowledge).length + 
-                        Object.keys(multipleQuestionsKnowledge).length + 
-                        Object.keys(publicKnowledge).length;
-            document.getElementById('knowledgeCount').textContent = count;
-            document.getElementById('personsCount').textContent = persons.length;
+        // Export/Import
+        function exportData() {
+            if (!currentUser) return;
+            const exportData = {
+                user: {
+                    name: currentUser.name,
+                    email: currentUser.email,
+                    profileImage: currentUser.profileImage
+                },
+                staticKnowledge,
+                updateableKnowledge,
+                dailyKnowledge,
+                persons,
+                reminders,
+                exportDate: new Date().toISOString()
+            };
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `cerebonix_backup_${currentUser.name}_${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('✅ تم تصدير البيانات بنجاح');
         }
 
-        function savePerson() {
-            let name = document.getElementById('personName').value.trim();
-            let description = document.getElementById('personDescription').value.trim();
-            let file = document.getElementById('personImage').files[0];
-            
-            if(!name || !description) {
-                alert('❌ الرجاء إدخال اسم ووصف للشخص');
+        function importDataFromFile() {
+            const fileInput = document.getElementById('importSettingsFile');
+            const file = fileInput.files[0];
+            if (!file) {
+                showToast('❌ الرجاء اختيار ملف');
                 return;
             }
-            
-            if(file) {
-                let reader = new FileReader();
-                reader.onload = function(e) {
-                    persons.push({id: Date.now(), name, description, image: e.target.result});
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (imported.staticKnowledge) staticKnowledge = imported.staticKnowledge;
+                    if (imported.updateableKnowledge) updateableKnowledge = imported.updateableKnowledge;
+                    if (imported.dailyKnowledge) dailyKnowledge = imported.dailyKnowledge;
+                    if (imported.persons) persons = imported.persons;
+                    if (imported.reminders) reminders = imported.reminders;
+                    if (imported.user && currentUser) {
+                        currentUser.name = imported.user.name;
+                        currentUser.profileImage = imported.user.profileImage;
+                    }
                     saveData();
                     updateStats();
                     showAllPersons();
-                    addMessage(`✅ تم حفظ ${name} بنجاح مع الصورة`, 'bot');
-                    clearPersonInputs();
+                    updateRemindersList();
+                    showToast('✅ تم استيراد البيانات بنجاح');
+                } catch(err) {
+                    showToast('❌ خطأ في قراءة الملف');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function importData() {
+            const fileInput = document.getElementById('importFile');
+            const file = fileInput.files[0];
+            if (!file) {
+                showToast('❌ الرجاء اختيار ملف');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (imported.staticKnowledge) staticKnowledge = imported.staticKnowledge;
+                    if (imported.updateableKnowledge) updateableKnowledge = imported.updateableKnowledge;
+                    if (imported.dailyKnowledge) dailyKnowledge = imported.dailyKnowledge;
+                    if (imported.persons) persons = imported.persons;
+                    if (imported.reminders) reminders = imported.reminders;
+                    saveData();
+                    updateStats();
+                    showToast('✅ تم استيراد البيانات بنجاح');
+                } catch(err) {
+                    showToast('❌ خطأ في قراءة الملف');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            const root = document.documentElement;
+            const isDark = getComputedStyle(root).getPropertyValue('--bg-primary').trim() === '#0a0a0a';
+            if (isDark) {
+                root.style.setProperty('--bg-primary', '#f5f5f5');
+                root.style.setProperty('--bg-secondary', '#ffffff');
+                root.style.setProperty('--bg-tertiary', '#e0e0e0');
+                root.style.setProperty('--text-primary', '#000000');
+                root.style.setProperty('--text-secondary', '#666666');
+                showToast('🌞 الوضع النهاري');
+            } else {
+                root.style.setProperty('--bg-primary', '#0a0a0a');
+                root.style.setProperty('--bg-secondary', '#1a1a1a');
+                root.style.setProperty('--bg-tertiary', '#2a2a2a');
+                root.style.setProperty('--text-primary', '#ffffff');
+                root.style.setProperty('--text-secondary', '#888888');
+                showToast('🌙 الوضع الليلي');
+            }
+        }
+
+        // Tutorial
+        function showTutorial() {
+            document.getElementById('tutorialModal').classList.remove('hidden');
+            if (window.innerWidth < 768) toggleMenu();
+        }
+
+        function hideTutorial() {
+            document.getElementById('tutorialModal').classList.add('hidden');
+        }
+
+        // Person Management
+        function savePerson() {
+            const name = document.getElementById('personName').value.trim();
+            const description = document.getElementById('personDescription').value.trim();
+            const file = document.getElementById('personImage').files[0];
+            
+            if (!name || !description) {
+                showToast('❌ الرجاء إدخال اسم ووصف للشخص');
+                return;
+            }
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    persons.push({ id: Date.now(), name: sanitizeHTML(name), description: sanitizeHTML(description), image: e.target.result });
+                    saveData();
+                    updateStats();
+                    showAllPersons();
+                    showToast(`✅ تم حفظ ${name} بنجاح`);
+                    document.getElementById('personName').value = '';
+                    document.getElementById('personDescription').value = '';
+                    document.getElementById('personImage').value = '';
                 };
                 reader.readAsDataURL(file);
             } else {
-                persons.push({id: Date.now(), name, description, image: null});
+                persons.push({ id: Date.now(), name: sanitizeHTML(name), description: sanitizeHTML(description), image: null });
                 saveData();
                 updateStats();
                 showAllPersons();
-                addMessage(`✅ تم حفظ ${name} بنجاح`, 'bot');
-                clearPersonInputs();
+                showToast(`✅ تم حفظ ${name} بنجاح`);
+                document.getElementById('personName').value = '';
+                document.getElementById('personDescription').value = '';
             }
         }
-        
-        function clearPersonInputs() {
-            document.getElementById('personName').value = '';
-            document.getElementById('personDescription').value = '';
-            document.getElementById('personImage').value = '';
-        }
-        
+
         function showAllPersons() {
-            let container = document.getElementById('personsList');
-            if(!container) return;
+            const container = document.getElementById('personsList');
+            if (!container) return;
             
-            if(persons.length === 0) {
-                container.innerHTML = '<p style="color:#666; text-align:center; padding: 20px;">📭 لا يوجد أشخاص مسجلين بعد</p>';
+            if (persons.length === 0) {
+                container.innerHTML = '<p style="color:#666; text-align:center;">📭 لا يوجد أشخاص مسجلين بعد</p>';
                 return;
             }
             
             container.innerHTML = '';
             persons.forEach(person => {
-                let card = document.createElement('div');
-                card.className = 'person-card';
-                let imageHtml = person.image ? `<img class="person-image" src="${person.image}" alt="${person.name}">` : '<div style="background:#3a3a3a; height:180px; display:flex; align-items:center; justify-content:center; color:#888;">📷 لا توجد صورة</div>';
+                const card = document.createElement('div');
+                card.style.cssText = 'background: var(--bg-tertiary); border-radius: 20px; margin-bottom: 20px; overflow: hidden; border: 1px solid var(--border-color);';
+                const imageHtml = person.image ? `<img src="${person.image}" style="width: 100%; max-height: 200px; object-fit: cover;">` : '<div style="background:#3a3a3a; height:150px; display:flex; align-items:center; justify-content:center; color:#888;">📷 لا توجد صورة</div>';
                 card.innerHTML = `
                     ${imageHtml}
-                    <div class="person-info">
-                        <div class="person-name">${person.name}</div>
-                        <div class="person-description">${person.description}</div>
-                        <button class="ask-btn" onclick="askAboutPerson('${person.name}')">❓ اسأل عن ${person.name}</button>
-                        <button class="delete-person-btn" onclick="deletePerson(${person.id})">🗑️ حذف</button>
+                    <div style="padding: 15px;">
+                        <div style="color: var(--accent-gold); font-size: 20px; font-weight: bold; margin-bottom: 10px;">${person.name}</div>
+                        <div style="color: var(--text-primary); font-size: 14px; line-height: 1.6; margin-bottom: 15px;">${person.description}</div>
+                        <button class="login-premium-btn" onclick="askAboutPerson('${person.name}')" style="margin-left: 10px;">❓ اسأل</button>
+                        <button class="login-premium-btn" onclick="deletePerson(${person.id})" style="background: #ff4444;">🗑️ حذف</button>
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
-        
+
         function askAboutPerson(personName) {
-            let person = persons.find(p => p.name === personName);
-            if(person) {
+            const person = persons.find(p => p.name === personName);
+            if (person) {
                 let answerHtml = `<div style="text-align: center;">`;
-                if(person.image) {
-                    answerHtml += `<img src="${person.image}" class="person-image-in-chat" style="max-width: 100%; border-radius: 16px; margin-bottom: 12px;"><br>`;
-                }
-                answerHtml += `<strong style="color: #FFD700; font-size: 18px;">${person.name}</strong><br>`;
-                answerHtml += `${person.description}`;
-                answerHtml += `</div>`;
-                addMessageWithImage(answerHtml, 'bot');
+                if (person.image) answerHtml += `<img src="${person.image}" style="max-width: 100%; border-radius: 16px; margin-bottom: 12px;"><br>`;
+                answerHtml += `<strong style="color: #FFD700; font-size: 18px;">${person.name}</strong><br>${person.description}</div>`;
+                addMessageWithHTML(answerHtml, 'bot');
                 speakText(`${person.name}: ${person.description}`);
                 switchMenuTab('chat');
             } else {
                 addMessage(`❌ لم أجد معلومات عن ${personName}`, 'bot');
             }
         }
-        
-        function addMessageWithImage(htmlContent, sender) {
-            let chat = document.getElementById('chatArea');
-            let div = document.createElement('div'); 
-            div.className = `message ${sender}-message`;
-            let bubble = document.createElement('div'); 
-            bubble.className = 'message-bubble';
-            bubble.innerHTML = htmlContent;
-            let timeDiv = document.createElement('div'); 
-            timeDiv.className = 'message-time'; 
-            timeDiv.textContent = new Date().toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'});
-            div.appendChild(bubble); 
-            div.appendChild(timeDiv);
-            chat.appendChild(div); 
-            chat.scrollTop = chat.scrollHeight;
-        }
-        
+
         function deletePerson(id) {
-            if(confirm('هل أنت متأكد من حذف هذا الشخص؟')) {
+            if (confirm('هل أنت متأكد من حذف هذا الشخص؟')) {
                 persons = persons.filter(p => p.id !== id);
                 saveData();
                 updateStats();
                 showAllPersons();
-                addMessage('🗑️ تم حذف الشخص بنجاح', 'bot');
+                showToast('🗑️ تم حذف الشخص بنجاح');
             }
-        }
-        
-        function searchPersonInKnowledge(msg) {
-            for(let person of persons) {
-                if(msg.includes(person.name) || msg.includes(`من هو ${person.name}`) || msg.includes(`من ${person.name}`)) {
-                    return person;
-                }
-            }
-            return null;
         }
 
-        function teachStatic() { 
-            let q = document.getElementById('teachQ').value.trim(); 
-            let a = document.getElementById('teachA').value.trim(); 
-            if(q && a){ 
-                staticKnowledge[q] = a; 
-                addMessage(`✅ تم تعليم: ${q}`, 'bot'); 
-                clearTeach(); 
-                saveData(); 
-                updateStats(); 
-                switchMenuTab('chat'); 
-            } else alert('أدخل السؤال والجواب'); 
-        }
-        
-        function teachUpdateable() { 
-            let q = document.getElementById('teachQ').value.trim(); 
-            let a = document.getElementById('teachA').value.trim(); 
-            if(q && a){ 
-                updateableKnowledge[q] = a; 
-                addMessage(`✅ تعليم قابل للتحديث: ${q}`, 'bot'); 
-                clearTeach(); 
-                saveData(); 
-                updateStats(); 
-                switchMenuTab('chat'); 
-            } else alert('أدخل السؤال والجواب'); 
-        }
-        
-        function teachDaily() { 
-            let key = document.getElementById('teachQ').value.trim(); 
-            let val = document.getElementById('teachA').value.trim(); 
-            if(key && val){ 
-                let today = new Date().toISOString().slice(0,10); 
-                dailyKnowledge[`${key}_${today}`] = val; 
-                addMessage(`📅 تم تسجيل ${key} في ${today}: ${val}`, 'bot'); 
-                clearTeach(); 
-                saveData(); 
-                updateStats(); 
-                switchMenuTab('chat'); 
-            } else alert('أدخل الاسم والحالة'); 
-        }
-        
-        function queryDaily() { 
-            let key = document.getElementById('teachQ').value.trim(); 
-            if(!key) return alert('أدخل الاسم'); 
-            let report = `📊 سجل ${key}:\n`; 
-            Object.entries(dailyKnowledge).forEach(([k,v]) => { 
-                if(k.startsWith(key + "_")) report += `- ${k.split('_')[1]}: ${v}\n`; 
-            }); 
-            addMessage(report || 'لا توجد سجلات', 'bot'); 
-            clearTeach(); 
-            switchMenuTab('chat'); 
-        }
-        
-        function teachMultipleQuestions() { 
-            let q = document.getElementById('teachQ').value.trim(); 
-            let a = document.getElementById('teachA').value.trim(); 
-            if(!q || !a) return alert('أدخل الأسئلة والإجابة'); 
-            let qList = q.split(',').map(s => s.trim()); 
-            multipleQuestionsKnowledge[qList.join(',')] = a; 
-            addMessage(`✅ تم حفظ ${qList.length} سؤال`, 'bot'); 
-            clearTeach(); 
-            saveData(); 
-            updateStats(); 
-            switchMenuTab('chat'); 
-        }
-        
-        function teachAccumulate() { 
-            let key = document.getElementById('teachQ').value.trim(); 
-            let val = document.getElementById('teachA').value.trim().toLowerCase(); 
-            if(!key || !(val === 'نعم' || val === 'لا')) return alert('أدخل الاسم و نعم/لا'); 
-            let today = new Date().toISOString().slice(0,10); 
-            if(!accumulatedKnowledge[key]) accumulatedKnowledge[key] = []; 
-            let existing = accumulatedKnowledge[key].find(i => i.date === today); 
-            if(existing) existing.value = val; 
-            else accumulatedKnowledge[key].push({date: today, value: val}); 
-            addMessage(`📈 تم تسجيل ${key} في ${today}: ${val}`, 'bot'); 
-            clearTeach(); 
-            saveData(); 
-            updateStats(); 
-            switchMenuTab('chat'); 
-        }
-        
-        function clearTeach() { 
-            document.getElementById('teachQ').value = ''; 
-            document.getElementById('teachA').value = ''; 
+        // Teaching Functions
+        function teachStatic() {
+            const q = document.getElementById('teachQ').value.trim();
+            const a = document.getElementById('teachA').value.trim();
+            if (q && a) {
+                staticKnowledge[sanitizeHTML(q)] = sanitizeHTML(a);
+                addMessage(`✅ تم تعليم: ${q}`, 'bot');
+                clearTeach();
+                saveData();
+                updateStats();
+                switchMenuTab('chat');
+            } else showToast('❌ أدخل السؤال والجواب');
         }
 
-        function addReminder() { 
-            let text = document.getElementById('reminderText').value.trim(); 
-            let time = document.getElementById('reminderTime').value; 
-            if(text && time){ 
-                reminders.push({id: Date.now(), text: text, time: time, completed: false}); 
-                saveData(); 
-                updateRemindersList(); 
-                addMessage(`⏰ تذكير: "${text}" في ${new Date(time).toLocaleString()}`, 'bot'); 
-                switchMenuTab('chat'); 
-            } else alert('أدخل النص والوقت'); 
-        }
-        
-        function updateRemindersList() { 
-            let list = document.getElementById('remindersList'); 
-            if(!list) return; 
-            list.innerHTML = ''; 
-            let now = new Date(); 
-            let active = reminders.filter(r => !r.completed && new Date(r.time) > now).sort((a,b) => new Date(a.time) - new Date(b.time)); 
-            if(active.length === 0){ 
-                list.innerHTML = '<p style="color:#666; text-align:center;">لا تذكيرات نشطة</p>'; 
-                return; 
-            } 
-            active.forEach(r => { 
-                let div = document.createElement('div'); 
-                div.className = 'reminder-item'; 
-                div.innerHTML = `<span style="flex:1;">${r.text}</span><small>${new Date(r.time).toLocaleString('ar-SA')}</small><button class="delete-btn" onclick="deleteReminder(${r.id})">❌</button>`; 
-                list.appendChild(div); 
-            }); 
-        }
-        
-        function deleteReminder(id){ 
-            reminders = reminders.filter(r => r.id !== id); 
-            saveData(); 
-            updateRemindersList(); 
-        }
-        
-        function startReminderChecker(){ 
-            if(reminderInterval) clearInterval(reminderInterval); 
-            reminderInterval = setInterval(() => { 
-                let now = new Date(); 
-                let changed = false; 
-                reminders.forEach(r => { 
-                    if(new Date(r.time) <= now && !r.completed){ 
-                        addMessage(`⏰ تذكير: ${r.text}`, 'bot'); 
-                        r.completed = true; 
-                        changed = true; 
-                    } 
-                }); 
-                if(changed){ 
-                    saveData(); 
-                    updateRemindersList(); 
-                } 
-            }, 60000); 
+        function teachUpdateable() {
+            const q = document.getElementById('teachQ').value.trim();
+            const a = document.getElementById('teachA').value.trim();
+            if (q && a) {
+                updateableKnowledge[sanitizeHTML(q)] = sanitizeHTML(a);
+                addMessage(`✅ تعليم قابل للتحديث: ${q}`, 'bot');
+                clearTeach();
+                saveData();
+                updateStats();
+                switchMenuTab('chat');
+            } else showToast('❌ أدخل السؤال والجواب');
         }
 
-        async function sendMessage() {
-            let input = document.getElementById('userMessage'); 
-            let msg = input.value.trim(); 
-            if(!msg) return;
-            addMessage(msg, 'user');
-            
-            let mathMatch = msg.match(/[0-9+\-*/().]+/);
-            if(mathMatch && !isNaN(eval(mathMatch[0]))){ 
-                try{ 
-                    addMessage(`🧮 النتيجة: ${mathMatch[0]} = ${eval(mathMatch[0])}`, 'bot'); 
-                    input.value = ''; 
-                    return; 
-                } catch(e){} 
-            }
-            
-            let cmd = executeAppCommand(msg); 
-            if(cmd){ 
-                addMessage(cmd, 'bot'); 
-                input.value = ''; 
-                return; 
-            }
-            
-            let person = searchPersonInKnowledge(msg);
-            if(person) {
-                let answerHtml = `<div style="text-align: center;">`;
-                if(person.image) {
-                    answerHtml += `<img src="${person.image}" class="person-image-in-chat" style="max-width: 100%; border-radius: 16px; margin-bottom: 12px;"><br>`;
-                }
-                answerHtml += `<strong style="color: #FFD700; font-size: 18px;">${person.name}</strong><br>`;
-                answerHtml += `${person.description}`;
-                answerHtml += `</div>`;
-                addMessageWithImage(answerHtml, 'bot');
-                speakText(`${person.name}: ${person.description}`);
-                input.value = '';
+        function teachDaily() {
+            const key = document.getElementById('teachQ').value.trim();
+            const val = document.getElementById('teachA').value.trim();
+            if (key && val) {
+                const today = new Date().toISOString().slice(0, 10);
+                dailyKnowledge[`${key}_${today}`] = sanitizeHTML(val);
+                addMessage(`📅 تم تسجيل ${key} في ${today}: ${val}`, 'bot');
+                clearTeach();
+                saveData();
+                updateStats();
+                switchMenuTab('chat');
+            } else showToast('❌ أدخل الاسم والحالة');
+        }
+
+        function clearTeach() {
+            document.getElementById('teachQ').value = '';
+            document.getElementById('teachA').value = '';
+        }
+
+        // Reminders
+        function addReminder() {
+            const text = document.getElementById('reminderText').value.trim();
+            const time = document.getElementById('reminderTime').value;
+            if (text && time) {
+                reminders.push({ id: Date.now(), text: sanitizeHTML(text), time: time, completed: false });
+                saveData();
+                updateRemindersList();
+                addMessage(`⏰ تذكير: "${text}" في ${new Date(time).toLocaleString()}`, 'bot');
+                switchMenuTab('chat');
+            } else showToast('❌ أدخل النص والوقت');
+        }
+
+        function updateRemindersList() {
+            const list = document.getElementById('remindersList');
+            if (!list) return;
+            list.innerHTML = '';
+            const now = new Date();
+            const active = reminders.filter(r => !r.completed && new Date(r.time) > now).sort((a, b) => new Date(a.time) - new Date(b.time));
+            if (active.length === 0) {
+                list.innerHTML = '<p style="color:#666; text-align:center;">لا تذكيرات نشطة</p>';
                 return;
             }
-            
-            if(msg.includes('صباح') || msg.includes('صباح الخير')){ addMessage('🌞 صباح النور والسرور! كيف أخدمك اليوم؟', 'bot'); input.value=''; return; }
-            if(msg.includes('مساء') || msg.includes('مساء الخير')){ addMessage('🌙 مساء النور والفل! هل تريد تعليمي شيئاً جديداً؟', 'bot'); input.value=''; return; }
-            
-            let ans = null;
-            for(let k in multipleQuestionsKnowledge){ 
-                let keys = k.split(','); 
-                for(let key of keys) if(msg.includes(key)){ ans = multipleQuestionsKnowledge[k]; break; } 
-                if(ans) break; 
-            }
-            if(!ans) for(let k in updateableKnowledge) if(msg.includes(k)){ ans = updateableKnowledge[k]; break; }
-            if(!ans) for(let k in staticKnowledge) if(msg.includes(k)){ ans = staticKnowledge[k]; break; }
-            if(!ans) for(let k in publicKnowledge) if(msg.includes(k)){ ans = publicKnowledge[k]; break; }
-            
-            if(ans){ 
-                addMessage(ans, 'bot'); 
-                input.value = ''; 
-                return; 
-            }
-            
-            addMessage(`🔍 أبحث عن "${msg}" في المصادر...`, 'bot');
-            let external = await fetchExternalAnswer(msg);
-            addMessage(external.text, 'bot', external.sources);
-            input.value = '';
+            active.forEach(r => {
+                const div = document.createElement('div');
+                div.style.cssText = 'display: flex; align-items: center; gap: 10px; padding: 10px; background: var(--bg-tertiary); border-radius: 15px; margin-bottom: 8px;';
+                div.innerHTML = `
+                    <span style="flex:1;">${r.text}</span>
+                    <small>${new Date(r.time).toLocaleString('ar-SA')}</small>
+                    <button onclick="deleteReminder(${r.id})" style="background: none; border: none; color: #ff4444; font-size: 18px; cursor: pointer;">❌</button>
+                `;
+                list.appendChild(div);
+            });
         }
 
-        function executeAppCommand(cmd){
-            let l = cmd.toLowerCase();
-            if(l.includes('يوتيوب') || l.includes('youtube')){ 
-                let q = cmd.replace(/افتح|يوتيوب|youtube/gi,'').trim(); 
-                if(q) window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`, '_blank'); 
-                else window.open('https://youtube.com', '_blank'); 
-                return "🎬 تم فتح يوتيوب"; 
-            }
-            if(l.includes('خرائط') || l.includes('maps') || l.includes('عنوان')){ 
-                let loc = cmd.replace(/عنوان|خرائط|maps/gi,'').trim(); 
-                if(loc) window.open(`https://www.google.com/maps/search/${encodeURIComponent(loc)}`, '_blank'); 
-                else window.open('https://maps.google.com', '_blank'); 
-                return "🗺️ تم فتح الخرائط"; 
-            }
-            return null;
+        function deleteReminder(id) {
+            reminders = reminders.filter(r => r.id !== id);
+            saveData();
+            updateRemindersList();
         }
 
-        async function fetchExternalAnswer(query){
-            try{
-                let proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://lite.duckduckgo.com/lite/?q=${encodeURIComponent(query)}`)}`;
-                let res = await fetch(proxy); 
-                let data = await res.json(); 
-                let html = data.contents;
-                let parser = new DOMParser(); 
-                let doc = parser.parseFromString(html, 'text/html');
-                let results = doc.querySelectorAll('.result');
-                let answerText = `📚 نتائج البحث عن "${query}":\n\n`;
-                let sources = [];
-                for(let i = 0; i < Math.min(3, results.length); i++){
-                    let title = results[i].querySelector('.result__a')?.innerText || 'نتيجة';
-                    let snippet = results[i].querySelector('.result__snippet')?.innerText || '';
-                    answerText += `${i+1}. ${title}\n   ${snippet.substring(0,200)}...\n\n`;
-                    let link = results[i].querySelector('.result__a')?.getAttribute('href');
-                    if(link) sources.push(`https://duckduckgo.com${link}`);
+        function startReminderChecker() {
+            if (reminderInterval) clearInterval(reminderInterval);
+            reminderInterval = setInterval(() => {
+                const now = new Date();
+                let changed = false;
+                reminders.forEach(r => {
+                    if (new Date(r.time) <= now && !r.completed) {
+                        addMessage(`⏰ تذكير: ${r.text}`, 'bot');
+                        r.completed = true;
+                        changed = true;
+                    }
+                });
+                if (changed) {
+                    saveData();
+                    updateRemindersList();
                 }
-                if(results.length === 0) answerText = `🌐 لم أجد نتائج دقيقة. جرب البحث في Google: https://www.google.com/search?q=${encodeURIComponent(query)}`;
-                return {text: answerText, sources: sources};
-            } catch(e){ 
-                return {text: `⚠️ خطأ في البحث. افتح Google: https://www.google.com/search?q=${encodeURIComponent(query)}`, sources: []}; 
-            }
+            }, 60000);
         }
 
-        function addMessage(text, sender, sources = null){
-            let chat = document.getElementById('chatArea');
-            let div = document.createElement('div'); 
+        // Message Functions
+        function addMessage(text, sender) {
+            const chat = document.getElementById('chatArea');
+            const div = document.createElement('div');
             div.className = `message ${sender}-message`;
-            let bubble = document.createElement('div'); 
+            const bubble = document.createElement('div');
             bubble.className = 'message-bubble';
             bubble.innerHTML = text.replace(/\n/g, '<br>');
-            if(sources && sources.length){ 
-                sources.forEach(link => { 
-                    if(link) bubble.innerHTML += `<div class="google-source">🔗 <a href="${link}" target="_blank" style="color:#4a90e2;">مصدر</a></div>`; 
-                }); 
-            }
-            let timeDiv = document.createElement('div'); 
-            timeDiv.className = 'message-time'; 
-            timeDiv.textContent = new Date().toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'});
-            div.appendChild(bubble); 
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'message-time';
+            timeDiv.textContent = new Date().toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+            div.appendChild(bubble);
             div.appendChild(timeDiv);
-            if(sender === 'bot'){ 
-                let speakBtn = document.createElement('button'); 
-                speakBtn.className = 'speak-btn'; 
-                speakBtn.innerHTML = '🔊 استمع'; 
-                speakBtn.onclick = () => speakText(text); 
-                div.appendChild(speakBtn); 
+            if (sender === 'bot') {
+                const speakBtn = document.createElement('button');
+                speakBtn.textContent = '🔊 استمع';
+                speakBtn.style.cssText = 'background: none; border: 1px solid var(--accent-gold); color: var(--accent-gold); padding: 2px 10px; border-radius: 20px; font-size: 10px; margin-top: 5px; cursor: pointer;';
+                speakBtn.onclick = () => speakText(text);
+                div.appendChild(speakBtn);
             }
-            chat.appendChild(div); 
+            chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
         }
 
-        function loadVoices() {
-            const voices = window.speechSynthesis.getVoices();
-            const select = document.getElementById('voiceSelect');
-            if(!select) return;
-            select.innerHTML = '';
-            voices.forEach((voice, index) => {
-                const option = document.createElement('option');
-                option.value = index;
-                option.textContent = `${voice.name} (${voice.lang})`;
-                if(selectedVoice === voice.name) option.selected = true;
-                select.appendChild(option);
-            });
-            if(selectedVoice === null && voices.length > 0) {
-                const arabicVoice = voices.find(v => v.lang.includes('ar'));
-                if(arabicVoice) selectedVoice = arabicVoice.name;
-                else selectedVoice = voices[0].name;
-                saveSelectedVoice();
-            }
+        function addMessageWithHTML(html, sender) {
+            const chat = document.getElementById('chatArea');
+            const div = document.createElement('div');
+            div.className = `message ${sender}-message`;
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+            bubble.innerHTML = html;
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'message-time';
+            timeDiv.textContent = new Date().toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+            div.appendChild(bubble);
+            div.appendChild(timeDiv);
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
         }
 
-        function saveSelectedVoice() {
-            const select = document.getElementById('voiceSelect');
-            if(select && select.selectedIndex >= 0) {
-                const voices = window.speechSynthesis.getVoices();
-                if(voices[select.selectedIndex]) {
-                    selectedVoice = voices[select.selectedIndex].name;
-                    localStorage.setItem('selected_voice', selectedVoice);
-                }
-            }
-        }
-
-        function getSelectedVoice() {
-            const voices = window.speechSynthesis.getVoices();
-            const saved = localStorage.getItem('selected_voice');
-            if(saved) {
-                const found = voices.find(v => v.name === saved);
-                if(found) return found;
-            }
-            const arabicVoice = voices.find(v => v.lang.includes('ar'));
-            return arabicVoice || voices[0];
-        }
-
+        // Speech Functions
         function speakText(text) {
-            if('speechSynthesis' in window) {
+            if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = document.documentElement.lang === 'ar' ? 'ar-SA' : 'en-US';
-                utterance.rate = 0.9;
-                utterance.pitch = 1;
-                const voice = getSelectedVoice();
-                if(voice) utterance.voice = voice;
+                utterance.lang = 'ar-SA';
+                const rate = document.getElementById('speechRate')?.value;
+                if (rate) utterance.rate = parseFloat(rate);
                 window.speechSynthesis.speak(utterance);
             }
         }
 
         function testVoice() {
-            speakText("مرحباً! هذا اختبار للصوت. كيف تسمعني؟");
-        }
-
-        function showVoiceSettings() {
-            const settings = document.getElementById('voiceSettings');
-            settings.classList.toggle('show');
-            loadVoices();
+            speakText('مرحباً! هذا اختبار للصوت. كيف تسمعني؟');
         }
 
         async function toggleVoiceRecording() {
             const btn = document.getElementById('voiceBtn');
-            if(!isRecording){
-                try{
-                    const stream = await navigator.mediaDevices.getUserMedia({audio: true});
-                    mediaRecorder = new MediaRecorder(stream);
-                    audioChunks = [];
-                    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
-                    mediaRecorder.onstop = () => {
-                        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-                        recognition.lang = document.documentElement.lang === 'ar' ? 'ar-SA' : 'en-US';
-                        recognition.interimResults = false;
-                        recognition.maxAlternatives = 1;
-                        recognition.onresult = e => {
-                            const text = e.results[0][0].transcript;
-                            document.getElementById('userMessage').value = text;
-                            sendMessage();
-                        };
-                        recognition.onerror = () => {
-                            addMessage("⚠️ لم أستطع فهم ما قلته، حاول مرة أخرى", 'bot');
-                        };
-                        recognition.start();
-                        stream.getTracks().forEach(t => t.stop());
-                    };
-                    mediaRecorder.start();
-                    isRecording = true;
-                    btn.classList.add('recording');
-                    btn.innerHTML = '⏹️';
-                    addMessage("🎤 جاري التسجيل... تحدث الآن", 'bot');
-                    setTimeout(() => {
-                        if(isRecording && mediaRecorder && mediaRecorder.state !== 'inactive') {
-                            mediaRecorder.stop();
-                            isRecording = false;
-                            btn.classList.remove('recording');
-                            btn.innerHTML = '🎤';
-                        }
-                    }, 8000);
-                } catch(e){
-                    alert('لا يمكن الوصول للميكروفون. تأكد من الإذن.');
-                }
-            } else {
-                if(mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
-                isRecording = false;
+            if (!('webkitSpeechRecognition' in window)) {
+                showToast('❌ المتصفح لا يدعم الإدخال الصوتي');
+                return;
+            }
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = 'ar-SA';
+            recognition.onstart = () => {
+                btn.classList.add('recording');
+                btn.innerHTML = '⏹️';
+                showToast('🎤 جاري التسجيل... تحدث الآن');
+            };
+            recognition.onresult = (event) => {
+                const text = event.results[0][0].transcript;
+                document.getElementById('userMessage').value = text;
+                sendMessage();
+            };
+            recognition.onerror = () => {
+                showToast('⚠️ لم أستطع فهم ما قلته');
                 btn.classList.remove('recording');
                 btn.innerHTML = '🎤';
-            }
+            };
+            recognition.onend = () => {
+                btn.classList.remove('recording');
+                btn.innerHTML = '🎤';
+            };
+            recognition.start();
         }
 
-        function login(){
-            let email = document.getElementById('userEmail').value.trim(); 
-            let pwd = document.getElementById('userPassword').value.trim(); 
-            let name = document.getElementById('userName').value.trim();
-            if(!email || !pwd || !name){ alert('املأ جميع الحقول'); return; }
+        async function sendMessage() {
+            const input = document.getElementById('userMessage');
+            const msg = input.value.trim();
+            if (!msg) return;
+            addMessage(msg, 'user');
             
-            let saved = localStorage.getItem('user_' + email);
-            if(saved){
-                currentUser = JSON.parse(saved);
-                if(currentUser.password !== pwd){ alert('كلمة مرور خاطئة'); return; }
-                if(name) currentUser.name = name;
-                let file = document.getElementById('profileImage').files[0];
-                if(file){ 
-                    let reader = new FileReader(); 
-                    reader.onload = e => { currentUser.profileImage = e.target.result; applyUserUI(); saveData(); }; 
-                    reader.readAsDataURL(file); 
-                } else if(currentUser.profileImage) applyUserUI();
-                else applyUserUI();
-            } else {
-                let img = null;
-                let file = document.getElementById('profileImage').files[0];
-                if(file){ 
-                    let reader = new FileReader(); 
-                    reader.onload = e => { img = e.target.result; createNewUser(); }; 
-                    reader.readAsDataURL(file);
-                    function createNewUser(){
-                        currentUser = {email, password:pwd, name, profileImage:img || '', staticKnowledge:{}, updateableKnowledge:{}, dailyKnowledge:{}, accumulatedKnowledge:{}, multipleQuestionsKnowledge:{}, reminders:[], persons:[]};
-                        applyUserUI();
-                    }
+            // Math evaluation
+            const mathMatch = msg.match(/[0-9+\-*/().\s]+/);
+            if (mathMatch && mathMatch[0].length > 2) {
+                const result = safeEvaluate(mathMatch[0]);
+                if (result !== null && !isNaN(result)) {
+                    addMessage(`🧮 النتيجة: ${mathMatch[0]} = ${result}`, 'bot');
+                    input.value = '';
                     return;
-                } else {
-                    currentUser = {email, password:pwd, name, profileImage:'', staticKnowledge:{}, updateableKnowledge:{}, dailyKnowledge:{}, accumulatedKnowledge:{}, multipleQuestionsKnowledge:{}, reminders:[], persons:[]};
-                    applyUserUI();
                 }
             }
             
-            function applyUserUI(){
-                const userData = loadUserData(currentUser.email);
-                if(userData) {
-                    staticKnowledge = userData.staticKnowledge || {};
-                    updateableKnowledge = userData.updateableKnowledge || {};
-                    dailyKnowledge = userData.dailyKnowledge || {};
-                    accumulatedKnowledge = userData.accumulatedKnowledge || {};
-                    multipleQuestionsKnowledge = userData.multipleQuestionsKnowledge || {};
-                    reminders = userData.reminders || [];
-                    persons = userData.persons || [];
-                    currentUser = {...currentUser, ...userData};
-                }
-                document.getElementById('displayName').textContent = currentUser.name;
-                document.getElementById('displayEmail').textContent = currentUser.email;
-                if(currentUser.profileImage){ 
-                    document.getElementById('avatarDisplay').src = currentUser.profileImage; 
-                    document.getElementById('avatarDisplay').style.display = 'block'; 
-                    document.getElementById('avatarText').style.display = 'none'; 
-                }
-                document.getElementById('loginScreen').style.display = 'none'; 
-                document.getElementById('mainScreen').classList.remove('hidden');
-                updateStats(); 
-                updateRemindersList(); 
-                showAllPersons();
-                startReminderChecker(); 
-                saveData();
-                addMessage(`أهلاً ${currentUser.name} 👋 أنا Cerebonix، يمكنك إضافة أشخاص مع صور وأوصاف!`, 'bot');
+            // Search in knowledge
+            let ans = null;
+            for (let k in staticKnowledge) if (msg.includes(k)) { ans = staticKnowledge[k]; break; }
+            if (!ans) for (let k in updateableKnowledge) if (msg.includes(k)) { ans = updateableKnowledge[k]; break; }
+            
+            if (ans) {
+                addMessage(ans, 'bot');
+                input.value = '';
+                return;
             }
-            if(currentUser) applyUserUI();
+            
+            // Search in persons
+            const person = persons.find(p => msg.includes(p.name));
+            if (person) {
+                let answer = `<strong>${person.name}</strong><br>${person.description}`;
+                addMessageWithHTML(answer, 'bot');
+                speakText(`${person.name}: ${person.description}`);
+                input.value = '';
+                return;
+            }
+            
+            // Web search
+            addMessage(`🔍 أبحث عن "${msg}"...`, 'bot');
+            try {
+                const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://lite.duckduckgo.com/lite/?q=${encodeURIComponent(msg)}`)}`;
+                const res = await fetch(proxy);
+                const data = await res.json();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data.contents, 'text/html');
+                const results = doc.querySelectorAll('.result');
+                if (results.length > 0) {
+                    let answer = `📚 نتائج البحث عن "${msg}":<br><br>`;
+                    for (let i = 0; i < Math.min(3, results.length); i++) {
+                        const title = results[i].querySelector('.result__a')?.innerText || 'نتيجة';
+                        const snippet = results[i].querySelector('.result__snippet')?.innerText || '';
+                        answer += `${i+1}. ${title}<br>${snippet.substring(0, 150)}...<br><br>`;
+                    }
+                    addMessageWithHTML(answer, 'bot');
+                } else {
+                    addMessage(`🌐 لم أجد نتائج دقيقة. يمكنك البحث في Google: https://www.google.com/search?q=${encodeURIComponent(msg)}`, 'bot');
+                }
+            } catch(e) {
+                addMessage(`⚠️ حدث خطأ في البحث. يمكنك فتح Google: https://www.google.com/search?q=${encodeURIComponent(msg)}`, 'bot');
+            }
+            input.value = '';
         }
 
-        function applyUserUI(){
-            if(!currentUser) return;
+        // UI Functions
+        function switchMenuTab(tab) {
+            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+            if (event?.currentTarget) event.currentTarget.classList.add('active');
+            document.getElementById('chatArea').classList.add('hidden');
+            document.getElementById('teachPanel').classList.add('hidden');
+            document.getElementById('personsPanel').classList.add('hidden');
+            document.getElementById('remindersPanel').classList.add('hidden');
+            document.getElementById('settingsPanel').classList.add('hidden');
+            
+            if (tab === 'chat') document.getElementById('chatArea').classList.remove('hidden');
+            else if (tab === 'teach') document.getElementById('teachPanel').classList.remove('hidden');
+            else if (tab === 'persons') {
+                document.getElementById('personsPanel').classList.remove('hidden');
+                showAllPersons();
+            }
+            else if (tab === 'reminders') {
+                document.getElementById('remindersPanel').classList.remove('hidden');
+                updateRemindersList();
+            }
+            else if (tab === 'settings') document.getElementById('settingsPanel').classList.remove('hidden');
+            
+            if (window.innerWidth < 768) toggleMenu();
+        }
+
+        function toggleMenu() {
+            document.getElementById('sideMenu').classList.toggle('show');
+        }
+
+        function setChatColor(color) {
+            document.getElementById('chatArea').style.background = color;
+            document.getElementById('bgSettings')?.classList.add('hidden');
+        }
+
+        function setChatBgFromUrl() {
+            const url = document.getElementById('bgUrl').value.trim();
+            if (url) {
+                document.getElementById('chatArea').style.backgroundImage = `url('${url}')`;
+                document.getElementById('chatArea').style.backgroundSize = 'cover';
+            }
+        }
+
+        function login() {
+            const name = document.getElementById('userName').value.trim();
+            const email = document.getElementById('userEmail').value.trim();
+            const password = document.getElementById('userPassword').value.trim();
+            
+            if (!name || !email || !password) {
+                showToast('❌ الرجاء ملء جميع الحقول');
+                return;
+            }
+            
+            const saved = localStorage.getItem(`user_${email}`);
+            if (saved) {
+                const userData = JSON.parse(saved);
+                if (userData.password !== password) {
+                    showToast('❌ كلمة المرور غير صحيحة');
+                    return;
+                }
+                currentUser = userData;
+                loadUserData(email);
+            } else {
+                currentUser = {
+                    name: sanitizeHTML(name),
+                    email: email,
+                    password: password,
+                    profileImage: null,
+                    staticKnowledge: {},
+                    updateableKnowledge: {},
+                    dailyKnowledge: {},
+                    persons: [],
+                    reminders: []
+                };
+                staticKnowledge = {};
+                updateableKnowledge = {};
+                dailyKnowledge = {};
+                persons = [];
+                reminders = [];
+            }
+            
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainScreen').classList.remove('hidden');
             document.getElementById('displayName').textContent = currentUser.name;
             document.getElementById('displayEmail').textContent = currentUser.email;
-            if(currentUser.profileImage){ 
-                document.getElementById('avatarDisplay').src = currentUser.profileImage; 
-                document.getElementById('avatarDisplay').style.display = 'block'; 
-                document.getElementById('avatarText').style.display = 'none'; 
-            }
-            updateStats(); 
+            updateStats();
             updateRemindersList();
             showAllPersons();
+            startReminderChecker();
+            saveData();
+            addMessage(`أهلاً ${currentUser.name} 👋 أنا Cerebonix Pro، يمكنني مساعدتك في كل شيء!`, 'bot');
+            showToast('✅ تم تسجيل الدخول بنجاح');
         }
 
-        function toggleMenu(){ 
-            document.getElementById('sideMenu').classList.toggle('show'); 
-            document.getElementById('bgSettings').classList.add('hidden');
-            document.getElementById('voiceSettings').classList.add('hidden');
+        function confirmLogout() {
+            document.getElementById('passwordModal').classList.remove('hidden');
+            if (window.innerWidth < 768) toggleMenu();
         }
-        
-        function switchMenuTab(tab){ 
-            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active')); 
-            if(event?.currentTarget) event.currentTarget.classList.add('active'); 
-            document.getElementById('chatArea').classList.add('hidden'); 
-            document.getElementById('teachPanel').classList.add('hidden'); 
-            document.getElementById('personsPanel').classList.add('hidden'); 
-            document.getElementById('remindersPanel').classList.add('hidden'); 
-            if(tab === 'chat') document.getElementById('chatArea').classList.remove('hidden'); 
-            else if(tab === 'teach') document.getElementById('teachPanel').classList.remove('hidden'); 
-            else if(tab === 'persons'){ 
-                document.getElementById('personsPanel').classList.remove('hidden'); 
-                showAllPersons(); 
+
+        function hidePasswordModal() {
+            document.getElementById('passwordModal').classList.add('hidden');
+            document.getElementById('logoutPassword').value = '';
+        }
+
+        function verifyAndLogout() {
+            if (document.getElementById('logoutPassword').value === '1234') {
+                logout();
+            } else {
+                showToast('❌ كلمة المرور غير صحيحة');
             }
-            else if(tab === 'reminders'){ 
-                document.getElementById('remindersPanel').classList.remove('hidden'); 
-                updateRemindersList(); 
-            } 
-            if(window.innerWidth < 768) toggleMenu(); 
         }
-        
-        function showBgSettings(){ 
-            document.getElementById('bgSettings').classList.toggle('hidden'); 
-            document.getElementById('voiceSettings').classList.add('hidden');
-            if(window.innerWidth < 768) toggleMenu(); 
-        }
-        
-        function setChatBgFromFile(){ 
-            let file = document.getElementById('bgImageFile').files[0]; 
-            if(file){ 
-                let reader = new FileReader(); 
-                reader.onload = e => { 
-                    document.getElementById('chatArea').style.backgroundImage = `url('${e.target.result}')`; 
-                    document.getElementById('chatArea').style.backgroundSize = 'cover'; 
-                }; 
-                reader.readAsDataURL(file); 
-            } 
-            document.getElementById('bgSettings').classList.add('hidden'); 
-        }
-        
-        function setChatBgFromUrl(){ 
-            let url = document.getElementById('bgUrl').value.trim(); 
-            if(url){ 
-                document.getElementById('chatArea').style.backgroundImage = `url('${url}')`; 
-                document.getElementById('chatArea').style.backgroundSize = 'cover'; 
-            } 
-            document.getElementById('bgSettings').classList.add('hidden'); 
-        }
-        
-        function setChatColor(color){ 
-            document.getElementById('chatArea').style.backgroundImage = 'none'; 
-            document.getElementById('chatArea').style.backgroundColor = color; 
-            document.getElementById('bgSettings').classList.add('hidden'); 
-        }
-        
-        function toggleLanguage(){ 
-            let html = document.documentElement; 
-            html.lang = html.lang === 'ar' ? 'en' : 'ar'; 
-            html.dir = html.lang === 'ar' ? 'rtl' : 'ltr'; 
-            alert('تم تبديل اللغة'); 
-        }
-        
-        function toggleDeviceMode(){ 
-            if(window.innerWidth < 768){ 
-                document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0'); 
-            } else { 
-                document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=yes'); 
-            } 
-            alert('تم تبديل وضع العرض'); 
-        }
-        
-        function confirmLogout(){ 
-            document.getElementById('passwordModal').classList.remove('hidden'); 
-            if(window.innerWidth < 768) toggleMenu(); 
-        }
-        
-        function hidePasswordModal(){ 
-            document.getElementById('passwordModal').classList.add('hidden'); 
-            document.getElementById('logoutPassword').value = ''; 
-        }
-        
-        function verifyAndLogout(){ 
-            if(document.getElementById('logoutPassword').value === '1234') logout(); 
-            else alert('كلمة المرور غير صحيحة'); 
-        }
-        
-        function logout(){ 
-            if(currentUser) saveData(); 
-            localStorage.removeItem('cerebonix_session'); 
-            document.getElementById('mainScreen').classList.add('hidden'); 
-            document.getElementById('loginScreen').style.display = 'flex'; 
-            if(reminderInterval) clearInterval(reminderInterval); 
-            currentUser = null; 
-            hidePasswordModal(); 
-            staticKnowledge = {}; 
-            updateableKnowledge = {}; 
-            dailyKnowledge = {}; 
-            accumulatedKnowledge = {}; 
-            multipleQuestionsKnowledge = {}; 
-            reminders = [];
+
+        function logout() {
+            if (currentUser) saveData();
+            localStorage.removeItem('cerebonix_session');
+            document.getElementById('mainScreen').classList.add('hidden');
+            document.getElementById('loginScreen').style.display = 'flex';
+            if (reminderInterval) clearInterval(reminderInterval);
+            currentUser = null;
+            hidePasswordModal();
+            staticKnowledge = {};
+            updateableKnowledge = {};
+            dailyKnowledge = {};
             persons = [];
+            reminders = [];
+            showToast('👋 تم تسجيل الخروج بنجاح');
         }
 
-        function createParticles(){ 
-            for(let i = 0; i < 40; i++){ 
-                let p = document.createElement('div'); 
-                p.className = 'particle'; 
-                p.style.left = Math.random() * 100 + '%'; 
-                p.style.animationDelay = Math.random() * 15 + 's'; 
-                p.style.animationDuration = (Math.random() * 10 + 10) + 's'; 
-                document.getElementById('particles').appendChild(p); 
-            } 
+        function createParticles() {
+            for (let i = 0; i < 40; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDelay = Math.random() * 15 + 's';
+                p.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                document.getElementById('particles').appendChild(p);
+            }
         }
 
-        window.onload = function(){ 
-            createParticles(); 
-            let session = localStorage.getItem('cerebonix_session'); 
-            if(session){ 
-                try{ 
-                    let s = JSON.parse(session); 
-                    let user = localStorage.getItem('user_' + s.email); 
-                    if(user){ 
-                        currentUser = JSON.parse(user); 
-                        staticKnowledge = currentUser.staticKnowledge || {}; 
-                        updateableKnowledge = currentUser.updateableKnowledge || {}; 
-                        dailyKnowledge = currentUser.dailyKnowledge || {}; 
-                        accumulatedKnowledge = currentUser.accumulatedKnowledge || {}; 
-                        multipleQuestionsKnowledge = currentUser.multipleQuestionsKnowledge || {}; 
-                        reminders = currentUser.reminders || []; 
+        // Initialize
+        window.onload = function() {
+            createParticles();
+            const session = localStorage.getItem('cerebonix_session');
+            if (session) {
+                try {
+                    const s = JSON.parse(session);
+                    const user = localStorage.getItem(`user_${s.email}`);
+                    if (user) {
+                        currentUser = JSON.parse(user);
+                        staticKnowledge = currentUser.staticKnowledge || {};
+                        updateableKnowledge = currentUser.updateableKnowledge || {};
+                        dailyKnowledge = currentUser.dailyKnowledge || {};
                         persons = currentUser.persons || [];
-                        document.getElementById('loginScreen').style.display = 'none'; 
-                        document.getElementById('mainScreen').classList.remove('hidden'); 
-                        applyUserUI(); 
-                        updateStats(); 
-                        updateRemindersList(); 
+                        reminders = currentUser.reminders || [];
+                        document.getElementById('loginScreen').style.display = 'none';
+                        document.getElementById('mainScreen').classList.remove('hidden');
+                        document.getElementById('displayName').textContent = currentUser.name;
+                        document.getElementById('displayEmail').textContent = currentUser.email;
+                        updateStats();
+                        updateRemindersList();
                         showAllPersons();
-                        startReminderChecker(); 
-                        addMessage(`مرحباً بعودتك ${currentUser.name} 👋`, 'bot'); 
-                    } 
-                } catch(e){} 
+                        startReminderChecker();
+                        addMessage(`مرحباً بعودتك ${currentUser.name} 👋`, 'bot');
+                    }
+                } catch(e) {}
             }
             
-            if('speechSynthesis' in window) {
-                window.speechSynthesis.onvoiceschanged = loadVoices;
-                loadVoices();
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.onvoiceschanged = () => {};
             }
         };
-        
-        document.getElementById('profileImageMobile').addEventListener('change', function(e){ 
-            if(e.target.files[0] && currentUser){ 
-                let reader = new FileReader(); 
-                reader.onload = ev => { 
-                    currentUser.profileImage = ev.target.result; 
-                    document.getElementById('avatarDisplay').src = ev.target.result; 
-                    document.getElementById('avatarDisplay').style.display = 'block'; 
-                    document.getElementById('avatarText').style.display = 'none'; 
-                    saveData(); 
-                }; 
-                reader.readAsDataURL(e.target.files[0]); 
-            } 
-        });
-        
-        document.getElementById('profileImage').addEventListener('change', function(e){ 
-            if(e.target.files[0]){ 
-                let reader = new FileReader(); 
-                reader.onload = ev => { 
-                    document.getElementById('profileImg').src = ev.target.result; 
-                    document.getElementById('profileImg').style.display = 'block'; 
-                    document.getElementById('photoText').style.display = 'none'; 
-                    window.tempProfileImg = ev.target.result; 
-                }; 
-                reader.readAsDataURL(e.target.files[0]); 
-            } 
-        });
     </script>
 </body>
 </html>
